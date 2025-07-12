@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 21 12% 13%;
+    --foreground: 0 0% 98%;
+    --card: 21 12% 17%;
+    --card-foreground: 0 0% 98%;
+    --popover: 21 12% 13%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 100% 27%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 43 89% 38%;
+    --secondary-foreground: 21 12% 13%;
+    --muted: 21 12% 20%;
+    --muted-foreground: 0 0% 63%;
+    --accent: 43 89% 38%;
+    --accent-foreground: 21 12% 13%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 21 12% 25%;
+    --input: 21 12% 25%;
+    --ring: 43 89% 38%;
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    --background: 21 12% 13%;
+    --foreground: 0 0% 98%;
+    --card: 21 12% 17%;
+    --card-foreground: 0 0% 98%;
+    --popover: 21 12% 13%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 100% 27%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 43 89% 38%;
+    --secondary-foreground: 21 12% 13%;
+    --muted: 21 12% 20%;
+    --muted-foreground: 0 0% 63%;
+    --accent: 43 89% 38%;
+    --accent-foreground: 21 12% 13%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 21 12% 25%;
+    --input: 21 12% 25%;
+    --ring: 43 89% 38%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  @keyframes tile-spawn {
+    from {
+      transform: scale(0);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  .animate-tile-spawn {
+    animation: tile-spawn 0.2s ease-out;
+  }
+
+  @keyframes tile-merge {
+    from {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.25);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+  .animate-tile-merge {
+    animation: tile-merge 0.2s ease-out;
+  }
+}
+
+/* Rope Mode Styles */
+.rope-mode-active {
+  cursor: crosshair;
+}
+.rope-mode-active .goblin-tile-container:hover {
+  outline: 2px solid hsl(var(--ring));
+}
+.tile-selected-for-rope {
+  outline: 2px solid hsl(var(--primary));
+  box-shadow: 0 0 10px hsl(var(--primary));
+}
+.empty-cell-rope-hover:hover {
+  background-color: hsla(var(--accent) / 0.2);
+}
