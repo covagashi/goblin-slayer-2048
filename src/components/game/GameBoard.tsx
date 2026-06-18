@@ -2,7 +2,7 @@
 
 import React, { useRef } from 'react';
 import { GoblinTile } from './GoblinTile';
-import type { Grid } from '@/app/page';
+import type { Grid } from '@/App';
 import { cn } from '@/lib/utils';
 
 type GameBoardProps = {

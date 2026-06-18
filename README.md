@@ -5,7 +5,7 @@ A tactical puzzle game based on 2048 mechanics with a Goblin Slayer theme. Combi
 ## 🎮 Play Now
 
 - **Web Version**: [Play on itch.io](YOUR_ITCH_LINK_HERE)
-- **Source Code**: This repository contains the full Next.js version
+- **Source Code**: This repository contains the full Vite + React version
 
 ## 🚀 Getting Started
 
@@ -41,9 +41,23 @@ yarn dev
 ### Build for Production
 
 ```bash
-npm run build
-npm run start
+npm run build      # outputs a static site to dist/
+npm run preview    # preview the production build locally
 ```
+
+### Deploying to itch.io
+
+The build is a fully static site (no server required), with relative asset
+paths so it works from itch.io's subdirectory hosting:
+
+```bash
+npm run build
+cd dist && zip -r ../goblin-swiper.zip . && cd ..
+```
+
+Then on itch.io: create a new project, set **Kind of project** to *HTML*,
+upload `goblin-swiper.zip`, check *This file will be played in the browser*,
+and set `index.html` as the entry point.
 
 ## 🎯 Game Features
 
@@ -56,7 +70,8 @@ npm run start
 
 ## 🛠️ Tech Stack
 
-- **Framework**: Next.js 15.3.3
+- **Build Tool**: Vite 5
+- **Library**: React 18
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **UI Components**: Radix UI
@@ -66,11 +81,11 @@ npm run start
 ## 📁 Project Structure
 
 ```
+index.html              # App entry HTML
 src/
-├── app/                 # Next.js app directory
-│   ├── layout.tsx      # Root layout
-│   ├── page.tsx        # Main game logic
-│   └── globals.css     # Global styles
+├── main.tsx            # React entry point
+├── App.tsx             # Main game logic
+├── index.css           # Global styles
 ├── components/         # React components
 │   ├── game/          # Game-specific components
 │   ├── ui/            # Reusable UI components
@@ -96,10 +111,9 @@ src/
 
 ### Scripts
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
+- `npm run dev` - Start the Vite development server
+- `npm run build` - Build the static site to `dist/`
+- `npm run preview` - Preview the production build locally
 - `npm run typecheck` - Run TypeScript type checking
 
 ## 🤝 Contributing
@@ -117,14 +131,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🎨 Credits
 
 - **Game Design**: Inspired by 2048 and Goblin Slayer
-- **Framework**: Built with Next.js and React
+- **Framework**: Built with Vite and React
 - **UI**: Powered by Tailwind CSS and Radix UI
 - **Icons**: Lucide React
-
-## 🐛 Known Issues
-
-- Audio files are referenced but not included in the repository
-- Some sprite images may need to be added for optimal visual experience
 
 ## 📞 Support
 

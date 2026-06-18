@@ -19,7 +19,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { translations, formatString, type Translations } from '@/lib/translations';
 
 const GRID_SIZE = 4;
-const GAME_MUSIC_FILE = '/music/background-theme.mp3';
+const GAME_MUSIC_FILE = 'music/background-theme.mp3';
 
 export type TileData = {
   id: number;
@@ -84,13 +84,13 @@ export const allShopItems: {
   dataAiHint: string;
   isUnique: boolean;
 }[] = [
-  { id: "healthPotion", cost: 60, spriteUrl: "/sprites/item-health-potion.png", dataAiHint: "health potion", isUnique: false },
-  { id: "torch", cost: 50, spriteUrl: "/sprites/item-torch.png", dataAiHint: "torch", isUnique: true },
-  { id: "sword", cost: 120, spriteUrl: "/sprites/item-sword.png", dataAiHint: "sword", isUnique: true },
-  { id: "shield", cost: 150, spriteUrl: "/sprites/item-shield.png", dataAiHint: "shield", isUnique: true },
-  { id: "poison", cost: 180, spriteUrl: "/sprites/item-poison.png", dataAiHint: "poison flask", isUnique: true },
-  { id: "rope", cost: 200, spriteUrl: "/sprites/item-rope.png", dataAiHint: "rope", isUnique: false },
-  { id: "fireScroll", cost: 250, spriteUrl: "/sprites/item-fire-scroll.png", dataAiHint: "fire scroll", isUnique: true },
+  { id: "healthPotion", cost: 60, spriteUrl: "sprites/item-health-potion.png", dataAiHint: "health potion", isUnique: false },
+  { id: "torch", cost: 50, spriteUrl: "sprites/item-torch.png", dataAiHint: "torch", isUnique: true },
+  { id: "sword", cost: 120, spriteUrl: "sprites/item-sword.png", dataAiHint: "sword", isUnique: true },
+  { id: "shield", cost: 150, spriteUrl: "sprites/item-shield.png", dataAiHint: "shield", isUnique: true },
+  { id: "poison", cost: 180, spriteUrl: "sprites/item-poison.png", dataAiHint: "poison flask", isUnique: true },
+  { id: "rope", cost: 200, spriteUrl: "sprites/item-rope.png", dataAiHint: "rope", isUnique: false },
+  { id: "fireScroll", cost: 250, spriteUrl: "sprites/item-fire-scroll.png", dataAiHint: "fire scroll", isUnique: true },
 ];
 
 export type ShopItem = (typeof allShopItems)[number];
@@ -221,7 +221,7 @@ const formatTime = (seconds: number) => {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 }
 
-export default function Home() {
+export default function App() {
   const [gameState, setGameState] = useState<'splash' | 'playing' | 'shop'>('splash');
   const [gameMode, setGameMode] = useState<GameMode>('story');
   const [language, setLanguage] = useState<Language>('es');

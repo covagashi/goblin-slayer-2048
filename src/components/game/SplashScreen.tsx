@@ -4,14 +4,16 @@ import { useState, useRef, useEffect } from 'react';
 import { GoblinSwiperIcon } from '@/components/icons/GoblinSwiperIcon';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import type { GameMode, Language, LeaderboardEntry, PermanentUpgradesState, PermanentUpgradeId } from '@/app/page';
+import type { GameMode, Language, PermanentUpgradesState } from '@/App';
+import type { LeaderboardEntry } from './LeaderboardDialog';
+import type { PermanentUpgradeId } from './PermanentUpgradesDialog';
 import { Sparkles, BookOpen, Volume2, VolumeX } from 'lucide-react';
 import { HowToPlayDialog } from './HowToPlayDialog';
 import type { Translations } from '@/lib/translations';
 import { PermanentUpgradesDialog } from './PermanentUpgradesDialog';
 import { LeaderboardDialog } from './LeaderboardDialog';
 
-const MENU_MUSIC_FILE = '/music/menu-theme.mp3';
+const MENU_MUSIC_FILE = 'music/menu-theme.mp3';
 
 type SplashScreenProps = {
   onModeSelect: (mode: GameMode) => void;

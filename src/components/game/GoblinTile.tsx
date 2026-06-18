@@ -1,9 +1,8 @@
 
 "use client"
 
-import Image from 'next/image';
 import { cn } from "@/lib/utils"
-import type { TileData } from "@/app/page";
+import type { TileData } from "@/App";
 import { Box, Store } from 'lucide-react';
 
 type GoblinTileProps = {
@@ -58,8 +57,8 @@ export function GoblinTile({ tile, row, col, isTorchActive, isSelectedForRope }:
   return (
     <div style={style} className={cn(animationClass, 'p-1')}>
       <div className={tileContainerClasses}>
-        <Image
-          src={`/sprites/goblin-${value}.png`}
+        <img
+          src={`sprites/goblin-${value}.png`}
           alt={`Goblin level ${value}`}
           width={100}
           height={100}
