@@ -4,7 +4,7 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Trophy, Coins, Heart, Star, Sparkles, Zap, Crosshair } from "lucide-react"
 import { Progress } from "@/components/ui/progress"
-import type { GameMode } from "@/app/page"
+import type { GameMode } from "@/App"
 import type { Translations } from "@/lib/translations"
 
 type InfoPanelProps = {

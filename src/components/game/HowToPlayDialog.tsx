@@ -1,7 +1,6 @@
 
 "use client"
 
-import Image from "next/image"
 import {
   Dialog,
   DialogContent,
@@ -14,7 +13,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
 import { Heart, Coins, Sparkles, BookOpen } from "lucide-react"
-import { allShopItems } from "@/app/page"
+import { allShopItems } from "@/App"
 import { formatString, type Translations } from "@/lib/translations"
 
 type HowToPlayDialogProps = {
@@ -77,8 +76,8 @@ export function HowToPlayDialog({ isOpen, onClose, t }: HowToPlayDialogProps) {
                   <div className="grid grid-cols-4 gap-2 text-center">
                     {goblinProgression.map(goblin => (
                       <div key={goblin.value} className="p-1 bg-muted/50 rounded-md flex flex-col items-center justify-center">
-                        <Image 
-                          src={`/sprites/goblin-${goblin.value}.png`}
+                        <img 
+                          src={`sprites/goblin-${goblin.value}.png`}
                           alt={goblin.name}
                           width={40}
                           height={40}
@@ -108,7 +107,7 @@ export function HowToPlayDialog({ isOpen, onClose, t }: HowToPlayDialogProps) {
                       return (
                       <div key={item.id} className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
-                              <Image src={item.spriteUrl} alt={name} width={32} height={32} data-ai-hint={item.dataAiHint} className="bg-stone-800 rounded-md"/>
+                              <img src={item.spriteUrl} alt={name} width={32} height={32} data-ai-hint={item.dataAiHint} className="bg-stone-800 rounded-md"/>
                               <div className="flex flex-col">
                                 <span className="font-medium">{name}</span>
                                 <span className="text-xs text-muted-foreground">{description}</span>

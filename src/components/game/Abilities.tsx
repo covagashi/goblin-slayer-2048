@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { CheckCircle, XCircle, Sword, Shield, Lasso } from "lucide-react"
-import Image from "next/image"
 import type { Translations } from "@/lib/translations"
 
 type AbilitiesProps = {
@@ -18,11 +17,11 @@ type AbilitiesProps = {
 }
 
 const passiveItems = [
-  { id: 'sword', spriteUrl: "/sprites/item-sword.png", dataAiHint: "sword" },
-  { id: 'torch', spriteUrl: "/sprites/item-torch.png", dataAiHint: "torch" },
-  { id: 'shield', spriteUrl: "/sprites/item-shield.png", dataAiHint: "shield" },
-  { id: 'poison', spriteUrl: "/sprites/item-poison.png", dataAiHint: "poison flask" },
-  { id: 'fireScroll', spriteUrl: "/sprites/item-fire-scroll.png", dataAiHint: "fire scroll" },
+  { id: 'sword', spriteUrl: "sprites/item-sword.png", dataAiHint: "sword" },
+  { id: 'torch', spriteUrl: "sprites/item-torch.png", dataAiHint: "torch" },
+  { id: 'shield', spriteUrl: "sprites/item-shield.png", dataAiHint: "shield" },
+  { id: 'poison', spriteUrl: "sprites/item-poison.png", dataAiHint: "poison flask" },
+  { id: 'fireScroll', spriteUrl: "sprites/item-fire-scroll.png", dataAiHint: "fire scroll" },
 ];
 
 export function Abilities({ ropeCount, onUseRope, purchasedItems, damageBonus, damageReduction, t }: AbilitiesProps) {
@@ -76,7 +75,7 @@ export function Abilities({ ropeCount, onUseRope, purchasedItems, damageBonus, d
           return (
             <div key={item.id} className="flex justify-between items-center p-3 bg-background/50 rounded-lg border">
               <div className="flex items-center gap-3">
-                <Image src={item.spriteUrl} alt={name} width={32} height={32} data-ai-hint={item.dataAiHint} className="bg-stone-800 rounded-md" />
+                <img src={item.spriteUrl} alt={name} width={32} height={32} data-ai-hint={item.dataAiHint} className="bg-stone-800 rounded-md" />
                 <div>
                   <h3 className="font-bold text-sm">{name}</h3>
                   <p className="text-xs text-muted-foreground">{description}</p>
@@ -104,7 +103,7 @@ export function Abilities({ ropeCount, onUseRope, purchasedItems, damageBonus, d
                    return (
                      <div key={item.id} className="flex justify-between items-center p-3 bg-background/50 rounded-lg border opacity-60">
                        <div className="flex items-center gap-3">
-                         <Image src={item.spriteUrl} alt={name} width={32} height={32} data-ai-hint={item.dataAiHint} className="bg-stone-800 rounded-md" />
+                         <img src={item.spriteUrl} alt={name} width={32} height={32} data-ai-hint={item.dataAiHint} className="bg-stone-800 rounded-md" />
                          <div>
                            <h3 className="font-bold text-sm">{name}</h3>
                            <p className="text-xs text-muted-foreground">{description}</p>

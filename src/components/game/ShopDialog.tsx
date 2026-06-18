@@ -12,8 +12,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Coins } from "lucide-react"
-import type { ShopItem } from "@/app/page";
-import Image from "next/image";
+import type { ShopItem } from "@/App";
 import type { Translations } from "@/lib/translations"
 
 type ShopDialogProps = {
@@ -55,7 +54,7 @@ export function ShopDialog({ gold, onClose, onBuy, purchasedItems, items, unlock
                   return (
                     <div key={item.id} className="flex justify-between items-center p-2 bg-background/50 rounded-lg border">
                       <div className="flex items-center gap-3 flex-1">
-                        <Image src={item.spriteUrl} alt={name} width={40} height={40} data-ai-hint={item.dataAiHint} className="bg-stone-800 rounded-md" />
+                        <img src={item.spriteUrl} alt={name} width={40} height={40} data-ai-hint={item.dataAiHint} className="bg-stone-800 rounded-md" />
                         <div>
                           <h3 className="font-bold text-sm">{name}</h3>
                           <p className="text-xs text-muted-foreground">{description}</p>
