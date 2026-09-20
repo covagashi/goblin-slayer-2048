@@ -7,6 +7,7 @@ var _fade: ColorRect
 
 func _ready() -> void:
 	set_anchors_preset(PRESET_FULL_RECT)
+	_fit_desktop_window()
 	_apply_safe_area()
 
 	_fade = ColorRect.new()
@@ -51,6 +52,20 @@ func _save_shot(path: String) -> void:
 	var err := img.save_png(path)
 	if err != OK:
 		push_error("shot failed: %s" % path)
+
+
+func _fit_desktop_window() -> void:
+	# Desktop preview only: show the 393x852 iPhone-16 viewport at up to 2x,
+	# clamped so the window fits the screen. Mobile ignores this (fullscreen).
+	if OS.has_feature(&"mobile") or OS.has_feature(&"web"):
+		return
+	var win := get_window()
+	var screen := DisplayServer.screen_get_usable_rect(win.current_screen).size
+	if screen.x <= 0 or screen.y <= 0:
+		return
+	var scale := minf(2.0, minf(screen.x * 0.9 / 393.0, screen.y * 0.9 / 852.0))
+	win.size = Vector2i(int(393.0 * scale), int(852.0 * scale))
+	win.move_to_center()
 
 
 func _apply_safe_area() -> void:

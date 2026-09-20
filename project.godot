@@ -28,7 +28,7 @@ AudioManager="*res://src/autoload/audio_manager.gd"
 
 window/size/viewport_width=393
 window/size/viewport_height=852
-window/size/resizable=false
+window/size/resizable=true
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/handheld/orientation=1
