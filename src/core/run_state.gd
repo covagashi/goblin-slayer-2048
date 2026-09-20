@@ -62,6 +62,39 @@ func reset(new_mode: StringName, upgrades: Dictionary) -> void:
 	items_changed.emit()
 
 
+## Rebuild run state from a SaveManager snapshot (Continue feature).
+func restore_from(d: Dictionary) -> void:
+	mode = StringName(d.get("mode", "story"))
+	over = false
+	won = false
+	over_reason_key = &""
+	score = int(d.get("score", 0))
+	gold = int(d.get("gold", GameConfig.INITIAL_GOLD))
+	player_max_hp = int(d.get("max_hp", GameConfig.INITIAL_PLAYER_HP))
+	player_hp = int(d.get("hp", player_max_hp))
+	moves_count = int(d.get("moves", 0))
+	level = int(d.get("level", 1))
+	kills = int(d.get("kills", 0))
+	kills_since_level = int(d.get("kills_since", 0))
+	run_xp = int(d.get("run_xp", 0))
+	kill_streak = int(d.get("streak", 0))
+	milestones = {}
+	for m in d.get("milestones", []):
+		milestones[int(m)] = true
+	start_msec = Time.get_ticks_msec() - int(d.get("elapsed", 0)) * 1000
+	purchased_items = []
+	for i in d.get("items", []):
+		purchased_items.append(StringName(i))
+	damage_bonus = int(d.get("dmg", 0))
+	damage_reduction = int(d.get("dr", 0))
+	torch_active = bool(d.get("torch", false))
+	poison_active = bool(d.get("poison", false))
+	fire_scroll_active = bool(d.get("fire", false))
+	rope_count = int(d.get("ropes", 0))
+	stats_changed.emit()
+	items_changed.emit()
+
+
 func xp_multiplier(upgrades: Dictionary) -> float:
 	return 1.25 if int(upgrades.get(&"xpBonus", 0)) > 0 else 1.0
 

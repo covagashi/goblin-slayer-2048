@@ -16,6 +16,7 @@ var _bak_upgrades: Dictionary = {}
 var _bak_lb: Array = []
 var _bak_lang: StringName = &"es"
 var _bak_music := true
+var _bak_run: Dictionary = {}
 
 
 func run(scenario: StringName, main_ref: Control) -> void:
@@ -44,6 +45,8 @@ func run(scenario: StringName, main_ref: Control) -> void:
 		&"menu_cycle": await _s_menu_cycle()
 		&"lang": await _s_lang()
 		&"clicklang": await _s_clicklang()
+		&"swipe_input": await _s_swipe_input()
+		&"continue": await _s_continue()
 		_:
 			printerr("[E2E] unknown scenario: %s" % scenario)
 			_fail += 1
@@ -131,6 +134,7 @@ func _backup_save() -> void:
 	_bak_lb = SaveManager.leaderboard.duplicate(true)
 	_bak_lang = SaveManager.language
 	_bak_music = SaveManager.music_enabled
+	_bak_run = SaveManager.saved_run.duplicate(true)
 
 
 func _restore_save() -> void:
@@ -139,6 +143,7 @@ func _restore_save() -> void:
 	SaveManager.leaderboard = _bak_lb
 	SaveManager.language = _bak_lang
 	SaveManager.music_enabled = _bak_music
+	SaveManager.saved_run = _bak_run
 	SaveManager.save()
 
 
@@ -497,6 +502,106 @@ func _s_clicklang() -> void:
 	await get_tree().process_frame
 	_check(SaveManager.language != before,
 		"clicklang: real click toggles %s -> %s" % [before, SaveManager.language])
+
+
+func _mouse_at(pos: Vector2, pressed: bool) -> InputEventMouseButton:
+	var e := InputEventMouseButton.new()
+	e.button_index = MOUSE_BUTTON_LEFT
+	e.pressed = pressed
+	e.position = pos
+	return e
+
+
+func _s_swipe_input() -> void:
+	# Real-input path: a physical mouse drag on the board must reach
+	# _gui_input — decorative children must not eat it (mouse_filter).
+	var g := await _start(&"story")
+	_check(g != null, "swipe_input: game started")
+	if g == null:
+		return
+	await get_tree().process_frame
+	var got_swipe := [false]
+	var got_tap := [Vector2i(-9, -9)]
+	g._board.swiped.connect(func(_d: StringName): got_swipe[0] = true)
+	g._board.cell_tapped.connect(func(r: int, c: int): got_tap[0] = Vector2i(r, c))
+	var rect := g._board.get_global_rect()
+	var xf := get_viewport().get_screen_transform()
+	var p0: Vector2 = xf * rect.get_center()
+	var p1: Vector2 = xf * (rect.get_center() + Vector2(90, 0))
+	Input.parse_input_event(_mouse_at(p0, true))
+	await get_tree().process_frame
+	var motion := InputEventMouseMotion.new()
+	motion.position = p1
+	motion.relative = p1 - p0
+	motion.button_mask = MOUSE_BUTTON_MASK_LEFT
+	Input.parse_input_event(motion)
+	await get_tree().process_frame
+	Input.parse_input_event(_mouse_at(p1, false))
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(got_swipe[0], "swipe_input: mouse drag emits swiped")
+	# plain click on the board -> cell_tapped
+	Input.parse_input_event(_mouse_at(p0, true))
+	await get_tree().process_frame
+	Input.parse_input_event(_mouse_at(p0, false))
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(got_tap[0].x >= 0, "swipe_input: mouse click emits cell_tapped %s" % got_tap[0])
+
+
+func _count_tiles(grid: Array) -> int:
+	var n := 0
+	for r in GameConfig.GRID_SIZE:
+		for c in GameConfig.GRID_SIZE:
+			if grid[r][c] != null:
+				n += 1
+	return n
+
+
+func _s_continue() -> void:
+	var g := await _start(&"story")
+	_check(g != null, "continue: game started")
+	if g == null:
+		return
+	# give the run distinctive state, then snapshot it like a real move does
+	g._rs.score = 777
+	g._rs.gold = 55
+	g._rs.stats_changed.emit()
+	SaveManager.save_run(g._grid, g._rs)
+	_check(SaveManager.has_saved_run(), "continue: run snapshot stored")
+	var saved_tiles: int = SaveManager.saved_run.tiles.size()
+	# leave to menu → splash should offer ▶ Continuar
+	g.menu_requested.emit()
+	var tries := 90
+	while tries > 0 and not (_main._current is SplashScreen):
+		await get_tree().process_frame
+		tries -= 1
+	var btn := _find_button(_main._current, "▶")
+	_check(btn != null, "continue: ▶ button shown on splash")
+	if btn == null:
+		return
+	btn.pressed.emit()
+	tries = 90
+	while tries > 0:
+		var c: Control = _main._current
+		if c is GameScene and c._board != null and c._board.get_parent() != null:
+			break
+		await get_tree().process_frame
+		tries -= 1
+	var g2 := _main._current as GameScene
+	_check(g2 != null and g2 != g, "continue: resumed into a game scene")
+	if g2 == null:
+		return
+	await get_tree().process_frame
+	_check(_count_tiles(g2._grid) == saved_tiles,
+		"continue: board restored (%d tiles)" % _count_tiles(g2._grid))
+	_check(g2._rs.score == 777 and g2._rs.gold == 55,
+		"continue: score/gold restored (%d/%d)" % [g2._rs.score, g2._rs.gold])
+	_check(g2._rs.mode == &"story", "continue: mode restored")
+	# finishing the run must clear the snapshot
+	g2._rs.over = true
+	g2._post_move()
+	_check(not SaveManager.has_saved_run(), "continue: snapshot cleared on game end")
 
 
 func _s_i18n() -> void:

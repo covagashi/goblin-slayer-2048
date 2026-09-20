@@ -20,6 +20,16 @@ func setup(t: BoardTile, cell_size: float) -> void:
 	custom_minimum_size = Vector2(cell_size, cell_size)
 	size = Vector2(cell_size, cell_size)
 	_build()
+	_ignore_mouse(self)
+
+
+## Tiles are pure presentation — the board owns all input. Without this every
+## child (border panel, sprite, labels) eats swipes/taps before _gui_input.
+func _ignore_mouse(n: Node) -> void:
+	if n is Control:
+		n.mouse_filter = MOUSE_FILTER_IGNORE
+	for c in n.get_children():
+		_ignore_mouse(c)
 
 
 func _build() -> void:

@@ -3,6 +3,8 @@ splashTitle,Goblin Slayer 2048,Goblin Slayer 2048
 splashDescription,Combine goblins to eliminate them in this tactical puzzle game.,Combina goblins para eliminarlos en este juego de puzle táctico.
 storyMode,Story Mode,Modo Historia
 storyModeDesc,Create a Goblin(256) to win.,Crea un Goblin(256) para ganar.
+continueRun,Continue,Continuar
+continueRunDesc,Resume your in-progress run.,Retoma tu partida en curso.
 endlessMode,Endless Mode,Modo Infinito
 endlessModeDesc,Survive the endless goblin waves.,Sobrevive a las infinitas oleadas de goblins.
 howToPlay,How to Play,Cómo Jugar
@@ -124,6 +126,7 @@ unlockRope_desc,Unlocks the Rope in the shop.,Desbloquea la Cuerda en la tienda.
 unlockFireScroll_name,Unlock: Fire Scroll,Desbloquear: Pergamino
 unlockFireScroll_desc,Unlocks the Fire Scroll in the shop.,Desbloquea el Pergamino de Fuego en la tienda.
 log_chest_appeared,A treasure chest appeared!,¡Apareció un cofre del tesoro!
+log_continued,Run resumed. The hunt continues!,Partida reanudada. ¡La caza continúa!
 log_new_goblin,A new Lv.{value} goblin appeared.,Apareció un nuevo goblin de Nv.{value}.
 log_game_start,"Game started: {gameMode}. Good luck, slayer.","Juego iniciado: {gameMode}. ¡Buena suerte, cazador!"
 log_chest_opened,You opened a chest! +{gold} gold.,¡Abriste un cofre! +{gold} de oro.

@@ -49,6 +49,16 @@ func _ready() -> void:
 			if b:
 				b.pressed.emit()
 		)
+	if qa.has(&"shot_continue"):
+		# fake mid-run snapshot so the splash offers ▶ Continuar
+		SaveManager.saved_run = {
+			"mode": "story", "score": 120, "gold": 30, "elapsed": 95,
+			"tiles": [
+				{"kind": 0, "value": 4, "hp": 3, "max_hp": 3, "row": 0, "col": 0},
+				{"kind": 0, "value": 2, "hp": 1, "max_hp": 1, "row": 1, "col": 1},
+			],
+		}
+		get_tree().create_timer(0.5).timeout.connect(func(): _show_splash())
 	if qa.has(&"auto_shot"):
 		var dir := "/tmp/gs2048_shots"
 		for a in qa:
@@ -138,5 +148,8 @@ func _show_splash() -> void:
 func _on_mode_selected(mode: StringName) -> void:
 	var g := GameScene.new()
 	g.menu_requested.connect(_show_splash)
-	g.start(mode)
+	if mode == &"continue":
+		g.start_continue()
+	else:
+		g.start(mode)
 	_swap(g)

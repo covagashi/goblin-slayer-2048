@@ -26,6 +26,13 @@ func start(mode: StringName) -> void:
 		ready.connect(func(): _ready_run.call_deferred(), CONNECT_ONE_SHOT)
 
 
+func start_continue() -> void:
+	if is_inside_tree():
+		_ready_continue.call_deferred()
+	else:
+		ready.connect(func(): _ready_continue.call_deferred(), CONNECT_ONE_SHOT)
+
+
 func _ready() -> void:
 	_build_layout()
 
@@ -87,16 +94,20 @@ func _build_layout() -> void:
 	_board.cell_tapped.connect(_on_cell_tapped)
 
 
-func _ready_run() -> void:
-	_upgrades = SaveManager.upgrades.duplicate()
-	_rs.reset(_mode, _upgrades)
-	_hud.bind(_rs, _upgrades)
+func _attach_board() -> void:
 	if _board.get_parent() != null:
 		_board.get_parent().remove_child(_board)
 	_hud.board_slot.add_child(_board)
 	if not _hud.board_slot.resized.is_connected(_board._fit_square):
 		_hud.board_slot.resized.connect(_board._fit_square)
 	_board._fit_square()
+
+
+func _ready_run() -> void:
+	_upgrades = SaveManager.upgrades.duplicate()
+	_rs.reset(_mode, _upgrades)
+	_hud.bind(_rs, _upgrades)
+	_attach_board()
 	_rs.add_log(tr(&"log_game_start").format({"gameMode": tr(&"storyMode") if _mode == &"story" else tr(&"endlessMode")}))
 	var res := _engine.initial_grid(_rs)
 	_grid = res.grid
@@ -105,7 +116,41 @@ func _ready_run() -> void:
 		_handle_event(e)
 	_board.set_torch_lit(false)
 	AudioManager.play_music(&"game")
+	SaveManager.save_run(_grid, _rs)
+	_qa_hooks()
 
+
+## Resume an in-progress run saved by SaveManager.save_run.
+func _ready_continue() -> void:
+	_upgrades = SaveManager.upgrades.duplicate()
+	var data: Dictionary = SaveManager.saved_run
+	_mode = StringName(data.get("mode", "story"))
+	_rs.restore_from(data)
+	_hud.bind(_rs, _upgrades)
+	_attach_board()
+	_grid = GridEngine.empty_grid()
+	for td in data.get("tiles", []):
+		var t := BoardTile.new()
+		t.id = _engine.new_id()
+		t.kind = int(td.kind) as BoardTile.Kind
+		t.value = int(td.get("value", 0))
+		t.hp = int(td.get("hp", 1))
+		t.max_hp = int(td.get("max_hp", 1))
+		t.poisoned = int(td.get("poisoned", 0))
+		t.variant_file = String(td.get("variant", ""))
+		t.is_golden = bool(td.get("golden", false))
+		t.row = int(td.get("row", 0))
+		t.col = int(td.get("col", 0))
+		_grid[t.row][t.col] = t
+	_board.set_grid(_grid)
+	_rs.add_log(tr(&"log_continued"))
+	_board.set_torch_lit(_rs.torch_active)
+	_post_move()
+	AudioManager.play_music(&"game")
+	_qa_hooks()
+
+
+func _qa_hooks() -> void:
 	# QA hooks: godot -- auto_moves → scripted swipes; shot_* → force a screen for visual QA
 	var qa := OS.get_cmdline_user_args()
 	if qa.has(&"auto_moves"):
@@ -120,6 +165,12 @@ func _ready_run() -> void:
 		_rs.kills = 37
 		_hud.refresh()
 		get_tree().create_timer(0.5).timeout.connect(func(): _on_game_over())
+
+
+func _notification(what: int) -> void:
+	# Mobile: keep the run snapshot fresh when the app goes to background
+	if what == NOTIFICATION_APPLICATION_PAUSED and not _rs.over and not _grid.is_empty():
+		SaveManager.save_run(_grid, _rs)
 
 
 func _auto_moves() -> void:
@@ -154,6 +205,11 @@ func _post_move() -> void:
 	_board.set_danger(left <= GameConfig.HORDE_WARNING_MOVES)
 	if _rs.torch_active:
 		_board.set_torch_lit(true)
+	# Run finished → nothing to resume; otherwise snapshot for Continue
+	if _rs.over:
+		SaveManager.clear_run()
+	else:
+		SaveManager.save_run(_grid, _rs)
 
 
 func _handle_event(e: Dictionary) -> void:
@@ -252,6 +308,7 @@ func _on_cell_tapped(r: int, c: int) -> void:
 						_handle_event(e)
 					AudioManager.play_sfx(&"rope")
 					SignalBus.haptic.emit(0.4)
+					SaveManager.save_run(_grid, _rs)
 				_exit_rope()
 			else:
 				_rope_selected = Vector2i(-1, -1)
@@ -278,9 +335,11 @@ func _open_shop() -> void:
 						_grid[r][c] = null
 						_board.set_grid(_grid)
 						_rs.add_log(tr(&"log_shop_purchase_leaves"))
+						SaveManager.save_run(_grid, _rs)
 						return
 		else:
 			_rs.add_log(tr(&"log_leave_shop"))
+			SaveManager.save_run(_grid, _rs)
 	)
 	p.open(_rs, _upgrades, self)
 

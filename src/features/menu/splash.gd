@@ -60,6 +60,16 @@ func _build() -> void:
 	sub.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	vb.add_child(sub)
 
+	# Resume in-progress run (auto-saved after every move)
+	if SaveManager.has_saved_run():
+		var cont := Button.new()
+		cont.theme_type_variation = &"GoldButton"
+		cont.text = "▶ " + tr(&"continueRun")
+		cont.custom_minimum_size.y = 52
+		cont.pressed.connect(func(): AudioManager.play_sfx(&"ui_click"); mode_selected.emit(&"continue"))
+		vb.add_child(cont)
+		vb.add_child(_mode_desc(tr(&"continueRunDesc")))
+
 	var story := Button.new()
 	story.theme_type_variation = &"GoldButton"
 	story.text = "⚔ " + tr(&"storyMode")

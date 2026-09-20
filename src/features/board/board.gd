@@ -33,6 +33,7 @@ func _ready() -> void:
 	bg.set_anchors_preset(PRESET_FULL_RECT)
 	bg.add_theme_constant_override(&"h_separation", 4)
 	bg.add_theme_constant_override(&"v_separation", 4)
+	bg.mouse_filter = MOUSE_FILTER_IGNORE
 	add_child(bg)
 	for i in GameConfig.GRID_SIZE * GameConfig.GRID_SIZE:
 		var cell := Panel.new()
@@ -42,6 +43,7 @@ func _ready() -> void:
 		cell.add_theme_stylebox_override(&"panel", st)
 		cell.size_flags_horizontal = SIZE_EXPAND_FILL
 		cell.size_flags_vertical = SIZE_EXPAND_FILL
+		cell.mouse_filter = MOUSE_FILTER_IGNORE # decorative — board owns input
 		bg.add_child(cell)
 		_bg_cells.append(cell)
 
