@@ -38,20 +38,20 @@ func open(rs: RunState, upgrades: Dictionary, parent: Node) -> void:
 
 
 func _roll_offers() -> void:
+	# Show every item (like the web version): locked ones render disabled.
 	var pool: Array[Dictionary] = []
-	for it in GoblinDB.SHOP_ITEMS:
-		# unlock ids look like unlockFireScroll — capitalize first letter
-		var uid := StringName("unlock" + String(it.id).substr(0, 1).to_upper() + String(it.id).substr(1))
-		var locked_by_upgrade := false
-		for up in GoblinDB.PERMANENT_UPGRADES:
-			if up.id == uid and int(_upgrades.get(uid, 0)) == 0:
-				locked_by_upgrade = true
-				break
-		if locked_by_upgrade:
-			continue
-		pool.append(it)
+	pool.append_array(GoblinDB.SHOP_ITEMS)
 	pool.shuffle()
 	_offers = pool.slice(0, mini(3, pool.size()))
+
+
+func _is_unlocked(item_id: StringName) -> bool:
+	# unlock ids look like unlockFireScroll — capitalize first letter
+	var uid := StringName("unlock" + String(item_id).substr(0, 1).to_upper() + String(item_id).substr(1))
+	for up in GoblinDB.PERMANENT_UPGRADES:
+		if up.id == uid:
+			return int(_upgrades.get(uid, 0)) > 0
+	return true
 
 
 func _build() -> void:
@@ -125,9 +125,14 @@ func _offer_row(it: Dictionary) -> Control:
 	var buy := Button.new()
 	buy.custom_minimum_size = Vector2(76, 40)
 	var owned: bool = it.unique and _rs.purchased_items.has(it.id)
+	var locked := not _is_unlocked(it.id)
 	if owned:
 		buy.text = tr(&"owned")
 		buy.disabled = true
+	elif locked:
+		buy.text = tr(&"locked")
+		buy.disabled = true
+		row.modulate = Color(1, 1, 1, 0.55)
 	elif _rs.gold < it.cost:
 		buy.text = "🪙%d" % it.cost
 		buy.disabled = true
@@ -139,7 +144,7 @@ func _offer_row(it: Dictionary) -> Control:
 
 
 func _buy(it: Dictionary) -> void:
-	if _rs.gold < it.cost:
+	if _rs.gold < it.cost or not _is_unlocked(it.id):
 		return
 	_rs.gold -= int(it.cost)
 	_rs.apply_item(it.id)

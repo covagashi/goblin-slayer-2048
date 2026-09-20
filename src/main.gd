@@ -22,6 +22,11 @@ func _ready() -> void:
 
 	# QA hook: godot -- auto_story → skip splash (used by tools/screenshot.sh)
 	var qa := OS.get_cmdline_user_args()
+	for a in qa:
+		if String(a).begins_with("qa="):
+			var runner := QaRunner.new()
+			add_child(runner)
+			runner.run.call_deferred(StringName(String(a).trim_prefix("qa=")), self)
 	if qa.has(&"auto_story"):
 		get_tree().create_timer(0.6).timeout.connect(func(): _on_mode_selected(&"story"))
 	if qa.has(&"auto_shot"):

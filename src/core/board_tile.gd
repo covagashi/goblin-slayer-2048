@@ -17,8 +17,8 @@ var row: int = 0
 var col: int = 0
 
 
-func duplicate_tile() -> TileData:
-	var t := TileData.new()
+func duplicate_tile() -> BoardTile:
+	var t := BoardTile.new()
 	t.id = id
 	t.kind = kind
 	t.value = value

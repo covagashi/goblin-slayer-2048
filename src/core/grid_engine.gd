@@ -260,6 +260,7 @@ func _slide_row(row: Array, rs: RunState, upgrades: Dictionary, row_idx: int, di
 			var new_hp: int = int(stats.hp) - total_damage
 
 			events.append({"type": &"merge", "at": merge_at, "value": new_value, "damage": total_damage})
+			acc.merge_cells.append(merge_at)
 			events.append({"type": &"log", "key": &"log_goblin_combine_damage", "args": {"value": cur.value, "damage": total_damage}})
 			acc.consumes.append({"id": cur.id, "to": merge_at})
 			acc.consumes.append({"id": nxt.id, "to": merge_at})
@@ -392,8 +393,7 @@ func move(grid: Array, dir: StringName, rs: RunState, upgrades: Dictionary) -> D
 	var events: Array = []
 	var acc := {"points": 0, "gold": 0, "kill_gold": 0, "xp": 0, "kills": 0,
 		"levels": [], "moves": [], "consumes": [], "merge_results": [],
-		"chest_opened": false, "won": false}
-	var merge_cells: Array[Vector2i] = []
+		"merge_cells": [], "chest_opened": false, "won": false}
 
 	if rs.over:
 		return {"grid": grid, "events": events, "moved": false}
@@ -428,8 +428,10 @@ func move(grid: Array, dir: StringName, rs: RunState, upgrades: Dictionary) -> D
 		return {"grid": original, "events": events, "moved": false}
 
 	# Collect merge cells in original space for the fire scroll
-	for mr in acc.merge_results:
-		merge_cells.append(mr.at)
+	# (all merges — even when the resulting goblin dies)
+	var merge_cells: Array[Vector2i] = []
+	for mc in acc.merge_cells:
+		merge_cells.append(mc)
 
 	var new_grid := _from_work(new_work, dir)
 

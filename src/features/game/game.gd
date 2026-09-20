@@ -91,8 +91,11 @@ func _ready_run() -> void:
 	_upgrades = SaveManager.upgrades.duplicate()
 	_rs.reset(_mode, _upgrades)
 	_hud.bind(_rs, _upgrades)
+	if _board.get_parent() != null:
+		_board.get_parent().remove_child(_board)
 	_hud.board_slot.add_child(_board)
-	_hud.board_slot.resized.connect(_board._fit_square)
+	if not _hud.board_slot.resized.is_connected(_board._fit_square):
+		_hud.board_slot.resized.connect(_board._fit_square)
 	_board._fit_square()
 	_rs.add_log(tr(&"log_game_start").format({"gameMode": tr(&"storyMode") if _mode == &"story" else tr(&"endlessMode")}))
 	var res := _engine.initial_grid(_rs)

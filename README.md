@@ -57,6 +57,14 @@ emulated from mouse drags (`emulate_touch_from_mouse`).
 godot --headless -s tests/test_grid_engine.gd   # 20 assertions on game rules
 ```
 
+### Headless e2e scenarios
+
+```bash
+tools/e2e.sh    # 17 scenarios / ~55 assertions driving the real UI
+                # (shop, rope, fire scroll, game over, victory, streaks,
+                #  golden goblin, upgrades, leaderboard, persistence, assets, i18n)
+```
+
 ### Visual QA snapshots
 
 ```bash

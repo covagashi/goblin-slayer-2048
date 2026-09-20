@@ -37,12 +37,19 @@ func _init() -> void:
 
 
 func bind(rs: RunState, upgrades: Dictionary) -> void:
+	var first := _rs == null
 	_rs = rs
 	_upgrades = upgrades
-	rs.stats_changed.connect(refresh)
-	rs.items_changed.connect(_refresh_items)
-	rs.log_added.connect(add_log)
-	_build()
+	if first:
+		rs.stats_changed.connect(refresh)
+		rs.items_changed.connect(_refresh_items)
+		rs.log_added.connect(add_log)
+	if _log_box == null:
+		_build()
+	else:
+		for c in _log_box.get_children():
+			c.queue_free()
+		_streak_banner.visible = false
 	refresh()
 	_refresh_items()
 
