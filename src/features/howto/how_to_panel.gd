@@ -7,7 +7,7 @@ signal closed
 const SECTIONS: Array[Array] = [
 	[&"h2pBasics", [&"basicsL1", &"basicsL2", &"basicsL3", &"basicsL4"]],
 	[&"h2pCombat", [&"combatL1", &"combatL2", &"combatL3"]],
-	[&"h2pPowerups", [&"powerupsL1"]],
+	[&"h2pPowerups", [&"powerupsL1", &"powerupsL2"]],
 	[&"h2pProgression", [&"progressionL1", &"progressionL2", &"progressionL3", &"progressionL4"]],
 	[&"h2pModes", [&"modesL1", &"modesL2"]],
 ]

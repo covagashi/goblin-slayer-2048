@@ -4,7 +4,7 @@ extends Resource
 
 signal stats_changed
 signal items_changed
-signal log_added(message: String)
+signal log_added(message: String, tone: StringName)
 
 var mode: StringName = &"story"
 var over: bool = false
@@ -128,8 +128,8 @@ func apply_item(id: StringName) -> void:
 	items_changed.emit()
 
 
-func add_log(message: String) -> void:
-	log_added.emit(message)
+func add_log(message: String, tone: StringName = &"info") -> void:
+	log_added.emit(message, tone)
 
 
 func elapsed_seconds() -> int:

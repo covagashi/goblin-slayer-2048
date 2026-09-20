@@ -10,6 +10,7 @@ extends RefCounted
 const S := GameConfig.GRID_SIZE
 
 var rng := RandomNumberGenerator.new()
+var spawn_enabled := true # test seam — QA disables to keep boards deterministic
 var _id_counter := 0
 var _variant_files: PackedStringArray = []
 
@@ -146,6 +147,7 @@ func spawn_tile(grid: Array, level: int, mode: StringName, events: Array) -> Arr
 		var chest := BoardTile.new()
 		chest.id = new_id()
 		chest.kind = BoardTile.Kind.CHEST
+		chest.turns_left = GameConfig.CHEST_LIFETIME
 		chest.hp = 1
 		chest.max_hp = 1
 		chest.row = at.x
@@ -184,6 +186,7 @@ func spawn_shop_tile(grid: Array, events: Array) -> Array:
 	var shop := BoardTile.new()
 	shop.id = new_id()
 	shop.kind = BoardTile.Kind.SHOP
+	shop.turns_left = GameConfig.SHOP_LIFETIME
 	shop.row = at.x
 	shop.col = at.y
 	grid[at.x][at.y] = shop
@@ -193,13 +196,16 @@ func spawn_shop_tile(grid: Array, events: Array) -> Array:
 
 
 func _remove_shops(grid: Array, events: Array) -> Array:
+	# Shops tick down at move start and vanish (SHOP_LIFETIME moves)
 	for r in S:
 		for c in S:
 			var t: BoardTile = grid[r][c]
 			if t != null and t.kind == BoardTile.Kind.SHOP:
-				grid[r][c] = null
-				events.append({"type": &"shop_removed", "at": Vector2i(r, c)})
-				events.append({"type": &"log", "key": &"log_shop_disappeared"})
+				t.turns_left -= 1
+				if t.turns_left <= 0:
+					grid[r][c] = null
+					events.append({"type": &"shop_removed", "at": Vector2i(r, c)})
+					events.append({"type": &"log", "key": &"log_shop_disappeared"})
 	return grid
 
 
@@ -438,15 +444,17 @@ func move(grid: Array, dir: StringName, rs: RunState, upgrades: Dictionary) -> D
 	if rs.fire_scroll_active and not merge_cells.is_empty():
 		new_grid = _apply_fire(new_grid, rs, upgrades, merge_cells, acc, events)
 
-	# Unopened chests vanish after a successful move
+	# Unopened chests tick down and vanish (CHEST_LIFETIME moves)
 	var chest_vanished := false
 	for r in S:
 		for c in S:
 			var t: BoardTile = new_grid[r][c]
 			if t != null and t.kind == BoardTile.Kind.CHEST:
-				new_grid[r][c] = null
-				chest_vanished = true
-				events.append({"type": &"chest_vanished", "at": Vector2i(r, c)})
+				t.turns_left -= 1
+				if t.turns_left <= 0:
+					new_grid[r][c] = null
+					chest_vanished = true
+					events.append({"type": &"chest_vanished", "at": Vector2i(r, c)})
 	if chest_vanished and not acc.chest_opened:
 		events.append({"type": &"log", "key": &"log_chest_vanished"})
 
@@ -460,7 +468,10 @@ func move(grid: Array, dir: StringName, rs: RunState, upgrades: Dictionary) -> D
 		mr.tile.col = mr.at.y
 		events.append({"type": &"merge_result", "tile": mr.tile, "at": mr.at})
 
-	grid = spawn_tile(new_grid, rs.level, rs.mode, events)
+	if spawn_enabled:
+		grid = spawn_tile(new_grid, rs.level, rs.mode, events)
+	else:
+		grid = new_grid
 
 	# --- Rewards & streak -----------------------------------------------------
 	var kills_this_move: int = acc.kills

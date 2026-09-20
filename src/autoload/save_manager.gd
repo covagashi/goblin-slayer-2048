@@ -74,7 +74,7 @@ func save_run(grid: Array, rs: RunState) -> void:
 			tiles.append({
 				"kind": int(t.kind), "value": t.value, "hp": t.hp, "max_hp": t.max_hp,
 				"poisoned": t.poisoned, "golden": t.is_golden, "variant": t.variant_file,
-				"row": r, "col": c,
+				"turns": t.turns_left, "row": r, "col": c,
 			})
 	var ms: Array = []
 	for k in rs.milestones.keys():

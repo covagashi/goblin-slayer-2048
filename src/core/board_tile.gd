@@ -12,6 +12,7 @@ var max_hp: int = 1
 var poisoned: int = 0
 var variant_file: String = ""   # cosmetic rare skin (filename in variants/)
 var is_golden: bool = false     # ultra-rare: gold x10
+var turns_left: int = 0         # chests/shops: moves before vanishing
 
 var row: int = 0
 var col: int = 0
@@ -27,6 +28,7 @@ func duplicate_tile() -> BoardTile:
 	t.poisoned = poisoned
 	t.variant_file = variant_file
 	t.is_golden = is_golden
+	t.turns_left = turns_left
 	t.row = row
 	t.col = col
 	return t

@@ -139,11 +139,12 @@ func _ready_continue() -> void:
 		t.poisoned = int(td.get("poisoned", 0))
 		t.variant_file = String(td.get("variant", ""))
 		t.is_golden = bool(td.get("golden", false))
+		t.turns_left = int(td.get("turns", 0))
 		t.row = int(td.get("row", 0))
 		t.col = int(td.get("col", 0))
 		_grid[t.row][t.col] = t
 	_board.set_grid(_grid)
-	_rs.add_log(tr(&"log_continued"))
+	_rs.add_log(tr(&"log_continued"), &"good")
 	_board.set_torch_lit(_rs.torch_active)
 	_post_move()
 	AudioManager.play_music(&"game")
@@ -155,6 +156,17 @@ func _qa_hooks() -> void:
 	var qa := OS.get_cmdline_user_args()
 	if qa.has(&"auto_moves"):
 		_auto_moves()
+	if qa.has(&"shot_chest"):
+		var cells := _engine.get_empty_cells(_grid)
+		if not cells.is_empty():
+			var chest := BoardTile.new()
+			chest.id = _engine.new_id()
+			chest.kind = BoardTile.Kind.CHEST
+			chest.turns_left = GameConfig.CHEST_LIFETIME
+			chest.row = cells[0].x
+			chest.col = cells[0].y
+			_grid[cells[0].x][cells[0].y] = chest
+			_board.set_grid(_grid)
 	if qa.has(&"shot_shop"):
 		var ev: Array = []
 		_grid = _engine.spawn_shop_tile(_grid, ev)
@@ -212,10 +224,28 @@ func _post_move() -> void:
 		SaveManager.save_run(_grid, _rs)
 
 
+## Log key -> color tone (data-driven: survives localization, single table)
+const LOG_TONES := {
+	&"log_goblin_slain": &"gold", &"log_goblin_drop": &"gold",
+	&"log_chest_opened": &"gold", &"log_milestone": &"gold",
+	&"log_golden_appeared": &"gold", &"log_purchase": &"gold",
+	&"log_chest_appeared": &"gold", &"log_shop_appeared": &"gold",
+	&"log_horde_attack": &"danger", &"log_overcrowding_damage": &"danger",
+	&"log_goblin_survived": &"warn", &"log_chest_vanished": &"dim",
+	&"log_shop_disappeared": &"dim",
+	&"log_level_up_combine": &"good", &"log_level_up_kills": &"good",
+	&"log_heal": &"good", &"log_goblin_poisoned": &"good",
+	&"log_poison_death": &"good", &"log_splash_death": &"good",
+	&"log_fire_scroll_trigger": &"good", &"log_horde_blocked": &"good",
+	&"log_overcrowding_resist": &"good",
+	&"log_poison_damage": &"warn", &"log_splash_damage": &"warn",
+}
+
+
 func _handle_event(e: Dictionary) -> void:
 	match e.type:
 		&"log":
-			_rs.add_log(tr(e.key).format(e.get("args", {})))
+			_rs.add_log(tr(e.key).format(e.get("args", {})), LOG_TONES.get(e.key, &"info"))
 		&"merge":
 			AudioManager.play_sfx(&"merge")
 			SignalBus.haptic.emit(0.3)
@@ -229,7 +259,7 @@ func _handle_event(e: Dictionary) -> void:
 				AudioManager.play_sfx(&"spawn")
 		&"golden_spawn":
 			AudioManager.play_sfx(&"golden")
-			_rs.add_log(tr(&"log_golden_appeared"))
+			_rs.add_log(tr(&"log_golden_appeared"), &"gold")
 		&"chest_opened":
 			AudioManager.play_sfx(&"coin")
 		&"horde_attack":
@@ -313,16 +343,29 @@ func _on_cell_tapped(r: int, c: int) -> void:
 			else:
 				_rope_selected = Vector2i(-1, -1)
 				_board.set_rope_mode(true)
-				_rs.add_log(tr(&"log_rope_cancelled_selection"))
+				_rs.add_log(tr(&"log_rope_cancelled_selection"), &"dim")
 		return
 
 	if t != null and t.kind == BoardTile.Kind.SHOP:
 		_open_shop()
+	elif t != null and t.kind == BoardTile.Kind.CHEST:
+		# Tap = smash the chest open. Free bonus — reaching it was the puzzle.
+		_grid[r][c] = null
+		_rs.gold += GameConfig.CHEST_GOLD_REWARD
+		_rs.stats_changed.emit()
+		_rs.add_log(tr(&"log_chest_opened").format({"gold": GameConfig.CHEST_GOLD_REWARD}), &"gold")
+		_board.apply_events([
+			{"type": &"chest_opened", "at": Vector2i(r, c), "gold": GameConfig.CHEST_GOLD_REWARD},
+			{"type": &"chest_vanished", "at": Vector2i(r, c)},
+		], _grid)
+		AudioManager.play_sfx(&"coin")
+		SignalBus.haptic.emit(0.3)
+		SaveManager.save_run(_grid, _rs)
 
 
 func _open_shop() -> void:
 	_modal_open = true
-	_rs.add_log(tr(&"log_enter_shop"))
+	_rs.add_log(tr(&"log_enter_shop"), &"gold")
 	var p := ShopPanel.new()
 	p.closed.connect(func(made: bool):
 		_modal_open = false
@@ -334,11 +377,11 @@ func _open_shop() -> void:
 					if t != null and t.kind == BoardTile.Kind.SHOP:
 						_grid[r][c] = null
 						_board.set_grid(_grid)
-						_rs.add_log(tr(&"log_shop_purchase_leaves"))
+						_rs.add_log(tr(&"log_shop_purchase_leaves"), &"dim")
 						SaveManager.save_run(_grid, _rs)
 						return
 		else:
-			_rs.add_log(tr(&"log_leave_shop"))
+			_rs.add_log(tr(&"log_leave_shop"), &"dim")
 			SaveManager.save_run(_grid, _rs)
 	)
 	p.open(_rs, _upgrades, self)
@@ -355,7 +398,7 @@ func _on_rope_button() -> void:
 		return
 	if _board.rope_mode:
 		_exit_rope()
-		_rs.add_log(tr(&"log_rope_cancelled"))
+		_rs.add_log(tr(&"log_rope_cancelled"), &"dim")
 	else:
 		_board.set_rope_mode(true)
 		_rs.add_log(tr(&"log_rope_activated"))

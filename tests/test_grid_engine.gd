@@ -150,14 +150,43 @@ func _init() -> void:
 	var merged := _events_of_type(res.events, &"slain")
 	_check(merged.size() == 1 and merged[0].at == Vector2i(3, 0), "down swipe merges at bottom")
 
-	# --- Test 14: shop tiles removed on move ----------------------------------------
+	# --- Test 14: shop tiles tick down and vanish after SHOP_LIFETIME ---------------
 	rs.reset(&"story", upgrades)
+	engine.spawn_enabled = false # deterministic: no random spawns
 	var shop := BoardTile.new()
 	shop.id = engine.new_id()
 	shop.kind = BoardTile.Kind.SHOP
-	g = _grid_with({Vector2i(0, 0): _goblin(2), Vector2i(0, 2): shop})
-	res = engine.move(g, &"left", rs, upgrades)
-	_check(_events_of_type(res.events, &"shop_removed").size() == 1, "shop tile removed on move")
+	shop.turns_left = GameConfig.SHOP_LIFETIME
+	g = _grid_with({Vector2i(0, 0): _goblin(2), Vector2i(0, 3): shop})
+	for i in GameConfig.SHOP_LIFETIME - 1:
+		g = engine.move(g, &"down" if i % 2 == 0 else &"up", rs, upgrades).grid
+		_check(_count_kind(g, BoardTile.Kind.SHOP) == 1, "shop alive after %d move(s)" % (i + 1))
+	g = engine.move(g, &"down", rs, upgrades).grid
+	_check(_count_kind(g, BoardTile.Kind.SHOP) == 0, "shop gone after %d moves" % GameConfig.SHOP_LIFETIME)
+
+	# --- Test 15: chests tick down and vanish after CHEST_LIFETIME ------------------
+	rs.reset(&"story", upgrades)
+	var ch := BoardTile.new()
+	ch.id = engine.new_id()
+	ch.kind = BoardTile.Kind.CHEST
+	ch.turns_left = GameConfig.CHEST_LIFETIME
+	g = _grid_with({Vector2i(0, 0): _goblin(2), Vector2i(0, 3): ch})
+	for i in GameConfig.CHEST_LIFETIME - 1:
+		g = engine.move(g, &"down" if i % 2 == 0 else &"up", rs, upgrades).grid
+		_check(_count_kind(g, BoardTile.Kind.CHEST) == 1, "chest alive after %d move(s)" % (i + 1))
+	g = engine.move(g, &"down", rs, upgrades).grid
+	_check(_count_kind(g, BoardTile.Kind.CHEST) == 0, "chest gone after %d moves" % GameConfig.CHEST_LIFETIME)
+	engine.spawn_enabled = true
 
 	print("\n%d passed, %d failed" % [_passed, _failed])
 	quit(1 if _failed > 0 else 0)
+
+
+func _count_kind(grid: Array, kind: BoardTile.Kind) -> int:
+	var n := 0
+	for r in GameConfig.GRID_SIZE:
+		for c in GameConfig.GRID_SIZE:
+			var t: BoardTile = grid[r][c]
+			if t != null and t.kind == kind:
+				n += 1
+	return n

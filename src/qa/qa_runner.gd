@@ -104,6 +104,7 @@ func _special(kind: BoardTile.Kind, r: int, c: int) -> BoardTile:
 	var t := BoardTile.new()
 	t.id = randi_range(1000, 999999)
 	t.kind = kind
+	t.turns_left = GameConfig.CHEST_LIFETIME
 	t.row = r
 	t.col = c
 	return t
@@ -182,11 +183,29 @@ func _s_merge_kill() -> void:
 func _s_chest() -> void:
 	var g := await _start(&"story")
 	if g == null: _check(false, "chest: boot"); return
+	# 1) slide-open still works
 	_set_board(g, [_goblin(2, 0, 0), _special(BoardTile.Kind.CHEST, 0, 2)])
 	var gold0: int = g._rs.gold
 	g._on_swipe(&"left")
 	var gained := g._rs.gold - gold0
-	_check(gained >= GameConfig.CHEST_GOLD_REWARD, "chest: +%d gold (want >=%d)" % [gained, GameConfig.CHEST_GOLD_REWARD])
+	_check(gained >= GameConfig.CHEST_GOLD_REWARD, "chest: slide opens +%d gold" % gained)
+	# 2) tap opens it (free smash)
+	_set_board(g, [_goblin(2, 0, 0), _special(BoardTile.Kind.CHEST, 3, 3)])
+	gold0 = g._rs.gold
+	g._on_cell_tapped(3, 3)
+	_check(g._rs.gold == gold0 + GameConfig.CHEST_GOLD_REWARD, "chest: tap opens +%d gold" % (g._rs.gold - gold0))
+	_check(g._grid[3][3] == null, "chest: consumed by tap")
+	# 3) lifetime: survives CHEST_LIFETIME-1 moves, gone after the last
+	g._engine.spawn_enabled = false
+	var chest := _special(BoardTile.Kind.CHEST, 0, 3)
+	_set_board(g, [_goblin(2, 0, 0), chest])
+	g._on_swipe(&"down")
+	_check(_count_kind(g._grid, BoardTile.Kind.CHEST) == 1, "chest: alive after move 1")
+	g._on_swipe(&"up")
+	_check(_count_kind(g._grid, BoardTile.Kind.CHEST) == 1, "chest: alive after move 2")
+	g._on_swipe(&"down")
+	_check(_count_kind(g._grid, BoardTile.Kind.CHEST) == 0, "chest: vanished after %d moves" % GameConfig.CHEST_LIFETIME)
+	g._engine.spawn_enabled = true
 
 
 func _s_golden() -> void:
@@ -547,6 +566,16 @@ func _s_swipe_input() -> void:
 	await get_tree().process_frame
 	await get_tree().process_frame
 	_check(got_tap[0].x >= 0, "swipe_input: mouse click emits cell_tapped %s" % got_tap[0])
+
+
+func _count_kind(grid: Array, kind: BoardTile.Kind) -> int:
+	var n := 0
+	for r in GameConfig.GRID_SIZE:
+		for c in GameConfig.GRID_SIZE:
+			var t: BoardTile = grid[r][c]
+			if t != null and t.kind == kind:
+				n += 1
+	return n
 
 
 func _count_tiles(grid: Array) -> int:

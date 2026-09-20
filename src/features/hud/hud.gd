@@ -207,28 +207,47 @@ func refresh() -> void:
 func _refresh_items() -> void:
 	for c in _items_row.get_children():
 		c.queue_free()
-	for id in _rs.purchased_items:
+	# Gear strip: every unlocked item gets a slot — lit when owned this run,
+	# dimmed when available but not bought. Teaches the item system visually.
+	for it in GoblinDB.SHOP_ITEMS:
+		var id: StringName = it.id
 		if id == &"healthPotion" or id == &"rope":
-			continue
+			continue # consumables: potion heals instantly, rope has its own button
+		var uid := StringName("unlock" + String(id).substr(0, 1).to_upper() + String(id).substr(1))
+		if not _upgrades.has(uid):
+			continue # still locked — don't reveal
 		var tex: Variant = ITEM_ICONS.get(id)
 		if tex == null:
 			continue
+		var owned := _rs.purchased_items.has(id)
 		var tr_icon := TextureRect.new()
 		tr_icon.custom_minimum_size = Vector2(28, 28)
 		tr_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		tr_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		tr_icon.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		tr_icon.texture = load(ITEM_DIR + tex)
-		tr_icon.tooltip_text = tr(StringName(id + "_name"))
+		tr_icon.tooltip_text = tr(StringName(String(id) + "_name"))
+		if not owned:
+			tr_icon.modulate = Color(1, 1, 1, 0.25)
 		_items_row.add_child(tr_icon)
 
 
-func add_log(message: String) -> void:
+const LOG_COLORS := {
+	&"info": Color(0.78, 0.78, 0.78),
+	&"dim": Color(0.52, 0.52, 0.56),
+	&"gold": Color(0.96, 0.78, 0.32),
+	&"danger": Color(0.95, 0.42, 0.36),
+	&"warn": Color(0.95, 0.65, 0.3),
+	&"good": Color(0.55, 0.9, 0.55),
+}
+
+
+func add_log(message: String, tone: StringName = &"info") -> void:
 	var l := Label.new()
 	l.text = message
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	l.add_theme_font_size_override(&"font_size", 12)
-	l.add_theme_color_override(&"font_color", Color(0.78, 0.78, 0.78))
+	l.add_theme_color_override(&"font_color", LOG_COLORS.get(tone, LOG_COLORS[&"info"]))
 	l.modulate.a = 0.0
 	_log_box.add_child(l)
 	_log_box.move_child(l, 0)

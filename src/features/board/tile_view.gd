@@ -106,6 +106,18 @@ func _build() -> void:
 		icon.add_theme_font_size_override(&"font_size", 30)
 		icon.text = "📦" if tile.kind == BoardTile.Kind.CHEST else "🏪"
 		add_child(icon)
+		# Lifetime countdown — expires in `turns_left` moves
+		var ttl := Label.new()
+		ttl.set_anchors_preset(PRESET_TOP_WIDE)
+		ttl.offset_top = 2
+		ttl.offset_bottom = 18
+		ttl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		ttl.add_theme_font_size_override(&"font_size", 11)
+		ttl.add_theme_constant_override(&"outline_size", 4)
+		ttl.add_theme_color_override(&"font_outline_color", Color(0, 0, 0, 0.9))
+		ttl.add_theme_color_override(&"font_color", Color(1.0, 0.85, 0.45))
+		ttl.name = &"TtlLabel"
+		add_child(ttl)
 
 	# Poison / golden badge
 	_badge = Label.new()
@@ -139,9 +151,19 @@ func set_hp_visible(v: bool) -> void:
 func refresh() -> void:
 	_update_hp_bar()
 	_update_badge()
+	# Last-turn urgency: chests/shops throb when about to vanish
+	if tile.kind != BoardTile.Kind.GOBLIN and tile.turns_left <= 1:
+		var tw := create_tween()
+		tw.tween_property(_border, "modulate", Color(1.7, 0.6, 0.4), 0.15)
+		tw.tween_property(_border, "modulate", Color.WHITE, 0.15)
 
 
 func _update_badge() -> void:
+	if tile.kind != BoardTile.Kind.GOBLIN:
+		var ttl := get_node_or_null(^"TtlLabel") as Label
+		if ttl:
+			ttl.text = "⏳%d" % tile.turns_left
+		return
 	if tile.poisoned > 0:
 		_badge.text = "🤢"
 	elif tile.is_golden:

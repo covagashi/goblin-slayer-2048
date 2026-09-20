@@ -283,7 +283,10 @@ func apply_events(events: Array, final_grid: Array) -> void:
 					Fx.floating_text(_fx_layer, cell_center(e.at.x, e.at.y), "+%d" % e.gold, Color(0.95, 0.75, 0.2), 16)
 				, IMPACT_DELAY)
 			&"chest_opened":
-				_delayed(func(): Fx.burst(_fx_layer, cell_center(e.at.x, e.at.y), Color(0.95, 0.75, 0.2), 12), IMPACT_DELAY)
+				_delayed(func():
+					Fx.burst(_fx_layer, cell_center(e.at.x, e.at.y), Color(0.95, 0.75, 0.2), 12)
+					Fx.floating_text(_fx_layer, cell_center(e.at.x, e.at.y), "+%d" % int(e.get("gold", 0)), Color(0.95, 0.75, 0.2), 16)
+				, IMPACT_DELAY)
 			&"spawn":
 				_delayed(func(): _spawn_view(e.tile), SPAWN_DELAY)
 			&"golden_spawn":

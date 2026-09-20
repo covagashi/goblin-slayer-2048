@@ -151,9 +151,9 @@ func _buy(it: Dictionary) -> void:
 	_purchase_made = true
 	AudioManager.play_sfx(&"coin")
 	SignalBus.haptic.emit(0.4)
-	_rs.add_log(tr(&"log_purchase").format({"item": tr(StringName(String(it.id) + "_name")), "cost": it.cost}))
+	_rs.add_log(tr(&"log_purchase").format({"item": tr(StringName(String(it.id) + "_name")), "cost": it.cost}), &"gold")
 	if it.id == &"healthPotion":
-		_rs.add_log(tr(&"log_heal").format({"hp": 5}))
+		_rs.add_log(tr(&"log_heal").format({"hp": 5}), &"good")
 	item_bought.emit(it.id)
 	# refresh buttons
 	for c in get_children():

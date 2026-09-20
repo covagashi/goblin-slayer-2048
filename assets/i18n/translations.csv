@@ -73,6 +73,7 @@ combatL2,"Combine goblins to create stronger, more dangerous versions:",Combina 
 combatL3,"Each time you combine, the resulting goblin takes damage. Goblins level 8 or higher will always survive the initial combination.","Cada vez que combinas, el goblin resultante recibe daño. Los goblins de nivel 8 o más siempre sobrevivirán a la combinación inicial."
 powerupsTitle,Items & Power-ups,Objetos y Power-ups
 powerupsL1,Get them from the shop that appears on the board. Unlock them first in the permanent upgrades shop!,Consíguelos en la tienda que aparece en el tablero. ¡Desbloquéalos primero en la tienda de mejoras permanentes!
+powerupsL2,"Chests and shops expire — the ⏳ counter shows moves left. Tap a chest to smash it open!","Los cofres y tiendas caducan — el ⏳ muestra los movimientos restantes. ¡Toca un cofre para abrirlo!"
 progressionTitle,Progression & Upgrades,Progresión y Mejoras
 progressionL1,Gain Experience (XP) by defeating goblins.,Gana Experiencia (XP) al eliminar goblins.
 progressionL2,Use XP on the home screen to buy permanent upgrades that will help you in all your runs.,Usa la XP en la pantalla de inicio para comprar mejoras permanentes que te ayudarán en todas tus partidas.
@@ -125,7 +126,7 @@ unlockRope_name,Unlock: Rope,Desbloquear: Cuerda
 unlockRope_desc,Unlocks the Rope in the shop.,Desbloquea la Cuerda en la tienda.
 unlockFireScroll_name,Unlock: Fire Scroll,Desbloquear: Pergamino
 unlockFireScroll_desc,Unlocks the Fire Scroll in the shop.,Desbloquea el Pergamino de Fuego en la tienda.
-log_chest_appeared,A treasure chest appeared!,¡Apareció un cofre del tesoro!
+log_chest_appeared,A treasure chest appeared! Tap it before it vanishes.,¡Apareció un cofre! Tócalo antes de que desaparezca.
 log_continued,Run resumed. The hunt continues!,Partida reanudada. ¡La caza continúa!
 log_new_goblin,A new Lv.{value} goblin appeared.,Apareció un nuevo goblin de Nv.{value}.
 log_game_start,"Game started: {gameMode}. Good luck, slayer.","Juego iniciado: {gameMode}. ¡Buena suerte, cazador!"
@@ -133,7 +134,7 @@ log_chest_opened,You opened a chest! +{gold} gold.,¡Abriste un cofre! +{gold} d
 log_shop_appeared,A mysterious shop tile has appeared!,¡Ha aparecido una misteriosa tienda!
 log_no_room_for_shop,No room for a shop to appear!,¡No hay espacio para que aparezca una tienda!
 log_shop_disappeared,The shop disappeared before you could visit.,La tienda desapareció antes de que pudieras visitarla.
-log_goblin_combine_damage,Combined Lv.{value}s. It took {damage} damage.,Combinados Nv.{value}s. Recibió {damage} de daño.
+log_goblin_combine_damage,Merged two Lv.{value} goblins — {damage} damage.,Fusionaste dos goblins Nv.{value} — {damage} de daño.
 log_goblin_slain,"The Lv.{value} goblin was slain! +{score} score, +{gold} gold.","¡El goblin de Nv.{value} fue eliminado! +{score} puntos, +{gold} de oro."
 log_goblin_drop,A slain goblin dropped {gold} gold!,¡Un goblin eliminado dejó caer {gold} de oro!
 log_goblin_survived,A Lv.{value} goblin survived with {hp} HP.,Un goblin de Nv.{value} sobrevivió con {hp} HP.
