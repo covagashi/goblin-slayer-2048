@@ -74,6 +74,20 @@ func _build() -> void:
 		_hp_bg.add_child(_hp_bar)
 		add_child(_hp_bg)
 		_update_hp_bar()
+
+		# Level value — needed to tell tiers apart at a glance
+		var lvl := Label.new()
+		lvl.set_anchors_preset(PRESET_BOTTOM_WIDE)
+		lvl.offset_top = -19
+		lvl.offset_bottom = -8
+		lvl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		lvl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		lvl.add_theme_font_size_override(&"font_size", 12)
+		lvl.add_theme_constant_override(&"outline_size", 5)
+		lvl.add_theme_color_override(&"font_outline_color", Color(0, 0, 0, 0.9))
+		lvl.text = str(tile.value)
+		lvl.mouse_filter = MOUSE_FILTER_IGNORE
+		add_child(lvl)
 	else:
 		var icon := Label.new()
 		icon.set_anchors_preset(PRESET_FULL_RECT)

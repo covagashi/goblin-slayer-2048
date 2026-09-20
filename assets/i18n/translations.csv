@@ -8,7 +8,7 @@ endlessModeDesc,Survive the endless goblin waves.,Sobrevive a las infinitas olea
 howToPlay,How to Play,Cómo Jugar
 upgradesAndProgress,Upgrades & Progression,Mejoras y Progresión
 poweredBy,Powered by 2048 mechanics,Basado en la mecánica de 2048
-headerTitle,Goblin Swiper,Goblin Swiper
+headerTitle,Goblin Slayer 2048,Goblin Slayer 2048
 headerSubtitle,Combine goblins to slay them.,Combina goblins para matarlos.
 newGame,New Game,Nuevo Juego
 openMenu,Open Menu,Abrir Menú
@@ -16,7 +16,7 @@ score,Score,Puntuación
 gold,Gold,Oro
 level,Level,Nivel
 totalXp,Total XP,XP Total
-killsToLevel,kills to Lvl.,muertes para Nvl.
+killsToLevel,to Lvl,para Nvl
 movesUntilAttack,moves,movimientos
 itemsAndUpgrades,Items & Upgrades,Objetos y Mejoras
 combineDamageBonus,Combine Damage Bonus,Bonus de Daño por Combinar
@@ -123,7 +123,7 @@ unlockFireScroll_name,Unlock: Fire Scroll,Desbloquear: Pergamino
 unlockFireScroll_desc,Unlocks the Fire Scroll in the shop.,Desbloquea el Pergamino de Fuego en la tienda.
 log_chest_appeared,A treasure chest appeared!,¡Apareció un cofre del tesoro!
 log_new_goblin,A new Lv.{value} goblin appeared.,Apareció un nuevo goblin de Nv.{value}.
-log_game_start,"Game started in {gameMode} mode. Good luck, slayer.","Juego iniciado en modo {gameMode}. ¡Buena suerte, cazador!"
+log_game_start,"Game started: {gameMode}. Good luck, slayer.","Juego iniciado: {gameMode}. ¡Buena suerte, cazador!"
 log_chest_opened,You opened a chest! +{gold} gold.,¡Abriste un cofre! +{gold} de oro.
 log_shop_appeared,A mysterious shop tile has appeared!,¡Ha aparecido una misteriosa tienda!
 log_no_room_for_shop,No room for a shop to appear!,¡No hay espacio para que aparezca una tienda!

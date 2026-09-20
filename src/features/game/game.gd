@@ -106,9 +106,20 @@ func _ready_run() -> void:
 	_board.set_torch_lit(false)
 	AudioManager.play_music(&"game")
 
-	# QA hook: godot -- auto_moves → scripted swipes for screenshots
-	if OS.get_cmdline_user_args().has(&"auto_moves"):
+	# QA hooks: godot -- auto_moves → scripted swipes; shot_* → force a screen for visual QA
+	var qa := OS.get_cmdline_user_args()
+	if qa.has(&"auto_moves"):
 		_auto_moves()
+	if qa.has(&"shot_shop"):
+		var ev: Array = []
+		_grid = _engine.spawn_shop_tile(_grid, ev)
+		_board.set_grid(_grid)
+		get_tree().create_timer(0.5).timeout.connect(func(): _open_shop())
+	if qa.has(&"shot_gameover"):
+		_rs.score = 1240
+		_rs.kills = 37
+		_hud.refresh()
+		get_tree().create_timer(0.5).timeout.connect(func(): _on_game_over())
 
 
 func _auto_moves() -> void:

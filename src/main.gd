@@ -30,6 +30,13 @@ func _ready() -> void:
 			runner.run.call_deferred(StringName(String(a).trim_prefix("qa=")), self)
 	if qa.has(&"auto_story"):
 		get_tree().create_timer(0.6).timeout.connect(func(): _on_mode_selected(&"story"))
+	# QA hooks: open a panel over the splash for screenshot coverage
+	if qa.has(&"shot_upgrades"):
+		get_tree().create_timer(0.9).timeout.connect(func(): UpgradesPanel.new().open(_current))
+	if qa.has(&"shot_leaderboard"):
+		get_tree().create_timer(0.9).timeout.connect(func(): LeaderboardPanel.new().open(_current))
+	if qa.has(&"shot_howto"):
+		get_tree().create_timer(0.9).timeout.connect(func(): HowToPanel.new().open(_current))
 	if qa.has(&"auto_shot"):
 		var dir := "/tmp/gs2048_shots"
 		for a in qa:

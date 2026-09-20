@@ -79,18 +79,22 @@ func _build() -> void:
 	hp_row.add_child(_hp_label)
 	vb.add_child(hp_row)
 
-	# Stat cells
+	# Stat cells — two rows: 4 short numbers, then 2 text cells. Separate
+	# grids so long translated strings can't stretch the numeric columns.
 	var grid := GridContainer.new()
 	grid.columns = 4
 	grid.add_theme_constant_override(&"h_separation", 6)
-	grid.add_theme_constant_override(&"v_separation", 6)
 	vb.add_child(grid)
 	_score = _stat_cell(grid, "🏆")
 	_gold = _stat_cell(grid, "🪙")
 	_level = _stat_cell(grid, "⭐")
 	_xp = _stat_cell(grid, "✨")
-	_kills_left = _stat_cell(grid, "🎯")
-	_moves_left = _stat_cell(grid, "⚡")
+	var grid2 := GridContainer.new()
+	grid2.columns = 2
+	grid2.add_theme_constant_override(&"h_separation", 6)
+	vb.add_child(grid2)
+	_kills_left = _stat_cell(grid2, "🎯", true)
+	_moves_left = _stat_cell(grid2, "⚡", true)
 
 	# streak banner
 	_streak_banner = Label.new()
@@ -155,10 +159,11 @@ func _build() -> void:
 	add_child(log_panel)
 
 
-func _stat_cell(parent: Control, icon: String) -> Label:
+func _stat_cell(parent: Control, icon: String, clip := false) -> Label:
 	var cell := PanelContainer.new()
 	cell.theme_type_variation = &"InsetPanel"
 	cell.size_flags_horizontal = SIZE_EXPAND_FILL
+	cell.clip_contents = true
 	var hb := HBoxContainer.new()
 	hb.alignment = BoxContainer.ALIGNMENT_CENTER
 	hb.add_theme_constant_override(&"separation", 4)
@@ -169,6 +174,10 @@ func _stat_cell(parent: Control, icon: String) -> Label:
 	var l := Label.new()
 	l.add_theme_font_size_override(&"font_size", 14)
 	l.text = "0"
+	if clip:
+		l.clip_text = true
+		l.size_flags_horizontal = SIZE_EXPAND_FILL
+		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	hb.add_child(l)
 	cell.add_child(hb)
 	parent.add_child(cell)
