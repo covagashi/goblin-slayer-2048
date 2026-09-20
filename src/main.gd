@@ -36,7 +36,13 @@ func _ready() -> void:
 	if qa.has(&"shot_leaderboard"):
 		get_tree().create_timer(0.9).timeout.connect(func(): LeaderboardPanel.new().open(_current))
 	if qa.has(&"shot_howto"):
-		get_tree().create_timer(0.9).timeout.connect(func(): HowToPanel.new().open(_current))
+		get_tree().create_timer(0.9).timeout.connect(func():
+			var p := HowToPanel.new()
+			p.open(_current)
+			var sc := p.find_child("*ScrollContainer*", true, false) as ScrollContainer
+			if sc:
+				get_tree().create_timer(0.3).timeout.connect(func(): sc.scroll_vertical = 100000)
+		)
 	if qa.has(&"auto_shot"):
 		var dir := "/tmp/gs2048_shots"
 		for a in qa:

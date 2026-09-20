@@ -435,6 +435,23 @@ func _s_i18n() -> void:
 	TranslationServer.set_locale("es")
 	var es: String = tr(&"storyMode")
 	_check(en != es, "i18n: en/es differ (%s / %s)" % [en, es])
+	# Every key in the CSV must translate in both locales (missing => tr returns the key)
+	var missing := 0
+	var tr_en := load("res://assets/i18n/translations.en.translation") as Translation
+	var tr_es := load("res://assets/i18n/translations.es.translation") as Translation
+	for key in tr_en.get_message_list():
+		if String(tr_en.get_message(key)).is_empty() or String(tr_es.get_message(key)).is_empty():
+			missing += 1
+			push_warning("i18n: empty translation for " + String(key))
+	_check(missing == 0, "i18n: %d keys untranslated" % missing)
+	# Every key the HowTo panel renders must resolve
+	var bad := 0
+	for sec in HowToPanel.SECTIONS:
+		for k in [sec[0]] + sec[1]:
+			if tr(k) == String(k):
+				bad += 1
+				push_warning("i18n: unresolved key " + String(k))
+	_check(bad == 0, "i18n: %d how-to keys unresolved" % bad)
 	TranslationServer.set_locale(String(_bak_lang))
 
 
