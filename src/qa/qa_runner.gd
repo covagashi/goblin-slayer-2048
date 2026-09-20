@@ -42,6 +42,8 @@ func run(scenario: StringName, main_ref: Control) -> void:
 		&"chaos": await _s_chaos(&"story")
 		&"chaos_endless": await _s_chaos(&"endless")
 		&"menu_cycle": await _s_menu_cycle()
+		&"lang": await _s_lang()
+		&"clicklang": await _s_clicklang()
 		_:
 			printerr("[E2E] unknown scenario: %s" % scenario)
 			_fail += 1
@@ -427,6 +429,74 @@ func _s_menu_cycle() -> void:
 	if g2 != null:
 		_check(g2._rs.mode == &"endless", "menu_cycle: endless mode set")
 		_check(g2._rs.moves_count == 0, "menu_cycle: fresh run state")
+
+
+func _find_button(n: Node, prefix: String) -> Button:
+	for c in n.get_children():
+		if c is Button and String(c.text).begins_with(prefix):
+			return c
+		var r := _find_button(c, prefix)
+		if r:
+			return r
+	return null
+
+
+func _s_lang() -> void:
+	var tries := 90
+	while tries > 0 and not (_main._current is SplashScreen):
+		await get_tree().process_frame
+		tries -= 1
+	var s: Control = _main._current
+	_check(s is SplashScreen, "lang: splash is current")
+	var btn := _find_button(s, "🌐")
+	_check(btn != null, "lang: 🌐 button exists")
+	if btn == null:
+		return
+	var before := SaveManager.language
+	btn.pressed.emit()
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(SaveManager.language != before, "lang: toggles %s -> %s" % [before, SaveManager.language])
+	_check(TranslationServer.get_locale().begins_with(String(SaveManager.language)),
+		"lang: locale applied (%s)" % TranslationServer.get_locale())
+	var btn2 := _find_button(_main._current, "🌐")
+	_check(btn2 != null and btn2 != btn, "lang: splash rebuilt with new button")
+	if btn2:
+		_check(btn2.text.ends_with(String(SaveManager.language).to_upper()),
+			"lang: new label shows %s" % btn2.text)
+
+
+func _s_clicklang() -> void:
+	# Real-input path: inject an actual mouse click at the button's center
+	var tries := 90
+	while tries > 0 and not (_main._current is SplashScreen):
+		await get_tree().process_frame
+		tries -= 1
+	await get_tree().process_frame
+	var btn := _find_button(_main._current, "🌐")
+	_check(btn != null, "clicklang: 🌐 button exists")
+	if btn == null:
+		return
+	var before := SaveManager.language
+	var center := btn.get_global_rect().get_center()
+	var xf := get_viewport().get_screen_transform()
+	var pos: Vector2 = xf * center
+	var press := InputEventMouseButton.new()
+	press.button_index = MOUSE_BUTTON_LEFT
+	press.pressed = true
+	press.position = pos
+	Input.parse_input_event(press)
+	await get_tree().process_frame
+	await get_tree().process_frame
+	var rel := InputEventMouseButton.new()
+	rel.button_index = MOUSE_BUTTON_LEFT
+	rel.pressed = false
+	rel.position = pos
+	Input.parse_input_event(rel)
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(SaveManager.language != before,
+		"clicklang: real click toggles %s -> %s" % [before, SaveManager.language])
 
 
 func _s_i18n() -> void:

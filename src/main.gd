@@ -43,6 +43,12 @@ func _ready() -> void:
 			if sc:
 				get_tree().create_timer(0.3).timeout.connect(func(): sc.scroll_vertical = 100000)
 		)
+	if qa.has(&"shot_lang_en"):
+		get_tree().create_timer(1.0).timeout.connect(func():
+			var b := _find_btn(_current, "🌐")
+			if b:
+				b.pressed.emit()
+		)
 	if qa.has(&"auto_shot"):
 		var dir := "/tmp/gs2048_shots"
 		for a in qa:
@@ -58,6 +64,16 @@ func _ready() -> void:
 	if qa.has(&"auto_quit"):
 		get_tree().create_timer(12.6).timeout.connect(func(): AudioManager.stop_all())
 		get_tree().create_timer(13.0).timeout.connect(func(): get_tree().quit())
+
+
+func _find_btn(n: Node, prefix: String) -> Button:
+	for c in n.get_children():
+		if c is Button and String(c.text).begins_with(prefix):
+			return c
+		var r := _find_btn(c, prefix)
+		if r:
+			return r
+	return null
 
 
 func _save_shot(path: String) -> void:
