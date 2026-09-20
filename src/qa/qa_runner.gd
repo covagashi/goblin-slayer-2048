@@ -9,6 +9,7 @@ extends Node
 var _main: Control
 var _pass := 0
 var _fail := 0
+var _quiet := false # chaos mode: only failures are printed
 
 var _bak_xp := 0
 var _bak_upgrades: Dictionary = {}
@@ -38,6 +39,9 @@ func run(scenario: StringName, main_ref: Control) -> void:
 		&"persistence": _s_persistence()
 		&"assets": _s_assets()
 		&"i18n": _s_i18n()
+		&"chaos": await _s_chaos(&"story")
+		&"chaos_endless": await _s_chaos(&"endless")
+		&"menu_cycle": await _s_menu_cycle()
 		_:
 			printerr("[E2E] unknown scenario: %s" % scenario)
 			_fail += 1
@@ -54,7 +58,8 @@ func run(scenario: StringName, main_ref: Control) -> void:
 func _check(cond: bool, label: String) -> void:
 	if cond:
 		_pass += 1
-		print("[E2E] PASS %s" % label)
+		if not _quiet:
+			print("[E2E] PASS %s" % label)
 	else:
 		_fail += 1
 		printerr("[E2E] FAIL %s" % label)
@@ -404,6 +409,26 @@ func _s_assets() -> void:
 	_check(load("res://assets/audio/music/background-theme.mp3") != null, "assets: game music loads")
 
 
+func _s_menu_cycle() -> void:
+	var g := await _start(&"story")
+	if g == null:
+		_check(false, "menu_cycle: boot")
+		return
+	for d in [&"left", &"right", &"up", &"down"]:
+		if g._rs.moves_count > 0:
+			break
+		g._on_swipe(d)
+	_check(g._rs.moves_count >= 1, "menu_cycle: game running")
+	g.menu_requested.emit()
+	await _wait(0.8)
+	_check(_main._current is SplashScreen, "menu_cycle: back at splash")
+	var g2 := await _start(&"endless")
+	_check(g2 != null and g2 != g, "menu_cycle: second game is a fresh scene")
+	if g2 != null:
+		_check(g2._rs.mode == &"endless", "menu_cycle: endless mode set")
+		_check(g2._rs.moves_count == 0, "menu_cycle: fresh run state")
+
+
 func _s_i18n() -> void:
 	TranslationServer.set_locale("en")
 	var en: String = tr(&"storyMode")
@@ -411,3 +436,156 @@ func _s_i18n() -> void:
 	var es: String = tr(&"storyMode")
 	_check(en != es, "i18n: en/es differ (%s / %s)" % [en, es])
 	TranslationServer.set_locale(String(_bak_lang))
+
+
+# ---------------------------------------------------------------------------
+# Chaos monkey — plays the game for real: random swipes, taps, shop visits,
+# rope usage, restarts. Validates board/run invariants after every action.
+# ---------------------------------------------------------------------------
+
+func _s_chaos(mode: StringName) -> void:
+	_quiet = true
+	var g := await _start(mode)
+	if g == null:
+		_quiet = false
+		_check(false, "chaos: boot")
+		return
+	var rng := RandomNumberGenerator.new()
+	# deterministic by default; override with -- qa=chaos&seed=N
+	rng.seed = 0xC0FFEE
+	for a in OS.get_cmdline_user_args():
+		if String(a).begins_with("seed="):
+			rng.seed = int(String(a).trim_prefix("seed="))
+	# richer runs: grant some unlocks + resources so shop buys and ropes happen
+	for up in GoblinDB.PERMANENT_UPGRADES:
+		if String(up.id).begins_with("unlock"):
+			g._upgrades[up.id] = 1
+	g._rs.gold = 400
+	g._rs.rope_count = 3
+	g._rs.stats_changed.emit() # direct mutations bypass engine event flow — refresh HUD
+	var dirs: Array[StringName] = [&"left", &"right", &"up", &"down"]
+	var restarts := 0
+	var shops := 0
+	var ropes := 0
+	var wins := 0
+
+	var over_streak := 0
+	var t0 := Time.get_ticks_msec()
+	for i in 300:
+		if i % 25 == 0:
+			print("[E2E] chaos step %d (hp=%d moves=%d over=%s)" % [i, g._rs.player_hp, g._rs.moves_count, g._rs.over])
+		if Time.get_ticks_msec() - t0 > 180000:
+			_quiet = false
+			printerr("[E2E] chaos: TIME BUDGET EXCEEDED at step %d — over=%s modal=%s children=%s" %
+				[i, g._rs.over, g._modal_open, g.get_children().map(func(c): return c.get_class())])
+			_fail += 1
+			return
+		# --- modal cleanup / restart --------------------------------------
+		var shop: ShopPanel = null
+		var gameover: GameOverPanel = null
+		for ch in g.get_children():
+			if ch is ShopPanel: shop = ch
+			if ch is GameOverPanel: gameover = ch
+		if shop != null:
+			shops += 1
+			# buy the first buyable offer sometimes, then close
+			for it in shop._offers:
+				if rng.randf() < 0.6 and g._rs.gold >= int(it.cost):
+					var gold0: int = g._rs.gold
+					shop._buy(it)
+					_check(g._rs.gold <= gold0, "chaos: buy never increases gold")
+					break
+			shop._close()
+			await get_tree().process_frame
+			continue
+		if g._rs.over:
+			over_streak += 1
+			await _wait(1.0)
+			for ch in g.get_children():
+				if ch is GameOverPanel: gameover = ch
+			if gameover == null:
+				printerr("[E2E] chaos: over but no panel (streak=%d reason=%s modal=%s)" %
+					[over_streak, g._rs.over_reason_key, g._modal_open])
+				if over_streak > 5:
+					_quiet = false
+					_fail += 1
+					return
+				continue
+			over_streak = 0
+			if g._rs.won: wins += 1
+			if gameover != null:
+				restarts += 1
+				gameover.restart.emit()
+				await _wait(0.4)
+				_check(not g._rs.over, "chaos: restart clears over flag")
+				_check(g._rs.moves_count == 0, "chaos: restart resets moves")
+				_check(g._hud.get_child_count() == 4, "chaos: HUD intact after restart #%d" % restarts)
+			continue
+
+		# --- random action ---------------------------------------------------
+		var roll := rng.randf()
+		if roll < 0.80:
+			g._on_swipe(dirs[rng.randi() % 4])
+		elif roll < 0.90:
+			g._on_cell_tapped(rng.randi() % 4, rng.randi() % 4)
+		elif roll < 0.97:
+			if not g._board.rope_mode:
+				g._on_rope_button()
+				if g._board.rope_mode:
+					ropes += 1
+					# pick a random goblin then a random empty cell
+					var src := Vector2i(-1, -1)
+					for r in GameConfig.GRID_SIZE:
+						for c in GameConfig.GRID_SIZE:
+							var t: BoardTile = g._grid[r][c]
+							if t != null and t.is_goblin() and src == Vector2i(-1, -1):
+								src = Vector2i(r, c)
+					if src != Vector2i(-1, -1):
+						g._on_cell_tapped(src.x, src.y)
+						var dst := Vector2i(rng.randi() % 4, rng.randi() % 4)
+						g._on_cell_tapped(dst.x, dst.y)
+			else:
+				g._on_rope_button() # cancel
+		else:
+			pass # idle frame
+
+		_check_invariants(g, i)
+		await get_tree().process_frame
+
+	_quiet = false
+	print("[E2E] chaos summary: restarts=%d shops=%d ropes=%d wins=%d moves=%d score=%d" %
+		[restarts, shops, ropes, wins, g._rs.moves_count, g._rs.score])
+	_check(true, "chaos: session survived %d steps" % 300)
+
+
+func _check_invariants(g: GameScene, step: int) -> void:
+	var rs := g._rs
+	var grid := g._grid
+	# shape
+	_check(grid.size() == GameConfig.GRID_SIZE, "chaos@%d: grid has %d rows" % [step, grid.size()])
+	var ids := {}
+	var tiles := 0
+	for r in grid.size():
+		var row: Array = grid[r]
+		_check(row.size() == GameConfig.GRID_SIZE, "chaos@%d: row %d width %d" % [step, r, row.size()])
+		for c in row.size():
+			var t: BoardTile = row[c]
+			if t == null:
+				continue
+			tiles += 1
+			_check(not ids.has(t.id), "chaos@%d: duplicate tile id %d" % [step, t.id])
+			ids[t.id] = true
+			_check(t.row == r and t.col == c, "chaos@%d: tile@%d,%d reports %d,%d" % [step, r, c, t.row, t.col])
+			if t.is_goblin():
+				_check(t.value >= 2 and t.value <= 256 and (t.value & (t.value - 1)) == 0,
+					"chaos@%d: invalid goblin value %d" % [step, t.value])
+				_check(t.hp > 0 and t.hp <= t.max_hp, "chaos@%d: bad hp %d/%d" % [step, t.hp, t.max_hp])
+	# run-state sanity
+	_check(rs.gold >= 0, "chaos@%d: negative gold %d" % [step, rs.gold])
+	_check(rs.score >= 0, "chaos@%d: negative score" % step)
+	_check(rs.player_hp <= rs.player_max_hp, "chaos@%d: hp %d > max %d" % [step, rs.player_hp, rs.player_max_hp])
+	if not rs.over:
+		_check(rs.player_hp > 0, "chaos@%d: dead but not over (hp=%d)" % [step, rs.player_hp])
+	# HUD reflects state
+	_check(g._hud._score.text == str(rs.score), "chaos@%d: HUD score desync (%s vs %d)" % [step, g._hud._score.text, rs.score])
+	_check(g._hud._gold.text == str(rs.gold), "chaos@%d: HUD gold desync" % step)

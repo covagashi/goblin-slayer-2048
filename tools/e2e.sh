@@ -10,6 +10,7 @@ SCENARIOS=(
   shop rope fire
   gameover victory endless overcrowding
   upgrades leaderboard persistence assets i18n
+  chaos chaos_endless menu_cycle
 )
 
 fail=0

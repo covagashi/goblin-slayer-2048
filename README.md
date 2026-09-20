@@ -60,9 +60,13 @@ godot --headless -s tests/test_grid_engine.gd   # 20 assertions on game rules
 ### Headless e2e scenarios
 
 ```bash
-tools/e2e.sh    # 17 scenarios / ~55 assertions driving the real UI
-                # (shop, rope, fire scroll, game over, victory, streaks,
-                #  golden goblin, upgrades, leaderboard, persistence, assets, i18n)
+tools/e2e.sh    # 20 scenarios driving the real UI (shop, rope, fire scroll,
+                # game over + restart, victory + leaderboard, endless,
+                # overcrowding, upgrades, persistence, assets, i18n, menu cycle)
+                # + 2 chaos runs: 600 random played moves with ~19K invariant
+                # checks (board shape, tile ids, hp/gold sanity, HUD sync)
+
+# extra chaos seeds: godot --headless -- qa=chaos seed=<n>
 ```
 
 ### Visual QA snapshots

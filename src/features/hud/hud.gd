@@ -225,8 +225,11 @@ func add_log(message: String) -> void:
 	_log_box.move_child(l, 0)
 	var tw := l.create_tween()
 	tw.tween_property(l, "modulate:a", 1.0, 0.25)
+	# queue_free() defers removal — detach first or the while never sees the count drop
 	while _log_box.get_child_count() > 50:
-		_log_box.get_child(50).queue_free()
+		var oldest := _log_box.get_child(_log_box.get_child_count() - 1)
+		_log_box.remove_child(oldest)
+		oldest.queue_free()
 
 
 func show_streak(count: int) -> void:
