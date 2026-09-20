@@ -1,148 +1,87 @@
 # Goblin Slayer 2048
 
-A tactical puzzle game based on 2048 mechanics with a Goblin Slayer theme. Combine goblins to eliminate them and become the ultimate goblin slayer!
+A tactical puzzle game based on 2048 mechanics with a Goblin Slayer theme.
+Combine goblins to slay them — now built with **Godot 4.7** for **iOS & Android** (iPhone 16 portrait layout, expandable to other screens).
 
-## 🎮 Play Now
+## 🎮 Game Features
 
-- **Web Version**: [Play on itch.io](YOUR_ITCH_LINK_HERE)
-- **Source Code**: This repository contains the full Vite + React version
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js 18+ 
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/YOUR_USERNAME/goblin-slayer-2048.git
-cd goblin-slayer-2048
-```
-
-2. Install dependencies:
-```bash
-npm install
-# or
-yarn install
-```
-
-3. Run the development server:
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-4. Open [http://localhost:9002](http://localhost:9002) in your browser
-
-### Build for Production
-
-```bash
-npm run build      # outputs a static site to dist/
-npm run preview    # preview the production build locally
-```
-
-### Deploying to itch.io
-
-The build is a fully static site (no server required), with relative asset
-paths so it works from itch.io's subdirectory hosting:
-
-```bash
-npm run build
-cd dist && zip -r ../goblin-swiper.zip . && cd ..
-```
-
-Then on itch.io: create a new project, set **Kind of project** to *HTML*,
-upload `goblin-swiper.zip`, check *This file will be played in the browser*,
-and set `index.html` as the entry point.
-
-## 🎯 Game Features
-
-- **Story Mode**: Create a Goblin(256) to win
-- **Endless Mode**: Survive infinite goblin waves
-- **Progression System**: Earn XP and unlock permanent upgrades
-- **Shop System**: Buy powerful items during runs
-- **Multilingual**: English and Spanish support
-- **Persistent Progress**: Your upgrades and XP are saved
+- **Story Mode**: create a Goblin(256) to win
+- **Endless Mode**: survive infinite goblin waves
+- **Combat layer**: merging damages goblins — kills earn score, gold & XP
+- **Horde attacks**: goblins strike back every N moves — watch the warning glow
+- **Shop**: mysterious shop tiles sell potions, torch, sword, shield, poison, rope & fire scroll
+- **Meta progression**: persistent XP buys 14 permanent upgrades
+- **Extras**: cosmetic rare goblin variants (31 skins), ultra-rare **Golden Goblin** (10× gold), kill-streak **MASSACRE** bonuses, haptics, particles, screen shake, danger vignette
+- **Leaderboard** (top-10 fastest story wins), **EN/ES** translations, music + generated chiptune SFX
 
 ## 🛠️ Tech Stack
 
-- **Build Tool**: Vite 5
-- **Library**: React 18
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **UI Components**: Radix UI
-- **State Management**: React Hooks
-- **Storage**: localStorage for persistence
+- **Engine**: Godot 4.7.1 (Compatibility/GLES3 renderer — required for wide iOS/Android support)
+- **Language**: GDScript (typed)
+- **Viewport**: 393×852 (iPhone 16 logical), `canvas_items` + `expand`, portrait
+- **Persistence**: `user://` ConfigFile (XP, upgrades, leaderboard, settings)
 
 ## 📁 Project Structure
 
 ```
-index.html              # App entry HTML
+project.godot              # 4.7 config: renderer, viewport, autoloads
+export_presets.cfg         # iOS + Android presets
 src/
-├── main.tsx            # React entry point
-├── App.tsx             # Main game logic
-├── index.css           # Global styles
-├── components/         # React components
-│   ├── game/          # Game-specific components
-│   ├── ui/            # Reusable UI components
-│   └── icons/         # Custom icons
-├── lib/               # Utility functions
-│   ├── utils.ts       # Common utilities
-│   └── translations.ts # Internationalization
-└── hooks/             # Custom React hooks
+  main.tscn / main.gd      # root scene: splash↔game swap, safe area, QA hooks
+  autoload/                # SignalBus, SaveManager (user:// saves), AudioManager
+  core/                    # pure logic: grid_engine, run_state, board_tile,
+                           #   goblin_db (balance tables), game_config
+  features/
+    board/                 # GameBoard (swipe/tap, event-driven anims) + TileView
+    hud/                   # stats panel, items bar, event log, streak banner
+    game/                  # GameScene orchestrator
+    menu/                  # SplashScreen (modes, meta, language, music)
+    shop/ upgrades/ gameover/ leaderboard/ howto/   # modals
+  fx/                      # particles, floating text, squash/shake helpers
+assets/
+  sprites/                 # goblins (8 tiers), variants (31), items
+  audio/                   # music (mp3) + sfx (generated wavs)
+  i18n/                    # translations.csv (en/es)
+tests/                     # headless engine tests
+tools/                     # generate_sfx.py, screenshot.sh
 ```
 
-## 🎮 How to Play
+## 🚀 Running
 
-1. **Basic Movement**: Swipe or use arrow keys to move goblins
-2. **Combining**: Merge two goblins of the same level to create a stronger one
-3. **Combat**: Combined goblins take damage - eliminate them strategically
-4. **Survival**: Manage your HP as goblin hordes attack every 15 moves
-5. **Progression**: Earn XP to unlock permanent upgrades
-6. **Shop**: Find mysterious shops during gameplay to buy powerful items
+Open the project in **Godot 4.7.1+** and press Play (F5). On desktop, swipes are
+emulated from mouse drags (`emulate_touch_from_mouse`).
 
-## 🔧 Development
+### Headless engine tests
 
+```bash
+godot --headless -s tests/test_grid_engine.gd   # 20 assertions on game rules
+```
 
+### Visual QA snapshots
 
-### Scripts
+```bash
+tools/screenshot.sh /tmp/shots   # boots the game, self-captures viewport PNGs
+```
 
-- `npm run dev` - Start the Vite development server
-- `npm run build` - Build the static site to `dist/`
-- `npm run preview` - Preview the production build locally
-- `npm run typecheck` - Run TypeScript type checking
+## 📱 Exporting
 
-## 🤝 Contributing
+Presets are configured in `export_presets.cfg` (portrait-locked, arm64,
+`com.covagashi.goblinslayer2048`):
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Commit your changes: `git commit -m 'Add amazing feature'`
-4. Push to the branch: `git push origin feature/amazing-feature`
-5. Open a Pull Request
+- **Android**: install export templates + Android SDK, then `Project → Export → Android`
+  (set your release keystore in the preset).
+- **iOS**: export from macOS with Xcode installed — `Project → Export → iOS`
+  (fill in your Team ID / provisioning profile).
+
+## 🎯 How to Play
+
+1. **Swipe** to slide goblins; equal levels merge.
+2. Merging **damages** the result — goblins ≥ Lv.8 always survive the first merge.
+3. Slain goblins drop gold, score & XP; kill streaks multiply gold.
+4. Every ~15 moves the horde attacks — manage your HP.
+5. Chests give gold (merge a goblin into them); shops appear every 5 levels.
+6. Spend gold on items mid-run and XP on permanent upgrades between runs.
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🎨 Credits
-
-- **Game Design**: Inspired by 2048 and Goblin Slayer
-- **Framework**: Built with Vite and React
-- **UI**: Powered by Tailwind CSS and Radix UI
-- **Icons**: Lucide React
-
-## 📞 Support
-
-If you encounter any issues or have questions:
-
-1. Check the [Issues](https://github.com/covagashi/goblin-slayer-2048/issues) page
-2. Create a new issue if your problem isn't already reported
-3. For general questions, feel free to start a discussion
-
----
-
-**Enjoy slaying goblins!** 🗡️👹
+MIT — see [LICENSE](LICENSE).

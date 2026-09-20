@@ -1,19 +1,32 @@
-# Dependencies
-node_modules/
+# Godot 4+ specific ignores
+.godot/
+/android/
+/export/
 
-# Build output
-dist/
+# Godot-specific ignores
+.import/
+export.cfg
+export_presets.cfg.bak
 
-# Logs
-*.log
-npm-debug.log*
+# Exported binaries
+exports/
+*.apk
+*.aab
+*.ipa
+*.pck
 
-# Editor / OS
+# Imported translations (generated)
+*.translation
+
+# Mono / tool
+.mono/
+data_*/
+.mono/
+
+# macOS / Windows junk
 .DS_Store
-.vscode/
-.idea/
+Thumbs.db
 
-# Env
-.env
-.env.local
-.env.*.local
+# IDE
+.idea/
+.vscode/

@@ -1,0 +1,157 @@
+[
+  {
+    "file": "variant_01_goblin.png",
+    "name": "Goblin",
+    "index": 1
+  },
+  {
+    "file": "variant_02_knight.png",
+    "name": "Knight",
+    "index": 2
+  },
+  {
+    "file": "variant_03_merchant.png",
+    "name": "Merchant",
+    "index": 3
+  },
+  {
+    "file": "variant_04_bard.png",
+    "name": "Bard",
+    "index": 4
+  },
+  {
+    "file": "variant_05_undead.png",
+    "name": "Undead",
+    "index": 5
+  },
+  {
+    "file": "variant_06_psycho.png",
+    "name": "Psycho",
+    "index": 6
+  },
+  {
+    "file": "variant_07_valkyrie.png",
+    "name": "Valkyrie",
+    "index": 7
+  },
+  {
+    "file": "variant_08_traveler.png",
+    "name": "Traveler",
+    "index": 8
+  },
+  {
+    "file": "variant_09_sneaky.png",
+    "name": "Sneaky",
+    "index": 9
+  },
+  {
+    "file": "variant_10_dangerous_looking.png",
+    "name": "Dangerous Looking",
+    "index": 10
+  },
+  {
+    "file": "variant_11_mechanical.png",
+    "name": "Mechanical",
+    "index": 11
+  },
+  {
+    "file": "variant_12_guard.png",
+    "name": "Guard",
+    "index": 12
+  },
+  {
+    "file": "variant_13_tiny.png",
+    "name": "Tiny",
+    "index": 13
+  },
+  {
+    "file": "variant_14_mystical.png",
+    "name": "Mystical",
+    "index": 14
+  },
+  {
+    "file": "variant_15_cosplay.png",
+    "name": "Cosplay",
+    "index": 15
+  },
+  {
+    "file": "variant_16_bandit.png",
+    "name": "Bandit",
+    "index": 16
+  },
+  {
+    "file": "variant_17_monstrous.png",
+    "name": "Monstrous",
+    "index": 17
+  },
+  {
+    "file": "variant_18_obsessed_with_fire.png",
+    "name": "Obsessed With Fire",
+    "index": 18
+  },
+  {
+    "file": "variant_19_barman.png",
+    "name": "Barman",
+    "index": 19
+  },
+  {
+    "file": "variant_20_cave_goblin.png",
+    "name": "Cave Goblin",
+    "index": 20
+  },
+  {
+    "file": "variant_21_werewolf.png",
+    "name": "Werewolf",
+    "index": 21
+  },
+  {
+    "file": "variant_22_mutant.png",
+    "name": "Mutant",
+    "index": 22
+  },
+  {
+    "file": "variant_23_post_apocalyptic.png",
+    "name": "Post Apocalyptic",
+    "index": 23
+  },
+  {
+    "file": "variant_24_dancer.png",
+    "name": "Dancer",
+    "index": 24
+  },
+  {
+    "file": "variant_25_dark_ritual.png",
+    "name": "Dark Ritual",
+    "index": 25
+  },
+  {
+    "file": "variant_26_gold_collector.png",
+    "name": "Gold Collector",
+    "index": 26
+  },
+  {
+    "file": "variant_27_houndmaster.png",
+    "name": "Houndmaster",
+    "index": 27
+  },
+  {
+    "file": "variant_28_posessed.png",
+    "name": "Posessed",
+    "index": 28
+  },
+  {
+    "file": "variant_29_fanart.png",
+    "name": "Fanart",
+    "index": 29
+  },
+  {
+    "file": "variant_30_oc_art.png",
+    "name": "OC Art",
+    "index": 30
+  },
+  {
+    "file": "variant_31_halloween.png",
+    "name": "Halloween",
+    "index": 31
+  }
+]

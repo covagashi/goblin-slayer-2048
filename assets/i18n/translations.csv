@@ -1,0 +1,176 @@
+keys,en,es
+splashTitle,Goblin Slayer 2048,Goblin Slayer 2048
+splashDescription,Combine goblins to eliminate them in this tactical puzzle game.,Combina goblins para eliminarlos en este juego de puzle táctico.
+storyMode,Story Mode,Modo Historia
+storyModeDesc,Create a Goblin(256) to win.,Crea un Goblin(256) para ganar.
+endlessMode,Endless Mode,Modo Infinito
+endlessModeDesc,Survive the endless goblin waves.,Sobrevive a las infinitas oleadas de goblins.
+howToPlay,How to Play,Cómo Jugar
+upgradesAndProgress,Upgrades & Progression,Mejoras y Progresión
+poweredBy,Powered by 2048 mechanics,Basado en la mecánica de 2048
+headerTitle,Goblin Swiper,Goblin Swiper
+headerSubtitle,Combine goblins to slay them.,Combina goblins para matarlos.
+newGame,New Game,Nuevo Juego
+openMenu,Open Menu,Abrir Menú
+score,Score,Puntuación
+gold,Gold,Oro
+level,Level,Nivel
+totalXp,Total XP,XP Total
+killsToLevel,kills to Lvl.,muertes para Nvl.
+movesUntilAttack,moves,movimientos
+itemsAndUpgrades,Items & Upgrades,Objetos y Mejoras
+combineDamageBonus,Combine Damage Bonus,Bonus de Daño por Combinar
+damageReduction,Damage Reduction,Reducción de Daño
+useRope,Use Rope,Usar Cuerda
+moveGoblin,Move a goblin to an empty space.,Mueve un goblin a un espacio vacío.
+use,Use,Usar
+active,Active,Activo
+inactive,Inactive,Inactivo
+showInactiveUpgrades,Show Inactive Upgrades,Mostrar Mejoras Inactivas
+victory,Victory!,¡Victoria!
+gameOver,Game Over,Fin del Juego
+finalScore,Your final score is,Tu puntuación final es
+runSummary,Run Summary,Resumen de la Partida
+time,Time,Tiempo
+goblinsSlain,Goblins Slain,Goblins Eliminados
+xpEarned,XP Earned,XP Ganada
+playAgain,Play Again,Jugar de Nuevo
+slayAgain,Slay Again,Matar de Nuevo
+leaderboardTitle,Story Mode Leaderboard,Clasificación Modo Historia
+leaderboardDesc,Top 10 fastest times to defeat the Goblin Lord.,Los 10 mejores tiempos para derrotar al Goblin Lord.
+rank,Rank,Rango
+date,Date,Fecha
+kills,Kills,Muertes
+noVictories,No victories yet. Be the first!,Aún no hay victorias. ¡Sé el primero!
+close,Close,Cerrar
+permUpgradesTitle,Permanent Upgrades,Mejoras Permanentes
+permUpgradesDesc,Spend your XP on permanent buffs.,Gasta tu XP en mejoras permanentes.
+totalXpLabel,Total XP:,XP Total:
+maxLevel,Max Level,Nivel Máx.
+shopTitle,Mysterious Shop,Tienda Misteriosa
+shopDesc,Spend your gold on powerful items.,Gasta tu oro en objetos poderosos.
+owned,Owned,Adquirido
+locked,Locked,Bloqueado
+noItemsAvailable,No items available this time.,No hay objetos disponibles esta vez.
+continueSlaying,Continue Slaying,Continuar Matando
+h2pTitle,How to Play,Cómo Jugar
+h2pDesc,A quick guide to becoming the best goblin slayer.,Una guía rápida para convertirte en el mejor cazador de goblins.
+h2pBasics,Basics,Básico
+h2pCombat,Combat,Combate
+h2pPowerups,Power-ups,Power-ups
+h2pProgression,Progression,Progresión
+h2pModes,Modes,Modos
+h2pGotIt,Got it!,¡Entendido!
+basicsL1,Swipe to combine goblins of the same number.,Desliza para combinar goblins del mismo número.
+basicsL2,Each combination damages the resulting goblin (e.g. Goblin(2) + Goblin(2) → Damaged Goblin(4)).,Cada combinación daña al goblin resultante (Ej: Goblin(2) + Goblin(2) → Goblin(4) dañado).
+basicsL3,"Defeat goblins to earn points, gold, and experience.","Elimina goblins para ganar puntos, oro y experiencia."
+basicsL4,"Be careful! If the board fills up and you can't move, you'll take damage.","¡Cuidado! Si el tablero se llena y no puedes mover, recibirás daño."
+combatTitle,Combat & Goblins,Combate y Goblins
+combatL1,Goblins attack every 15 moves. Manage your health ({hp} initial HP) to survive!,Los goblins atacan cada 15 movimientos. ¡Gestiona tu vida ({hp} HP inicial) para sobrevivir!
+combatL2,"Combine goblins to create stronger, more dangerous versions:",Combina goblins para crear versiones más fuertes y peligrosas:
+combatL3,"Each time you combine, the resulting goblin takes damage. Goblins level 8 or higher will always survive the initial combination.","Cada vez que combinas, el goblin resultante recibe daño. Los goblins de nivel 8 o más siempre sobrevivirán a la combinación inicial."
+powerupsTitle,Items & Power-ups,Objetos y Power-ups
+powerupsL1,Get them from the shop that appears on the board. Unlock them first in the permanent upgrades shop!,Consíguelos en la tienda que aparece en el tablero. ¡Desbloquéalos primero en la tienda de mejoras permanentes!
+progressionTitle,Progression & Upgrades,Progresión y Mejoras
+progressionL1,Gain Experience (XP) by defeating goblins.,Gana Experiencia (XP) al eliminar goblins.
+progressionL2,Use XP on the home screen to buy permanent upgrades that will help you in all your runs.,Usa la XP en la pantalla de inicio para comprar mejoras permanentes que te ayudarán en todas tus partidas.
+progressionL3,Unlock new and powerful items to appear in the in-game shop.,Desbloquea nuevos y poderosos objetos para que aparezcan en la tienda del juego.
+progressionL4,Every upgrade gets you closer to victory!,¡Cada mejora te acerca más a la victoria!
+modesTitle,Game Modes,Modos de Juego
+storyModeTitle,Story Mode,Modo Historia
+endlessModeTitle,Endless Mode,Modo Infinito
+healthPotion_name,Health Potion,Poción de Vida
+healthPotion_desc,+5 HP,+5 HP
+torch_name,Torch,Antorcha
+torch_desc,Reveals HP of goblins,Revela los HP de los goblins
+sword_name,Sword,Espada
+sword_desc,+1 damage on combines,+1 de daño en combos
+shield_name,Shield,Escudo
+shield_desc,Reduce damage taken by 1,Reduce el daño recibido en 1
+poison_name,Poison,Veneno
+poison_desc,Combos apply poison,Los combos aplican veneno
+rope_name,Rope,Cuerda
+rope_desc,Move a goblin freely (1 use),Mueve un goblin libremente (1 uso)
+fireScroll_name,Fire Scroll,Pergamino de Fuego
+fireScroll_desc,Combos cause splash damage,Los combos causan daño en área
+maxHp_name,Fortitude,Fortaleza
+maxHp_desc,Increases max player HP by +5.,Aumenta los HP máximos en +5.
+baseDamage_name,Sharpened Blade,Hoja Afilada
+baseDamage_desc,+1 base damage on combinations.,+1 de daño base en combinaciones.
+powerupFreq_name,Lucky Charm,Amuleto de la Suerte
+powerupFreq_desc,+15% chance for slain goblins to drop bonus gold.,+15% de probabilidad de que los goblins suelten oro extra.
+attackTimer_name,Vigilance,Vigilancia
+attackTimer_desc,+2 moves before horde attacks.,+2 movimientos antes del ataque de la horda.
+xpBonus_name,Wisdom,Sabiduría
+xpBonus_desc,Permanently gain +25% XP from kills.,Gana permanentemente +25% de XP.
+startGold_name,Deep Pockets,Bolsillos Profundos
+startGold_desc,Start runs with +100 gold.,Empieza las partidas con +100 de oro.
+overcrowdingResist_name,Thick Skin,Piel Gruesa
+overcrowdingResist_desc,Reduces damage from being crushed by 1.,Reduce el daño por aplastamiento en 1.
+unlockSword_name,Unlock: Sword,Desbloquear: Espada
+unlockSword_desc,Unlocks the Sword in the shop.,Desbloquea la Espada en la tienda.
+unlockTorch_name,Unlock: Torch,Desbloquear: Antorcha
+unlockTorch_desc,Unlocks the Torch in the shop.,Desbloquea la Antorcha en la tienda.
+unlockShield_name,Unlock: Shield,Desbloquear: Escudo
+unlockShield_desc,Unlocks the Shield in the shop.,Desbloquea el Escudo en la tienda.
+unlockHealthPotion_name,Unlock: Health Potion,Desbloquear: Poción
+unlockHealthPotion_desc,Unlocks the Health Potion in the shop.,Desbloquea la Poción de Vida en la tienda.
+unlockPoison_name,Unlock: Poison,Desbloquear: Veneno
+unlockPoison_desc,Unlocks Poison in the shop.,Desbloquea el Veneno en la tienda.
+unlockRope_name,Unlock: Rope,Desbloquear: Cuerda
+unlockRope_desc,Unlocks the Rope in the shop.,Desbloquea la Cuerda en la tienda.
+unlockFireScroll_name,Unlock: Fire Scroll,Desbloquear: Pergamino
+unlockFireScroll_desc,Unlocks the Fire Scroll in the shop.,Desbloquea el Pergamino de Fuego en la tienda.
+log_chest_appeared,A treasure chest appeared!,¡Apareció un cofre del tesoro!
+log_new_goblin,A new Lv.{value} goblin appeared.,Apareció un nuevo goblin de Nv.{value}.
+log_game_start,"Game started in {gameMode} mode. Good luck, slayer.","Juego iniciado en modo {gameMode}. ¡Buena suerte, cazador!"
+log_chest_opened,You opened a chest! +{gold} gold.,¡Abriste un cofre! +{gold} de oro.
+log_shop_appeared,A mysterious shop tile has appeared!,¡Ha aparecido una misteriosa tienda!
+log_no_room_for_shop,No room for a shop to appear!,¡No hay espacio para que aparezca una tienda!
+log_shop_disappeared,The shop disappeared before you could visit.,La tienda desapareció antes de que pudieras visitarla.
+log_goblin_combine_damage,Combined Lv.{value}s. It took {damage} damage.,Combinados Nv.{value}s. Recibió {damage} de daño.
+log_goblin_slain,"The Lv.{value} goblin was slain! +{score} score, +{gold} gold.","¡El goblin de Nv.{value} fue eliminado! +{score} puntos, +{gold} de oro."
+log_goblin_drop,A slain goblin dropped {gold} gold!,¡Un goblin eliminado dejó caer {gold} de oro!
+log_goblin_survived,A Lv.{value} goblin survived with {hp} HP.,Un goblin de Nv.{value} sobrevivió con {hp} HP.
+log_goblin_poisoned,The Lv.{value} goblin was poisoned!,¡El goblin de Nv.{value} fue envenenado!
+log_milestone,Milestone reached! Created Lv.{value} goblin! +{gold} Gold.,¡Hito alcanzado! ¡Creado goblin de Nv.{value}! +{gold} de oro.
+log_poison_damage,Lv.{value} goblin took 1 poison damage.,El goblin de Nv.{value} recibió 1 de daño por veneno.
+log_poison_death,Lv.{value} goblin succumbed to poison!,¡El goblin de Nv.{value} sucumbió al veneno!
+log_fire_scroll_trigger,Fire scroll triggers splash damage!,¡El pergamino de fuego activa daño en área!
+log_splash_damage,Lv.{value} goblin took 1 splash damage.,El goblin de Nv.{value} recibió 1 de daño en área.
+log_splash_death,Lv.{value} goblin burned to a crisp!,¡El goblin de Nv.{value} fue reducido a cenizas!
+log_overcrowding_damage,The horde is overwhelming! You take {damage} damage.,¡La horda es abrumadora! Recibes {damage} de daño.
+log_overcrowding_resist,Your resilience prevents overcrowding damage!,¡Tu resistencia previene el daño por aplastamiento!
+log_chest_vanished,A treasure chest vanished before you could open it.,Un cofre del tesoro desapareció antes de que pudieras abrirlo.
+log_level_up_combine,+{levels} level(s) for a Lv.{value} goblin!,¡+{levels} nivel(es) por un goblin de Nv.{value}!
+log_level_up_kills,+{levels} level(s) from slaying goblins!,¡+{levels} nivel(es) por eliminar goblins!
+log_horde_attack,The horde attacks! You take {damage} damage.,¡La horda ataca! Recibes {damage} de daño.
+log_horde_blocked,Your shield blocked all damage from the horde!,¡Tu escudo bloqueó todo el daño de la horda!
+log_rope_cancelled,Rope use cancelled.,Uso de cuerda cancelado.
+log_rope_activated,Rope mode activated. Select a goblin to move.,Modo cuerda activado. Selecciona un goblin para mover.
+log_rope_selected,Selected Lv.{value} goblin. Choose an empty spot.,Seleccionado goblin de Nv.{value}. Elige un espacio vacío.
+log_rope_used,Moved goblin with a rope.,Moviste un goblin con una cuerda.
+log_rope_cancelled_selection,Cancelled selection. Choose a goblin to move.,Selección cancelada. Elige un goblin para mover.
+log_enter_shop,You enter the shop...,Entras en la tienda...
+log_shop_purchase_leaves,The shopkeeper packs up and leaves after your purchase.,El tendero se va después de tu compra.
+log_leave_shop,You leave the shop... for now.,Sales de la tienda... por ahora.
+log_purchase,Purchased {item} for {cost} gold.,Compraste {item} por {cost} de oro.
+log_heal,You healed for {hp} HP.,Te curaste {hp} HP.
+log_perm_upgrade_purchased,Purchased upgrade: {name}!,¡Mejora comprada: {name}!
+reason_crushed,You were crushed by the overwhelming horde.,Fuiste aplastado por la horda abrumadora.
+reason_slain,You were slain by the goblins.,Fuiste asesinado por los goblins.
+reason_victory,You have created the Goblin Lord! Victory is yours.,¡Has creado al Señor de los Goblins! La victoria es tuya.
+toast_no_ropes,No ropes left!,¡No quedan cuerdas!
+toast_not_enough_gold,Not enough gold!,¡Oro insuficiente!
+toast_not_enough_gold_desc,You need {cost} gold to buy {item}.,Necesitas {cost} de oro para comprar {item}.
+toast_not_enough_xp,Not enough XP!,¡XP insuficiente!
+toast_max_level,Max level reached!,¡Nivel máximo alcanzado!
+toast_error_saving,Error Saving Progress,Error al Guardar el Progreso
+toast_upgrade_purchased,Upgrade Purchased!,¡Mejora Comprada!
+toast_upgrade_purchased_desc,You bought {name}.,Compraste {name}.
+streak_banner,MASSACRE ×{count}!,¡MASACRE ×{count}!
+log_golden_appeared,A GOLDEN goblin appeared! Slay it for 10x gold!,¡Apareció un goblin DORADO! ¡Elíminalo por 10x de oro!
+back_to_menu,Back to Menu,Volver al Menú
+menu_title,Menu,Menú
+music_on,Music: ON,Música: ON
+music_off,Music: OFF,Música: OFF

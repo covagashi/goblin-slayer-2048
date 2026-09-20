@@ -1,0 +1,157 @@
+class_name SplashScreen
+extends Control
+## Title screen: mode select, meta progression, settings.
+
+signal mode_selected(mode: StringName)
+
+
+func _ready() -> void:
+	_build()
+	AudioManager.play_music(&"menu")
+
+
+func _build() -> void:
+	for c in get_children():
+		c.queue_free()
+	var bg := ColorRect.new()
+	bg.color = Color(0.14, 0.12, 0.11)
+	bg.set_anchors_preset(PRESET_FULL_RECT)
+	bg.mouse_filter = MOUSE_FILTER_IGNORE
+	add_child(bg)
+
+	var outer := MarginContainer.new()
+	outer.set_anchors_preset(PRESET_FULL_RECT)
+	outer.add_theme_constant_override(&"margin_left", 16)
+	outer.add_theme_constant_override(&"margin_right", 16)
+	add_child(outer)
+
+	var center := CenterContainer.new()
+	outer.add_child(center)
+
+	var card := PanelContainer.new()
+	card.custom_minimum_size = Vector2(340, 0)
+	card.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	var vb := VBoxContainer.new()
+	vb.add_theme_constant_override(&"separation", 12)
+	card.add_child(vb)
+	center.add_child(card)
+
+	var icon := TextureRect.new()
+	icon.custom_minimum_size = Vector2(96, 96)
+	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icon.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	icon.texture = load("res://assets/sprites/goblins/goblin-256.png")
+	icon.size_flags_horizontal = SIZE_SHRINK_CENTER
+	vb.add_child(icon)
+
+	var title := Label.new()
+	title.text = tr(&"splashTitle")
+	title.add_theme_font_size_override(&"font_size", 26)
+	title.add_theme_color_override(&"font_color", Color(0.541, 0.0, 0.0))
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	vb.add_child(title)
+
+	var sub := Label.new()
+	sub.text = tr(&"splashDescription")
+	sub.theme_type_variation = &"MutedLabel"
+	sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	sub.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	vb.add_child(sub)
+
+	var story := Button.new()
+	story.theme_type_variation = &"GoldButton"
+	story.text = "⚔ " + tr(&"storyMode")
+	story.custom_minimum_size.y = 52
+	story.pressed.connect(func(): AudioManager.play_sfx(&"ui_click"); mode_selected.emit(&"story"))
+	vb.add_child(story)
+	var story_d := _mode_desc(tr(&"storyModeDesc"))
+	vb.add_child(story_d)
+
+	var endless := Button.new()
+	endless.text = "💀 " + tr(&"endlessMode")
+	endless.custom_minimum_size.y = 52
+	endless.pressed.connect(func(): AudioManager.play_sfx(&"ui_click"); mode_selected.emit(&"endless"))
+	vb.add_child(endless)
+	vb.add_child(_mode_desc(tr(&"endlessModeDesc")))
+
+	vb.add_child(HSeparator.new())
+
+	# Meta buttons — stacked full-width (long translated labels don't wrap in Buttons)
+	var meta := VBoxContainer.new()
+	meta.add_theme_constant_override(&"separation", 6)
+	vb.add_child(meta)
+	var up_btn := _meta_btn(meta, "✨ %s" % tr(&"upgradesAndProgress"))
+	up_btn.pressed.connect(func(): AudioManager.play_sfx(&"ui_click"); UpgradesPanel.new().open(self))
+	var lb_btn := _meta_btn(meta, "🏆 %s" % tr(&"leaderboardTitle"))
+	lb_btn.pressed.connect(func(): AudioManager.play_sfx(&"ui_click"); LeaderboardPanel.new().open(self))
+	var h2p_btn := _meta_btn(meta, "📖 %s" % tr(&"howToPlay"))
+	h2p_btn.pressed.connect(func(): AudioManager.play_sfx(&"ui_click"); HowToPanel.new().open(self))
+
+	vb.add_child(HSeparator.new())
+
+	# Settings row
+	var settings := HBoxContainer.new()
+	settings.alignment = BoxContainer.ALIGNMENT_CENTER
+	settings.add_theme_constant_override(&"separation", 12)
+	vb.add_child(settings)
+
+	var lang := Button.new()
+	lang.text = "🌐 " + (String(SaveManager.language).to_upper())
+	lang.custom_minimum_size = Vector2(80, 40)
+	lang.pressed.connect(func():
+		var nl := &"en" if SaveManager.language == &"es" else &"es"
+		SaveManager.language = nl
+		SaveManager.save()
+		TranslationServer.set_locale(String(nl))
+		SignalBus.language_changed.emit(nl)
+		AudioManager.play_sfx(&"ui_click")
+		_build()
+	)
+	settings.add_child(lang)
+
+	var music := Button.new()
+	music.text = "🔊" if SaveManager.music_enabled else "🔇"
+	music.custom_minimum_size = Vector2(56, 40)
+	music.pressed.connect(func():
+		SaveManager.music_enabled = not SaveManager.music_enabled
+		SaveManager.save()
+		SignalBus.music_toggled.emit(SaveManager.music_enabled)
+		music.text = "🔊" if SaveManager.music_enabled else "🔇"
+		AudioManager.play_sfx(&"ui_click")
+	)
+	settings.add_child(music)
+
+	var foot := Label.new()
+	foot.text = tr(&"poweredBy")
+	foot.theme_type_variation = &"MutedLabel"
+	foot.add_theme_font_size_override(&"font_size", 11)
+	foot.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	vb.add_child(foot)
+
+	# Entrance animation
+	card.modulate.a = 0.0
+	card.position.y += 24
+	var tw := card.create_tween().set_parallel(true)
+	tw.tween_property(card, "modulate:a", 1.0, 0.4)
+	tw.tween_property(card, "position:y", card.position.y - 24, 0.4).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+
+
+func _mode_desc(text: String) -> Label:
+	var l := Label.new()
+	l.text = text
+	l.theme_type_variation = &"MutedLabel"
+	l.add_theme_font_size_override(&"font_size", 12)
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	return l
+
+
+func _meta_btn(parent: Control, text: String) -> Button:
+	var b := Button.new()
+	b.text = text
+	b.add_theme_font_size_override(&"font_size", 12)
+	b.custom_minimum_size = Vector2(104, 44)
+	b.size_flags_horizontal = SIZE_EXPAND_FILL
+	parent.add_child(b)
+	return b
