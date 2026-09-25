@@ -13,15 +13,9 @@ func open(rs: RunState, parent: Node) -> void:
 	vb.add_theme_constant_override(&"separation", 10)
 	panel.add_child(vb)
 
-	var title := Label.new()
-	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title.add_theme_font_size_override(&"font_size", 30)
-	if rs.won:
-		title.text = "👑 " + tr(&"victory")
-		title.add_theme_color_override(&"font_color", Color(0.95, 0.75, 0.2))
-	else:
-		title.text = "💀 " + tr(&"gameOver")
-		title.add_theme_color_override(&"font_color", Color(0.85, 0.15, 0.15))
+	var title := PixelUI.heading(tr(&"victory") if rs.won else tr(&"gameOver"),
+		"crown" if rs.won else "skull", 30,
+		Color("f5c65a") if rs.won else Color("eb6650"))
 	vb.add_child(title)
 
 	var reason := Label.new()
@@ -41,10 +35,10 @@ func open(rs: RunState, parent: Node) -> void:
 	stitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	stitle.add_theme_color_override(&"font_color", Color(0.72, 0.53, 0.04))
 	sv.add_child(stitle)
-	sv.add_child(_stat_row("🏆", tr(&"finalScore"), str(rs.score)))
-	sv.add_child(_stat_row("⚔", tr(&"goblinsSlain"), str(rs.kills)))
-	sv.add_child(_stat_row("⏱", tr(&"time"), _fmt_time(rs.elapsed_seconds())))
-	sv.add_child(_stat_row("✨", tr(&"xpEarned"), str(rs.run_xp)))
+	sv.add_child(_stat_row("trophy", tr(&"finalScore"), str(rs.score)))
+	sv.add_child(_stat_row("sword", tr(&"goblinsSlain"), str(rs.kills)))
+	sv.add_child(_stat_row("clock", tr(&"time"), _fmt_time(rs.elapsed_seconds())))
+	sv.add_child(_stat_row("sparkle", tr(&"xpEarned"), str(rs.run_xp)))
 	vb.add_child(stats)
 
 	var again := Button.new()
@@ -66,8 +60,7 @@ func open(rs: RunState, parent: Node) -> void:
 
 func _stat_row(icon: String, label: String, value: String) -> Control:
 	var hb := HBoxContainer.new()
-	var i := Label.new()
-	i.text = icon
+	var i := PixelUI.icon(icon, 16)
 	hb.add_child(i)
 	var l := Label.new()
 	l.text = label

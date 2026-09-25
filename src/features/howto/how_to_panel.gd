@@ -25,14 +25,10 @@ func _build() -> void:
 	vb.add_theme_constant_override(&"separation", 8)
 	panel.add_child(vb)
 
-	var title := Label.new()
-	title.text = "📖 " + tr(&"h2pTitle")
-	title.add_theme_font_size_override(&"font_size", 20)
-	title.add_theme_color_override(&"font_color", Color(0.72, 0.53, 0.04))
-	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	vb.add_child(title)
+	vb.add_child(PixelUI.heading(tr(&"h2pTitle"), "book", 20))
 
 	var scroll := ScrollContainer.new()
+	PixelUI.style_scroll(scroll)
 	scroll.custom_minimum_size = Vector2(0, 480)
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	var list := VBoxContainer.new()

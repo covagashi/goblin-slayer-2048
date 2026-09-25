@@ -1,0 +1,2807 @@
+{
+  "version": 1,
+  "engine": "Godot 4.7",
+  "viewport": [
+    393,
+    852
+  ],
+  "texture_filter": "nearest",
+  "font": {
+    "path": "assets/fonts/VT323-Regular.ttf",
+    "license": "SIL OFL 1.1",
+    "license_file": "assets/fonts/OFL.txt",
+    "source": "https://github.com/google/fonts/tree/main/ofl/vt323"
+  },
+  "assets": [
+    {
+      "path": "assets/sprites/animated/goblin-128.png",
+      "family": "animated",
+      "size": [
+        192,
+        32
+      ],
+      "frames": 6,
+      "frame_size": [
+        32,
+        32
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "1237576c166fad44476c7530db8914c7ba015ca043a9228de567f20895130546"
+    },
+    {
+      "path": "assets/sprites/animated/goblin-16.png",
+      "family": "animated",
+      "size": [
+        192,
+        32
+      ],
+      "frames": 6,
+      "frame_size": [
+        32,
+        32
+      ],
+      "colors": 15,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "268968055e367a8d1c12292edc64991ac26c9df03892e77d59df7812fdbabbc9"
+    },
+    {
+      "path": "assets/sprites/animated/goblin-2.png",
+      "family": "animated",
+      "size": [
+        192,
+        32
+      ],
+      "frames": 6,
+      "frame_size": [
+        32,
+        32
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "0640cfb2f4f322b767dabbb57e37b45c24c19c9881fed1378c2316a5fb803c33"
+    },
+    {
+      "path": "assets/sprites/animated/goblin-256.png",
+      "family": "animated",
+      "size": [
+        192,
+        32
+      ],
+      "frames": 6,
+      "frame_size": [
+        32,
+        32
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "24304cd1148471419c0c0c43c5856689c5ed753b44e8c63074f9d88666c82e97"
+    },
+    {
+      "path": "assets/sprites/animated/goblin-32.png",
+      "family": "animated",
+      "size": [
+        192,
+        32
+      ],
+      "frames": 6,
+      "frame_size": [
+        32,
+        32
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "d8c99fd0a6af3a8aa62e6aa09f5a43e9047097870747f83f37aeee6c50c3c650"
+    },
+    {
+      "path": "assets/sprites/animated/goblin-4.png",
+      "family": "animated",
+      "size": [
+        192,
+        32
+      ],
+      "frames": 6,
+      "frame_size": [
+        32,
+        32
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "7b2896db336402f8c1f85e235e8c930c4999b557139c3172a9c2b56a0ea462a8"
+    },
+    {
+      "path": "assets/sprites/animated/goblin-64.png",
+      "family": "animated",
+      "size": [
+        192,
+        32
+      ],
+      "frames": 6,
+      "frame_size": [
+        32,
+        32
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "e4f0cdbfa404d99f6a0e9746c634e3779593f707266c469c5aa2d75de937fef5"
+    },
+    {
+      "path": "assets/sprites/animated/goblin-8.png",
+      "family": "animated",
+      "size": [
+        192,
+        32
+      ],
+      "frames": 6,
+      "frame_size": [
+        32,
+        32
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "f02ff4a39790bae18a0b2c4c38dc59edf217ff05c424606b1dcc5c27109a9221"
+    },
+    {
+      "path": "assets/sprites/animated/variant_01_goblin.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "d3b05c3476504e5f6480edae9aeddf372fa683e36288d4fc8610c5331221db44"
+    },
+    {
+      "path": "assets/sprites/animated/variant_02_knight.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "371d23974e82c8f10fb59376f780f4eeb792aeaf3a7c3ff0a8beac8eba13eb46"
+    },
+    {
+      "path": "assets/sprites/animated/variant_03_merchant.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "f3edcc2c3fb3beade479103a3daec01217e526e89c23fba3a52cd1f10af228d0"
+    },
+    {
+      "path": "assets/sprites/animated/variant_04_bard.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "5cb3f9f0cd13e47d5dad9acd3a5293dd815b627839417cd6a037c446c40cb342"
+    },
+    {
+      "path": "assets/sprites/animated/variant_05_undead.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "5b5b5e4a3df0926ed648be4397fe5a52a07f5c385844dbe6e69020a19c52307f"
+    },
+    {
+      "path": "assets/sprites/animated/variant_06_psycho.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "26079a6365ba6fdeeee8359164d8659eafae40b269ae5c64d14a50aef864dfbb"
+    },
+    {
+      "path": "assets/sprites/animated/variant_07_valkyrie.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "8837b1c4fac4ea942c61446358b9e29116275262291102005234875e2114144e"
+    },
+    {
+      "path": "assets/sprites/animated/variant_08_traveler.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "a2b774dd0f468eb130252dc0877538ae2f43fee939c59d64a9356fdb33886b94"
+    },
+    {
+      "path": "assets/sprites/animated/variant_09_sneaky.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "fb7ec609ca5afc784d39fe9ef72ab7e6c67a88987ac16d3b4f7fccf91756620d"
+    },
+    {
+      "path": "assets/sprites/animated/variant_10_dangerous_looking.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "73451da2463159e516ae53e389f3ae0db070f19a1956b73c0a874fbf6f299434"
+    },
+    {
+      "path": "assets/sprites/animated/variant_11_mechanical.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 15,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "e947f517724ce0f00011cd86a87806b7a4bfd9bcceed2618c589f22a5755d410"
+    },
+    {
+      "path": "assets/sprites/animated/variant_12_guard.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "0032c804932491123d463b3d3877712813e2c994e3bcd1904d11fd042949e362"
+    },
+    {
+      "path": "assets/sprites/animated/variant_13_tiny.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "74547b9ef707b5abf9ad5539eace87b9b31eede160859ad9bec22a44786b75c0"
+    },
+    {
+      "path": "assets/sprites/animated/variant_14_mystical.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "8097cd72c6ce54dd513260360947293373fa663303b6273ded366c18489d80b6"
+    },
+    {
+      "path": "assets/sprites/animated/variant_15_cosplay.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "4db7765c38fc433280d3dbcba5017feed4bba93ce83454a01d57eb9f5016f805"
+    },
+    {
+      "path": "assets/sprites/animated/variant_16_bandit.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "b6264b138b44f2c76a808f6ce06471696db7df87d7a8a42012ebe08b3b7a8549"
+    },
+    {
+      "path": "assets/sprites/animated/variant_17_monstrous.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "05e4d461560914c6627220e71e51cfc7466efb6138a4ff9f35e19ad34e09bae4"
+    },
+    {
+      "path": "assets/sprites/animated/variant_18_obsessed_with_fire.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "4766f079e63aca272d2abeed612661c2f8551b8028b7a78c548fd5247d207191"
+    },
+    {
+      "path": "assets/sprites/animated/variant_19_barman.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "21aecdbc4472c6369f33ff3aaaf5e9559236bd9e97f0d669e9ce1ae8f4bb37a3"
+    },
+    {
+      "path": "assets/sprites/animated/variant_20_cave_goblin.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "c39c405e4fc4fb22b59f691be3db5b963e8fb0ddbd3f1bd52b5643ef2a2397ef"
+    },
+    {
+      "path": "assets/sprites/animated/variant_21_werewolf.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "1d8df5a2c01f4b0f712b3c8f74b5d1ae440e1a5b5717a43a7c33eaf42d7942f3"
+    },
+    {
+      "path": "assets/sprites/animated/variant_22_mutant.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "d24b2a4854af6b039b5e29768a98eabacd6586db68a41f4fc479be687dfd021f"
+    },
+    {
+      "path": "assets/sprites/animated/variant_23_post_apocalyptic.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 15,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "34cb2fe3f1c490011ed69230bd746997933acf837e68f25163703b7be2b1227d"
+    },
+    {
+      "path": "assets/sprites/animated/variant_24_dancer.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "3c3f65cf841264d7f029262470ec74dc278c6cc23d56dc9a141965a3cbe9a41d"
+    },
+    {
+      "path": "assets/sprites/animated/variant_25_dark_ritual.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "3a882aeb65ab118fe481d7b525766f272149d5b08ccf616562b0e8b2e9e5ddb4"
+    },
+    {
+      "path": "assets/sprites/animated/variant_26_gold_collector.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "868f6e85b428960971014c681edf6cb182e4e71b06ebf1cf560a794f3e2c5695"
+    },
+    {
+      "path": "assets/sprites/animated/variant_27_houndmaster.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "154e59fce478f2fac72d7a021172665e7a61572cd655bc544c4a69403726c70c"
+    },
+    {
+      "path": "assets/sprites/animated/variant_28_posessed.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 15,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "b1506dc1f4a4227ff72417f7a75e04077195edacf8035246c7dfc32de2d03133"
+    },
+    {
+      "path": "assets/sprites/animated/variant_29_fanart.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "4a1d9abc3209d3834935eebc62a71c93a3d9b00d2919ffed3120916b18b5ed1f"
+    },
+    {
+      "path": "assets/sprites/animated/variant_30_oc_art.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "27e4bf6e2cfebe66fc7338866fcf5c3e20e58de7e02fa634a1bd6757112f2048"
+    },
+    {
+      "path": "assets/sprites/animated/variant_31_halloween.png",
+      "family": "animated",
+      "size": [
+        228,
+        38
+      ],
+      "frames": 6,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "98e31645a6d4f3498081878777ea2a04b3b254aa7095ab7b296e27d83d15c19c"
+    },
+    {
+      "path": "assets/sprites/app_icons/adaptive_background_432.png",
+      "family": "app_icons",
+      "size": [
+        432,
+        432
+      ],
+      "frames": 1,
+      "frame_size": [
+        432,
+        432
+      ],
+      "colors": 5,
+      "alpha": "binary",
+      "source": "tools/generate_app_icons.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "db46a76f77e1210b77641049885696f744974d0103aa525f4ee489fe074d1890"
+    },
+    {
+      "path": "assets/sprites/app_icons/adaptive_foreground_432.png",
+      "family": "app_icons",
+      "size": [
+        432,
+        432
+      ],
+      "frames": 1,
+      "frame_size": [
+        432,
+        432
+      ],
+      "colors": 15,
+      "alpha": "binary",
+      "source": "tools/generate_app_icons.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "48cd971435685b8f3745b851b47b45d7e34656ee307bd7396ff82f4ae430aa04"
+    },
+    {
+      "path": "assets/sprites/app_icons/icon_1024.png",
+      "family": "app_icons",
+      "size": [
+        1024,
+        1024
+      ],
+      "frames": 1,
+      "frame_size": [
+        1024,
+        1024
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_app_icons.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "c6b64c1b327c7c70b8073cb7ed0837d39dfbe9c65075c17d0d74045144935ec5"
+    },
+    {
+      "path": "assets/sprites/app_icons/icon_120.png",
+      "family": "app_icons",
+      "size": [
+        120,
+        120
+      ],
+      "frames": 1,
+      "frame_size": [
+        120,
+        120
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_app_icons.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "e932387da106fe1debbbfaf2371f5119d4697fb2678434a7aecb6907137db61d"
+    },
+    {
+      "path": "assets/sprites/app_icons/icon_152.png",
+      "family": "app_icons",
+      "size": [
+        152,
+        152
+      ],
+      "frames": 1,
+      "frame_size": [
+        152,
+        152
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_app_icons.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "254238839ab72b89b883eaa5382de318e6ebeec2888a8acc4c94d264a90e8534"
+    },
+    {
+      "path": "assets/sprites/app_icons/icon_167.png",
+      "family": "app_icons",
+      "size": [
+        167,
+        167
+      ],
+      "frames": 1,
+      "frame_size": [
+        167,
+        167
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_app_icons.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "91f95bc329c4d335c79586253c061eb0e0b5dcb4f05e751d6df8c7de04386b60"
+    },
+    {
+      "path": "assets/sprites/app_icons/icon_180.png",
+      "family": "app_icons",
+      "size": [
+        180,
+        180
+      ],
+      "frames": 1,
+      "frame_size": [
+        180,
+        180
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_app_icons.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "e62b698070d9db078bc8cf8c6fe99418515f987ae2739494d914c9284c0a640d"
+    },
+    {
+      "path": "assets/sprites/app_icons/icon_192.png",
+      "family": "app_icons",
+      "size": [
+        192,
+        192
+      ],
+      "frames": 1,
+      "frame_size": [
+        192,
+        192
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_app_icons.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "99a5b161b3cdac30b8bd393b2391ce0ea74855d1aa4f40a22f567b1bf58bc580"
+    },
+    {
+      "path": "assets/sprites/app_icons/icon_20.png",
+      "family": "app_icons",
+      "size": [
+        20,
+        20
+      ],
+      "frames": 1,
+      "frame_size": [
+        20,
+        20
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_app_icons.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "9fe86b0ea77f99251e4c43447166adf664ef0d9c821476877a3f885b7886b12b"
+    },
+    {
+      "path": "assets/sprites/app_icons/icon_256.png",
+      "family": "app_icons",
+      "size": [
+        256,
+        256
+      ],
+      "frames": 1,
+      "frame_size": [
+        256,
+        256
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_app_icons.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "d8c00c3ab0d1331af4b8968483c531ae00f7d10e72301897136837f3bf0e161c"
+    },
+    {
+      "path": "assets/sprites/app_icons/icon_40.png",
+      "family": "app_icons",
+      "size": [
+        40,
+        40
+      ],
+      "frames": 1,
+      "frame_size": [
+        40,
+        40
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_app_icons.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "fc961b93245291a740d09c7a36fa0e751be887182c25f51aae3831a990e8e370"
+    },
+    {
+      "path": "assets/sprites/app_icons/icon_432.png",
+      "family": "app_icons",
+      "size": [
+        432,
+        432
+      ],
+      "frames": 1,
+      "frame_size": [
+        432,
+        432
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_app_icons.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "8a4aa26c3b4087371def185453b67e0bbb8509f5f77cd481b6c03ff1e6664bda"
+    },
+    {
+      "path": "assets/sprites/app_icons/icon_58.png",
+      "family": "app_icons",
+      "size": [
+        58,
+        58
+      ],
+      "frames": 1,
+      "frame_size": [
+        58,
+        58
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_app_icons.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "fb9f8bc4471c44b5b6155a8645ad1c090cdd5a4654c274da62dea397275cc2aa"
+    },
+    {
+      "path": "assets/sprites/app_icons/icon_60.png",
+      "family": "app_icons",
+      "size": [
+        60,
+        60
+      ],
+      "frames": 1,
+      "frame_size": [
+        60,
+        60
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_app_icons.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "dc6eaf77586e9d79169181c59337b971c4eff63e88b7080ef095fa624078f870"
+    },
+    {
+      "path": "assets/sprites/app_icons/icon_76.png",
+      "family": "app_icons",
+      "size": [
+        76,
+        76
+      ],
+      "frames": 1,
+      "frame_size": [
+        76,
+        76
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_app_icons.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "d495b7cf656ab4a78f3def5e49cf5c56366112469fddf0c899ed1b4c623b9cbf"
+    },
+    {
+      "path": "assets/sprites/app_icons/icon_80.png",
+      "family": "app_icons",
+      "size": [
+        80,
+        80
+      ],
+      "frames": 1,
+      "frame_size": [
+        80,
+        80
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_app_icons.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "0b928e43a3a8e7f439f8b58bf6888240e7dbd5d06d4d591551759ae0e63ffe26"
+    },
+    {
+      "path": "assets/sprites/app_icons/icon_87.png",
+      "family": "app_icons",
+      "size": [
+        87,
+        87
+      ],
+      "frames": 1,
+      "frame_size": [
+        87,
+        87
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_app_icons.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "a626f67d0cecf8d1dedbfb43c559e46b1ef68d4532729e8358ad60719a3b511f"
+    },
+    {
+      "path": "assets/sprites/goblins/goblin-128.png",
+      "family": "goblins",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "frame_size": [
+        32,
+        32
+      ],
+      "colors": 11,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "18b86ea093c2627a83147f0927927bd6057cd71b0013a263f5455272664b9e01"
+    },
+    {
+      "path": "assets/sprites/goblins/goblin-16.png",
+      "family": "goblins",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "frame_size": [
+        32,
+        32
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "4c3c36b853b7565ea115b0284e8384fcf9778c98dfe2bea71940d88cab406843"
+    },
+    {
+      "path": "assets/sprites/goblins/goblin-2.png",
+      "family": "goblins",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "frame_size": [
+        32,
+        32
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "497e716f4913522b3de0474a4654cd55670d86256f86f4057c468f09b9c42afe"
+    },
+    {
+      "path": "assets/sprites/goblins/goblin-256.png",
+      "family": "goblins",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "frame_size": [
+        32,
+        32
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "f475bc13e1376ee4e7ec18b0d174f666e67e5f743ac9dea8a97785fab1907c8f"
+    },
+    {
+      "path": "assets/sprites/goblins/goblin-32.png",
+      "family": "goblins",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "frame_size": [
+        32,
+        32
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "76a57c6d46b8481fcf857a71081296adced09cd4885deeca9c3b1dd857266104"
+    },
+    {
+      "path": "assets/sprites/goblins/goblin-4.png",
+      "family": "goblins",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "frame_size": [
+        32,
+        32
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "92bc21e1f0fe3a0106d6939a5c384f8520c68c174d10f8b8f2782ee87ed844a4"
+    },
+    {
+      "path": "assets/sprites/goblins/goblin-64.png",
+      "family": "goblins",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "frame_size": [
+        32,
+        32
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "776c90a2437e5b2a6742700ebb794a0e43c5c06c490174e79f53dede7fd1349f"
+    },
+    {
+      "path": "assets/sprites/goblins/goblin-8.png",
+      "family": "goblins",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "frame_size": [
+        32,
+        32
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "c7a65cf97f72761c27b49b7df858f14b6b6905d7c109fe8cd4ea80d5d7063d54"
+    },
+    {
+      "path": "assets/sprites/items/item-fire-scroll.png",
+      "family": "items",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "frame_size": [
+        32,
+        32
+      ],
+      "colors": 7,
+      "alpha": "binary",
+      "source": "tools/generate_items.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "9ccef56c962302107b68b318989d8576a7444d9e3f4c57c91e526d31366a44ec"
+    },
+    {
+      "path": "assets/sprites/items/item-health-potion.png",
+      "family": "items",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "frame_size": [
+        32,
+        32
+      ],
+      "colors": 8,
+      "alpha": "binary",
+      "source": "tools/generate_items.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "7d6214c8e682a8a231a2ef95847a29613dbf2c54d1c49a557b64192a0d20528f"
+    },
+    {
+      "path": "assets/sprites/items/item-poison.png",
+      "family": "items",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "frame_size": [
+        32,
+        32
+      ],
+      "colors": 8,
+      "alpha": "binary",
+      "source": "tools/generate_items.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "8b1f8db61fe7bc4d84c1c24f95f2b820340f3cbb4b03c85e85858e8b1ae05033"
+    },
+    {
+      "path": "assets/sprites/items/item-rope.png",
+      "family": "items",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "frame_size": [
+        32,
+        32
+      ],
+      "colors": 5,
+      "alpha": "binary",
+      "source": "tools/generate_items.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "4a8b11ee867876c1b819e2d60b8fd508ce249e4b681c67cd893351f925797ef6"
+    },
+    {
+      "path": "assets/sprites/items/item-shield.png",
+      "family": "items",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "frame_size": [
+        32,
+        32
+      ],
+      "colors": 7,
+      "alpha": "binary",
+      "source": "tools/generate_items.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "3c901c7383699348ad9367c4f881f456a2ea0ae9aeea0707525e3cf8cffa247d"
+    },
+    {
+      "path": "assets/sprites/items/item-sword.png",
+      "family": "items",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "frame_size": [
+        32,
+        32
+      ],
+      "colors": 8,
+      "alpha": "binary",
+      "source": "tools/generate_items.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "4da85ab4aeede15715057160bdbd31b33bf0c20e3149aa94589e739be45c52c1"
+    },
+    {
+      "path": "assets/sprites/items/item-torch.png",
+      "family": "items",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "frame_size": [
+        32,
+        32
+      ],
+      "colors": 7,
+      "alpha": "binary",
+      "source": "tools/generate_items.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "46263a30f888e0c1dac624ab903c50a31b8c48c193a03758340d4677ce3969e4"
+    },
+    {
+      "path": "assets/sprites/ui/bar_empty.png",
+      "family": "ui",
+      "size": [
+        16,
+        8
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        8
+      ],
+      "colors": 3,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "450a53e4f3453ab7f5825d2f1d3436246c7ef420d5f751586a60af9a453ed430"
+    },
+    {
+      "path": "assets/sprites/ui/bar_hp.png",
+      "family": "ui",
+      "size": [
+        16,
+        8
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        8
+      ],
+      "colors": 3,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "8615af8f24d12c5bee382b20d5eaf56dd66511f216a72174d41f3af26f96e81e"
+    },
+    {
+      "path": "assets/sprites/ui/bolt.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 2,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "30660b58d1157810514b4829782b09cf1818369a9fc17b3add13af6e40737a34"
+    },
+    {
+      "path": "assets/sprites/ui/book.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 4,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "f22ccb69e953aebef547f366bc6d042387eca56bfa62d4510eecb9daf36d0653"
+    },
+    {
+      "path": "assets/sprites/ui/button.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 6,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "117a399da46d8488713baf5e4f8437acc750994cc674a0dc9e8663705d341d91"
+    },
+    {
+      "path": "assets/sprites/ui/button_disabled.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 6,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "ac717a6eb9bb4310e55c15a7715f10196a897c31a94e472a2f557c503763bac3"
+    },
+    {
+      "path": "assets/sprites/ui/button_hover.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 6,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "93334a576a2e2a09de613157f1b17669c1cc422804791ee0bdb76bfc55cefb72"
+    },
+    {
+      "path": "assets/sprites/ui/button_pressed.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 5,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "001e30d506b5c5b18fd8ce28014b531d8701de5ccaa7011643c1f831bacf6551"
+    },
+    {
+      "path": "assets/sprites/ui/cell.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 5,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "774fd495d77927d4f40a3ee8510ea96652a79a1ab4ba8786bea21933d00e1c12"
+    },
+    {
+      "path": "assets/sprites/ui/chest.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 6,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "e19f2e7ce513c9c1aad57effb463843a2ae870143f46a7c17cc2cabce6d80c05"
+    },
+    {
+      "path": "assets/sprites/ui/clock.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 3,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "00332e5f55ad96ea2d0187c32bf1160179b7153432b05e9bb9ec9d4a395ad500"
+    },
+    {
+      "path": "assets/sprites/ui/coin.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 4,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "1627ae845d8b16e879d8d7c50b0fcd65233c276788ed9c04fd58a1ea7ef5922c"
+    },
+    {
+      "path": "assets/sprites/ui/crown.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 4,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "2eca3f95dae181c1b5ab59552d0de4b28d867905d29d4a9d2162f0e0f450fdf1"
+    },
+    {
+      "path": "assets/sprites/ui/fire.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 3,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "6d6095e9da94dcc5b7140611ef86f5ab59fbab323da0bda91543f27faa4b7a32"
+    },
+    {
+      "path": "assets/sprites/ui/globe.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 2,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "711415b7c29ec70d2ab14822149a8f84ebd851dbed6e7f92a8dcb674a6d05dfc"
+    },
+    {
+      "path": "assets/sprites/ui/gold_button.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 6,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "5eb0c38370a4e09de329c0c50770c50c6c9ff10eba0263746af3655a69fb57c7"
+    },
+    {
+      "path": "assets/sprites/ui/gold_button_hover.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 5,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "c40d0f1ed850ef087c9ec7d280f335213b967c7804e2538eb3945900b49768fe"
+    },
+    {
+      "path": "assets/sprites/ui/gold_button_pressed.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 5,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "65b2523012de8beba6a8d003ced78e074ebcd91c212dea02ce2a05988e1718f7"
+    },
+    {
+      "path": "assets/sprites/ui/heart.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 4,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "51c6f434ef43d1df74df84072fdf1e8d0719d284e3f573de0f8028aabbc969a8"
+    },
+    {
+      "path": "assets/sprites/ui/inset.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 5,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "405717ecfd04893c8656fabda3d44bb7426bbc808ecbb93a13afe98598101d56"
+    },
+    {
+      "path": "assets/sprites/ui/menu.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 2,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "c88676fbb4b8b40e881cd4940b3cbef67133a4aa9c3b1a50f4c8194904461258"
+    },
+    {
+      "path": "assets/sprites/ui/mute.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 4,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "175a9a7c2fa94665091d627323e6451933cbe556ac6c45ba9bf459b42d946403"
+    },
+    {
+      "path": "assets/sprites/ui/panel.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 6,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "32aaccacd455e0108b724a34c5e90943d14108aaf3599fca29b52d8680e3377d"
+    },
+    {
+      "path": "assets/sprites/ui/particle_chunk.png",
+      "family": "ui",
+      "size": [
+        4,
+        4
+      ],
+      "frames": 1,
+      "frame_size": [
+        4,
+        4
+      ],
+      "colors": 2,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "4ef026d9da89bd92962d13d86a600e33cbaf6d3f3bc25e4364301148227eaa6c"
+    },
+    {
+      "path": "assets/sprites/ui/particle_ember.png",
+      "family": "ui",
+      "size": [
+        4,
+        4
+      ],
+      "frames": 1,
+      "frame_size": [
+        4,
+        4
+      ],
+      "colors": 2,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "df8447d324c7954d392554ed9ed8e6792d3d5498c36864f17b5065e915b6329b"
+    },
+    {
+      "path": "assets/sprites/ui/particle_poison.png",
+      "family": "ui",
+      "size": [
+        4,
+        4
+      ],
+      "frames": 1,
+      "frame_size": [
+        4,
+        4
+      ],
+      "colors": 2,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "58b6e5f295a13c997dc6b7e5464615a355524cba1362ec41623cb6f8794b6918"
+    },
+    {
+      "path": "assets/sprites/ui/particle_spark.png",
+      "family": "ui",
+      "size": [
+        4,
+        4
+      ],
+      "frames": 1,
+      "frame_size": [
+        4,
+        4
+      ],
+      "colors": 2,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "6ff100709af2cf194e6932a315758a5cdea7dc2324db2e3774e4b5cb1c1a13e0"
+    },
+    {
+      "path": "assets/sprites/ui/play.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 2,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "b3d311ec78351a8239fa4669f1e9ade23a97c0070d2d847bbb49c9e3ed64c538"
+    },
+    {
+      "path": "assets/sprites/ui/poison.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 3,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "f59add523b9cb9ca1c88fdb0a0a15eeffdcbed80dfddee38d30bc522c8ac3d71"
+    },
+    {
+      "path": "assets/sprites/ui/rope.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 4,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "2c3c9fc6a21ec4621ff12923d593e354f60e051e826e0ac35a746356c1c822e3"
+    },
+    {
+      "path": "assets/sprites/ui/scroll_thumb.png",
+      "family": "ui",
+      "size": [
+        8,
+        8
+      ],
+      "frames": 1,
+      "frame_size": [
+        8,
+        8
+      ],
+      "colors": 4,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "a8846f31cc1ce4a9616730a0d1b8ec2f9086edddb1916c6b5d86da0c0ea9d375"
+    },
+    {
+      "path": "assets/sprites/ui/scroll_thumb_hover.png",
+      "family": "ui",
+      "size": [
+        8,
+        8
+      ],
+      "frames": 1,
+      "frame_size": [
+        8,
+        8
+      ],
+      "colors": 4,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "257f24eef9c493ed1614b2f68adba5b88e2a99bd84bec9c1cb771e243308e570"
+    },
+    {
+      "path": "assets/sprites/ui/scroll_thumb_pressed.png",
+      "family": "ui",
+      "size": [
+        8,
+        8
+      ],
+      "frames": 1,
+      "frame_size": [
+        8,
+        8
+      ],
+      "colors": 4,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "f62986241f6738ff94f5d641035fce29cfa82394152c0010841d1164e4d1a21a"
+    },
+    {
+      "path": "assets/sprites/ui/scroll_track.png",
+      "family": "ui",
+      "size": [
+        8,
+        8
+      ],
+      "frames": 1,
+      "frame_size": [
+        8,
+        8
+      ],
+      "colors": 3,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "edddb3f4f7e311f35e8df5173dfd756087b60f4bb529d820e704cff7724ff492"
+    },
+    {
+      "path": "assets/sprites/ui/shield.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 5,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "756ca87e42f4df78f1d8780dc47cb2248f7260e51a5cc2350f8f0cfe3cde4180"
+    },
+    {
+      "path": "assets/sprites/ui/shop.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 6,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "0189399ff513a774c6fbfc8a17948dabe74e3fa0ffb0c6a163042433b89d3306"
+    },
+    {
+      "path": "assets/sprites/ui/skull.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 3,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "8a293b54498cf074149fadc73020e447d8e2858fdb8c678d9277eb67b80306c3"
+    },
+    {
+      "path": "assets/sprites/ui/sparkle.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 3,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "90ece8730771d8d54c91da524acfdeb7dc76cef51fceda1eb98290e4f9a23a15"
+    },
+    {
+      "path": "assets/sprites/ui/star.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 3,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "75d1183a97797c0cc6f5423be1217d29ca29c9a449c0bb6f4397a6b3fd421e29"
+    },
+    {
+      "path": "assets/sprites/ui/stone_floor.png",
+      "family": "ui",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "frame_size": [
+        32,
+        32
+      ],
+      "colors": 3,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "b57f246e8267277f8b5ef4b5eef6af24e11e35b18e875ada5641c65cecad49f7"
+    },
+    {
+      "path": "assets/sprites/ui/sword.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 5,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "42cf297cb9f66533b5a25244786dfd2a1cbdc0adfb20c9aabf440c0eda41ca0f"
+    },
+    {
+      "path": "assets/sprites/ui/target.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 3,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "6393be566719255849f02c21e163505357075be12bfda5029998a68bc66d8d9d"
+    },
+    {
+      "path": "assets/sprites/ui/tile.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 6,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "32aaccacd455e0108b724a34c5e90943d14108aaf3599fca29b52d8680e3377d"
+    },
+    {
+      "path": "assets/sprites/ui/tile_chest.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 6,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "bf2dde9f494449ed8bc3364f5707bf4d1da053b952dbb53606a03cb0043b2e69"
+    },
+    {
+      "path": "assets/sprites/ui/tile_gold.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 6,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "c2fc2fb9c199b28caba60741a783ac58ff04c9fd26e0b57f3a683bb3433db39f"
+    },
+    {
+      "path": "assets/sprites/ui/tile_shop.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 6,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "5d1a16d4061f08a3fcce1a4664aa82381d300d732abd54e65cddc22349e7324a"
+    },
+    {
+      "path": "assets/sprites/ui/trophy.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 3,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "7da980916e0a87799a0a2b624ddc8e683a0d8803fff0ef585ca9d748c159bc85"
+    },
+    {
+      "path": "assets/sprites/ui/volume.png",
+      "family": "ui",
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 3,
+      "alpha": "binary",
+      "source": "tools/generate_pixel_art.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "ea315d5e02fa330425af370968e9c2f2a14771ffec04b184fbb881ef52d6ddb0"
+    },
+    {
+      "path": "assets/sprites/variants/variant_01_goblin.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "620c17dae772123b59fb47704499a18b54cce1ddf0ff3f1e3348d65a6c693bd8"
+    },
+    {
+      "path": "assets/sprites/variants/variant_02_knight.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "de0e3a37b76c0ca850967e891a81dade314ac05bd610212a89ba5d450893f4cc"
+    },
+    {
+      "path": "assets/sprites/variants/variant_03_merchant.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "a2ed38ec216bceb034daef7ad7e4684303946c3e13182111e72f59c66fb746be"
+    },
+    {
+      "path": "assets/sprites/variants/variant_04_bard.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "64903222242a0f4ddf57feea864c2b018cd03bca141c66374b8b1a34ce574128"
+    },
+    {
+      "path": "assets/sprites/variants/variant_05_undead.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "0a6aa6e9b7a9d66a5468aef7d687dd48c54c127d0631ec77b4af829276fa4323"
+    },
+    {
+      "path": "assets/sprites/variants/variant_06_psycho.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "99ae01731dc11cec8e320d1df2691b85abc52f94e1c81235736b3b3e96d76ce9"
+    },
+    {
+      "path": "assets/sprites/variants/variant_07_valkyrie.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "15812fb199019c38e8f1c0687008258e2c5a94699e9d8b8b295be4255cb1cb1b"
+    },
+    {
+      "path": "assets/sprites/variants/variant_08_traveler.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "aaa401d5242946545cf758090f6c2a17aa987a1b5ca51131670b742ba869bf83"
+    },
+    {
+      "path": "assets/sprites/variants/variant_09_sneaky.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "ff2704d0c7066b9ca54b5f8db30e73e0418307fdf29372826ef4b494f9d06048"
+    },
+    {
+      "path": "assets/sprites/variants/variant_10_dangerous_looking.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "1732c0ecece9d7e586f1122eefe69d3c5d9d907917e2c2c63a2725f9f482dc94"
+    },
+    {
+      "path": "assets/sprites/variants/variant_11_mechanical.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 15,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "52c58537be6c4af5500fca1bc9888203347f5a3375e0f7a37578d6b312654da8"
+    },
+    {
+      "path": "assets/sprites/variants/variant_12_guard.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "1d684af6879f2c29c352fd0bac53a591c68ea3678eb731e63e18fb07f8681dc3"
+    },
+    {
+      "path": "assets/sprites/variants/variant_13_tiny.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "86cfd2f2138964c7d745b716bb2b747c8c1590fad1f24c07d07ffcab30ea2cac"
+    },
+    {
+      "path": "assets/sprites/variants/variant_14_mystical.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "cafd8522c601acfff27bbfb22c5daacf6ef997bf2c8e32e13e705bc127174e97"
+    },
+    {
+      "path": "assets/sprites/variants/variant_15_cosplay.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "288ed63a24b3b6f218d2d77f6249977cfc51744a97844ad9d57aa9d613903803"
+    },
+    {
+      "path": "assets/sprites/variants/variant_16_bandit.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "87919ff20212f55bf3c60bca08c0602f6959ededb002ec5c8b032e8ca09d44db"
+    },
+    {
+      "path": "assets/sprites/variants/variant_17_monstrous.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "514ab300ac2968d7cbc08deedb359ce002b247629b98be7b17e304a0c3092b44"
+    },
+    {
+      "path": "assets/sprites/variants/variant_18_obsessed_with_fire.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "bebed048bf2cc0728c2ea4318221b455c68ba1b4756d6cae8ab9d71617104ad1"
+    },
+    {
+      "path": "assets/sprites/variants/variant_19_barman.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "0e3ce778e8f484eef3731bc98523721ecb18d336afd71503e0a462c2d9db4e74"
+    },
+    {
+      "path": "assets/sprites/variants/variant_20_cave_goblin.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "c6fd8ede8eb9f0b7a446976b0818fb5eb5717ecf777717440e0195f2802f8667"
+    },
+    {
+      "path": "assets/sprites/variants/variant_21_werewolf.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "6bb1b3f098425d3683297b90a4808666940e49c6281d2f26971904ba6eb01535"
+    },
+    {
+      "path": "assets/sprites/variants/variant_22_mutant.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "eb7deac665f20386d60e670d284033ef3cb24876971e558b62ee4283e5ed6cb5"
+    },
+    {
+      "path": "assets/sprites/variants/variant_23_post_apocalyptic.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 15,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "626827f1fd91a7c67d83aae14972a9d4bfb1ddd5f33a08282ba854a118241ba3"
+    },
+    {
+      "path": "assets/sprites/variants/variant_24_dancer.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "858209d0379361eeb5fb086d3d779d929962099a494bd168b30bcdb8dbaa014e"
+    },
+    {
+      "path": "assets/sprites/variants/variant_25_dark_ritual.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "639c03666ebc1edd3698e53c0c3a1634e858546ba9fe903802441e88911e092d"
+    },
+    {
+      "path": "assets/sprites/variants/variant_26_gold_collector.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "59b7752a26e0a162f147c1ab59f6e5551ad8d59a78e448bc0588390d4c808c7a"
+    },
+    {
+      "path": "assets/sprites/variants/variant_27_houndmaster.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 12,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "77b040c905d0edabaf1425aaf98e5fab01f50c7a937d153d8c8c0ea45c47ab89"
+    },
+    {
+      "path": "assets/sprites/variants/variant_28_posessed.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "16493dff1987f8f2330f0daa6a71b1c8cacc82d0eefacf4f25cd5170b0a857e8"
+    },
+    {
+      "path": "assets/sprites/variants/variant_29_fanart.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "3940ea442082d550c48a393b1a4d7cffc68c4a325ff16835dff000a2411b8a56"
+    },
+    {
+      "path": "assets/sprites/variants/variant_30_oc_art.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 13,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "b63c24e2af815fd749d5b3241b768b7b155c1bdc15fc7f24c049957c0109a4ae"
+    },
+    {
+      "path": "assets/sprites/variants/variant_31_halloween.png",
+      "family": "variants",
+      "size": [
+        38,
+        38
+      ],
+      "frames": 1,
+      "frame_size": [
+        38,
+        38
+      ],
+      "colors": 14,
+      "alpha": "binary",
+      "source": "tools/generate_goblins.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "1ae2663bd937f4a54b9817902e3a5fe4cabf440cf1463f0ad8e197202575fb9a"
+    },
+    {
+      "path": "assets/sprites/vfx/flame.png",
+      "family": "vfx",
+      "size": [
+        96,
+        16
+      ],
+      "frames": 6,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 5,
+      "alpha": "binary",
+      "source": "tools/generate_vfx.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "be8a1f7927389e1414fdb6dc3d4b3df714f729fb37d5cbac4fd97a05a4f7c44a"
+    },
+    {
+      "path": "assets/sprites/vfx/gold.png",
+      "family": "vfx",
+      "size": [
+        96,
+        16
+      ],
+      "frames": 6,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 4,
+      "alpha": "binary",
+      "source": "tools/generate_vfx.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "bf29d19b1ac37abb3e714fdb27f37eaeac5037411abaf0ac423d7b40e37f98b0"
+    },
+    {
+      "path": "assets/sprites/vfx/impact.png",
+      "family": "vfx",
+      "size": [
+        96,
+        16
+      ],
+      "frames": 6,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 4,
+      "alpha": "binary",
+      "source": "tools/generate_vfx.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "083d00387cba5793f31dd265e3f8f155634df323035f0464af22d1a899e07407"
+    },
+    {
+      "path": "assets/sprites/vfx/poison.png",
+      "family": "vfx",
+      "size": [
+        96,
+        16
+      ],
+      "frames": 6,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 3,
+      "alpha": "binary",
+      "source": "tools/generate_vfx.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "1e96210bd86dc16a4572b4c896c7d38cb2da70cc9b565ccc851052fec61866d3"
+    },
+    {
+      "path": "assets/sprites/vfx/slash.png",
+      "family": "vfx",
+      "size": [
+        96,
+        16
+      ],
+      "frames": 6,
+      "frame_size": [
+        16,
+        16
+      ],
+      "colors": 4,
+      "alpha": "binary",
+      "source": "tools/generate_vfx.py",
+      "rights": "project-authored Pillow art",
+      "sha256": "47265c124b9a72354696480d8c99ae393028d873446135cda7f8a9633b411952"
+    }
+  ]
+}

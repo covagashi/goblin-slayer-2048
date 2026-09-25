@@ -61,15 +61,10 @@ func _build() -> void:
 	vb.add_theme_constant_override(&"separation", 10)
 	panel.add_child(vb)
 
-	var title := Label.new()
-	title.text = "🏪 " + tr(&"shopTitle")
-	title.add_theme_font_size_override(&"font_size", 22)
-	title.add_theme_color_override(&"font_color", Color(0.62, 0.4, 0.9))
-	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	vb.add_child(title)
+	vb.add_child(PixelUI.heading(tr(&"shopTitle"), "shop", 22, Color("a17ac5")))
 
 	var desc := Label.new()
-	desc.text = tr(&"shopDesc") + "  🪙%d" % _rs.gold
+	desc.text = tr(&"shopDesc") + "  %d G" % _rs.gold
 	desc.theme_type_variation = &"MutedLabel"
 	desc.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vb.add_child(desc)
@@ -117,7 +112,7 @@ func _offer_row(it: Dictionary) -> Control:
 	var desc_l := Label.new()
 	desc_l.text = tr(StringName(String(it.id) + "_desc"))
 	desc_l.theme_type_variation = &"MutedLabel"
-	desc_l.add_theme_font_size_override(&"font_size", 12)
+	desc_l.add_theme_font_size_override(&"font_size", 14)
 	desc_l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	info.add_child(desc_l)
 	hb.add_child(info)
@@ -134,10 +129,12 @@ func _offer_row(it: Dictionary) -> Control:
 		buy.disabled = true
 		row.modulate = Color(1, 1, 1, 0.55)
 	elif _rs.gold < it.cost:
-		buy.text = "🪙%d" % it.cost
+		buy.text = str(it.cost)
+		PixelUI.button_icon(buy, "coin")
 		buy.disabled = true
 	else:
-		buy.text = "🪙%d" % it.cost
+		buy.text = str(it.cost)
+		PixelUI.button_icon(buy, "coin")
 		buy.pressed.connect(_buy.bind(it))
 	hb.add_child(buy)
 	return row

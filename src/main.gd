@@ -45,7 +45,7 @@ func _ready() -> void:
 		)
 	if qa.has(&"shot_lang_en"):
 		get_tree().create_timer(1.0).timeout.connect(func():
-			var b := _find_btn(_current, "🌐")
+			var b := _find_btn(_current, "LanguageButton")
 			if b:
 				b.pressed.emit()
 		)
@@ -78,7 +78,7 @@ func _ready() -> void:
 
 func _find_btn(n: Node, prefix: String) -> Button:
 	for c in n.get_children():
-		if c is Button and String(c.text).begins_with(prefix):
+		if c is Button and (String(c.text).begins_with(prefix) or String(c.name) == prefix):
 			return c
 		var r := _find_btn(c, prefix)
 		if r:
@@ -87,6 +87,7 @@ func _find_btn(n: Node, prefix: String) -> Button:
 
 
 func _save_shot(path: String) -> void:
+	DirAccess.make_dir_recursive_absolute(path.get_base_dir())
 	var img := get_viewport().get_texture().get_image()
 	var err := img.save_png(path)
 	if err != OK:

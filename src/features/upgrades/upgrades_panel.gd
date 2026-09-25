@@ -19,10 +19,11 @@ func _build() -> void:
 
 	var head := HBoxContainer.new()
 	var title := Label.new()
-	title.text = "✨ " + tr(&"permUpgradesTitle")
+	title.text = tr(&"permUpgradesTitle")
 	title.add_theme_font_size_override(&"font_size", 20)
-	title.add_theme_color_override(&"font_color", Color(0.72, 0.53, 0.04))
+	title.add_theme_color_override(&"font_color", Color("f5c65a"))
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	head.add_child(PixelUI.icon("sparkle", 20))
 	head.add_child(title)
 	var xp := Label.new()
 	xp.text = "%s %d" % [tr(&"totalXpLabel"), SaveManager.total_xp]
@@ -33,10 +34,11 @@ func _build() -> void:
 	var sub := Label.new()
 	sub.text = tr(&"permUpgradesDesc")
 	sub.theme_type_variation = &"MutedLabel"
-	sub.add_theme_font_size_override(&"font_size", 12)
+	sub.add_theme_font_size_override(&"font_size", 14)
 	vb.add_child(sub)
 
 	var scroll := ScrollContainer.new()
+	PixelUI.style_scroll(scroll)
 	scroll.custom_minimum_size = Vector2(0, 430)
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	var list := VBoxContainer.new()
@@ -74,14 +76,14 @@ func _upgrade_row(up: Dictionary) -> Control:
 	var desc_l := Label.new()
 	desc_l.text = tr(StringName(String(uid) + "_desc"))
 	desc_l.theme_type_variation = &"MutedLabel"
-	desc_l.add_theme_font_size_override(&"font_size", 11)
+	desc_l.add_theme_font_size_override(&"font_size", 14)
 	desc_l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	info.add_child(desc_l)
 	var lvl_l := Label.new()
 	var cur := SaveManager.upgrade_level(uid)
 	lvl_l.text = "Lv %d/%d" % [cur, up.max_level]
 	lvl_l.theme_type_variation = &"MutedLabel"
-	lvl_l.add_theme_font_size_override(&"font_size", 11)
+	lvl_l.add_theme_font_size_override(&"font_size", 14)
 	info.add_child(lvl_l)
 	hb.add_child(info)
 
@@ -91,10 +93,12 @@ func _upgrade_row(up: Dictionary) -> Control:
 		buy.text = tr(&"maxLevel")
 		buy.disabled = true
 	elif SaveManager.total_xp < up.cost:
-		buy.text = "✨%d" % up.cost
+		buy.text = str(up.cost)
+		PixelUI.button_icon(buy, "sparkle")
 		buy.disabled = true
 	else:
-		buy.text = "✨%d" % up.cost
+		buy.text = str(up.cost)
+		PixelUI.button_icon(buy, "sparkle")
 		buy.pressed.connect(_buy.bind(up))
 	hb.add_child(buy)
 	return row

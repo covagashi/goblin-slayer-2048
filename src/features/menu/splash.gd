@@ -13,11 +13,7 @@ func _ready() -> void:
 func _build() -> void:
 	for c in get_children():
 		c.queue_free()
-	var bg := ColorRect.new()
-	bg.color = Color(0.14, 0.12, 0.11)
-	bg.set_anchors_preset(PRESET_FULL_RECT)
-	bg.mouse_filter = MOUSE_FILTER_IGNORE
-	add_child(bg)
+	add_child(PixelUI.backdrop())
 
 	var outer := MarginContainer.new()
 	outer.set_anchors_preset(PRESET_FULL_RECT)
@@ -48,7 +44,7 @@ func _build() -> void:
 	var title := Label.new()
 	title.text = tr(&"splashTitle")
 	title.add_theme_font_size_override(&"font_size", 26)
-	title.add_theme_color_override(&"font_color", Color(0.541, 0.0, 0.0))
+	title.add_theme_color_override(&"font_color", Color("eb6650"))
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	vb.add_child(title)
@@ -63,8 +59,10 @@ func _build() -> void:
 	# Resume in-progress run (auto-saved after every move)
 	if SaveManager.has_saved_run():
 		var cont := Button.new()
+		cont.name = &"ContinueButton"
 		cont.theme_type_variation = &"GoldButton"
-		cont.text = "▶ " + tr(&"continueRun")
+		cont.text = tr(&"continueRun")
+		PixelUI.button_icon(cont, "play")
 		cont.custom_minimum_size.y = 52
 		cont.pressed.connect(func(): AudioManager.play_sfx(&"ui_click"); mode_selected.emit(&"continue"))
 		vb.add_child(cont)
@@ -72,7 +70,8 @@ func _build() -> void:
 
 	var story := Button.new()
 	story.theme_type_variation = &"GoldButton"
-	story.text = "⚔ " + tr(&"storyMode")
+	story.text = tr(&"storyMode")
+	PixelUI.button_icon(story, "sword")
 	story.custom_minimum_size.y = 52
 	story.pressed.connect(func(): AudioManager.play_sfx(&"ui_click"); mode_selected.emit(&"story"))
 	vb.add_child(story)
@@ -80,7 +79,8 @@ func _build() -> void:
 	vb.add_child(story_d)
 
 	var endless := Button.new()
-	endless.text = "💀 " + tr(&"endlessMode")
+	endless.text = tr(&"endlessMode")
+	PixelUI.button_icon(endless, "skull")
 	endless.custom_minimum_size.y = 52
 	endless.pressed.connect(func(): AudioManager.play_sfx(&"ui_click"); mode_selected.emit(&"endless"))
 	vb.add_child(endless)
@@ -92,11 +92,11 @@ func _build() -> void:
 	var meta := VBoxContainer.new()
 	meta.add_theme_constant_override(&"separation", 6)
 	vb.add_child(meta)
-	var up_btn := _meta_btn(meta, "✨ %s" % tr(&"upgradesAndProgress"))
+	var up_btn := _meta_btn(meta, tr(&"upgradesAndProgress"), "sparkle")
 	up_btn.pressed.connect(func(): AudioManager.play_sfx(&"ui_click"); UpgradesPanel.new().open(self))
-	var lb_btn := _meta_btn(meta, "🏆 %s" % tr(&"leaderboardTitle"))
+	var lb_btn := _meta_btn(meta, tr(&"leaderboardTitle"), "trophy")
 	lb_btn.pressed.connect(func(): AudioManager.play_sfx(&"ui_click"); LeaderboardPanel.new().open(self))
-	var h2p_btn := _meta_btn(meta, "📖 %s" % tr(&"howToPlay"))
+	var h2p_btn := _meta_btn(meta, tr(&"howToPlay"), "book")
 	h2p_btn.pressed.connect(func(): AudioManager.play_sfx(&"ui_click"); HowToPanel.new().open(self))
 
 	vb.add_child(HSeparator.new())
@@ -108,7 +108,9 @@ func _build() -> void:
 	vb.add_child(settings)
 
 	var lang := Button.new()
-	lang.text = "🌐 " + (String(SaveManager.language).to_upper())
+	lang.name = &"LanguageButton"
+	lang.text = String(SaveManager.language).to_upper()
+	PixelUI.button_icon(lang, "globe")
 	lang.custom_minimum_size = Vector2(80, 40)
 	lang.pressed.connect(func():
 		var nl := &"en" if SaveManager.language == &"es" else &"es"
@@ -122,13 +124,14 @@ func _build() -> void:
 	settings.add_child(lang)
 
 	var music := Button.new()
-	music.text = "🔊" if SaveManager.music_enabled else "🔇"
+	PixelUI.button_icon(music, "volume" if SaveManager.music_enabled else "mute")
+	music.tooltip_text = tr(&"music")
 	music.custom_minimum_size = Vector2(56, 40)
 	music.pressed.connect(func():
 		SaveManager.music_enabled = not SaveManager.music_enabled
 		SaveManager.save()
 		SignalBus.music_toggled.emit(SaveManager.music_enabled)
-		music.text = "🔊" if SaveManager.music_enabled else "🔇"
+		PixelUI.button_icon(music, "volume" if SaveManager.music_enabled else "mute")
 		AudioManager.play_sfx(&"ui_click")
 	)
 	settings.add_child(music)
@@ -136,7 +139,7 @@ func _build() -> void:
 	var foot := Label.new()
 	foot.text = tr(&"poweredBy")
 	foot.theme_type_variation = &"MutedLabel"
-	foot.add_theme_font_size_override(&"font_size", 11)
+	foot.add_theme_font_size_override(&"font_size", 13)
 	foot.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vb.add_child(foot)
 
@@ -152,15 +155,16 @@ func _mode_desc(text: String) -> Label:
 	var l := Label.new()
 	l.text = text
 	l.theme_type_variation = &"MutedLabel"
-	l.add_theme_font_size_override(&"font_size", 12)
+	l.add_theme_font_size_override(&"font_size", 14)
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	return l
 
 
-func _meta_btn(parent: Control, text: String) -> Button:
+func _meta_btn(parent: Control, text: String, icon_name: String) -> Button:
 	var b := Button.new()
 	b.text = text
-	b.add_theme_font_size_override(&"font_size", 12)
+	PixelUI.button_icon(b, icon_name)
+	b.add_theme_font_size_override(&"font_size", 16)
 	b.custom_minimum_size = Vector2(104, 44)
 	b.size_flags_horizontal = SIZE_EXPAND_FILL
 	parent.add_child(b)

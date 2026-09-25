@@ -3,7 +3,7 @@
 A tactical puzzle game based on 2048 mechanics with a Goblin Slayer theme.
 Combine goblins to slay them — now built with **Godot 4.7** for **iOS & Android** (iPhone 16 portrait layout, expandable to other screens).
 
-## 🎮 Game Features
+## Game Features
 
 - **Story Mode**: create a Goblin(256) to win
 - **Endless Mode**: survive infinite goblin waves
@@ -39,7 +39,8 @@ src/
     shop/ upgrades/ gameover/ leaderboard/ howto/   # modals
   fx/                      # particles, floating text, squash/shake helpers
 assets/
-  sprites/                 # goblins (8 tiers), variants (31), items
+  sprites/                 # pixel goblins (8 tiers), variants (31), items,
+                           # 39 idle strips, five VFX strips and pixel GUI
   audio/                   # music (mp3) + sfx (generated wavs)
   i18n/                    # translations.csv (en/es)
 tests/                     # headless engine tests

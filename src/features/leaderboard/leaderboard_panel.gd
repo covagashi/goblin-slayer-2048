@@ -17,17 +17,12 @@ func _build() -> void:
 	vb.add_theme_constant_override(&"separation", 8)
 	panel.add_child(vb)
 
-	var title := Label.new()
-	title.text = "🏆 " + tr(&"leaderboardTitle")
-	title.add_theme_font_size_override(&"font_size", 20)
-	title.add_theme_color_override(&"font_color", Color(0.72, 0.53, 0.04))
-	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	vb.add_child(title)
+	vb.add_child(PixelUI.heading(tr(&"leaderboardTitle"), "trophy", 20))
 
 	var desc := Label.new()
 	desc.text = tr(&"leaderboardDesc")
 	desc.theme_type_variation = &"MutedLabel"
-	desc.add_theme_font_size_override(&"font_size", 12)
+	desc.add_theme_font_size_override(&"font_size", 14)
 	desc.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vb.add_child(desc)
 
@@ -57,21 +52,23 @@ func _row(rank: int, e: Dictionary) -> Control:
 	row.theme_type_variation = &"InsetPanel"
 	var hb := HBoxContainer.new()
 	row.add_child(hb)
-	var medal := ["🥇", "🥈", "🥉"]
-	var r := Label.new()
-	r.text = medal[rank - 1] if rank <= 3 else "#%d" % rank
-	r.custom_minimum_size.x = 34
-	hb.add_child(r)
+	if rank <= 3:
+		hb.add_child(PixelUI.icon(["crown", "trophy", "star"][rank - 1], 24))
+	else:
+		var r := Label.new()
+		r.text = "#%d" % rank
+		r.custom_minimum_size.x = 34
+		hb.add_child(r)
 	var mid := VBoxContainer.new()
 	mid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var t := Label.new()
-	t.text = "%s  ·  🏆%d" % [_fmt_time(int(e.get("time", 0))), int(e.get("score", 0))]
+	t.text = "%s  ·  %d" % [_fmt_time(int(e.get("time", 0))), int(e.get("score", 0))]
 	t.add_theme_font_size_override(&"font_size", 14)
 	mid.add_child(t)
 	var d := Label.new()
-	d.text = "%s · %s %d · ✨%d" % [str(e.get("date", "")), tr(&"kills"), int(e.get("kills", 0)), int(e.get("xp", 0))]
+	d.text = "%s · %s %d · XP %d" % [str(e.get("date", "")), tr(&"kills"), int(e.get("kills", 0)), int(e.get("xp", 0))]
 	d.theme_type_variation = &"MutedLabel"
-	d.add_theme_font_size_override(&"font_size", 11)
+	d.add_theme_font_size_override(&"font_size", 14)
 	mid.add_child(d)
 	hb.add_child(mid)
 	return row

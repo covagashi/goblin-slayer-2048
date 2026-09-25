@@ -431,6 +431,56 @@ func _s_assets() -> void:
 		if load("res://assets/sprites/variants/" + f) == null:
 			bad += 1
 	_check(bad == 0, "assets: all variants load")
+	var items := DirAccess.get_files_at("res://assets/sprites/items")
+	var item_count := 0
+	bad = 0
+	for f in items:
+		if String(f).ends_with(".png"):
+			item_count += 1
+			var texture := load("res://assets/sprites/items/" + f) as Texture2D
+			if texture == null or texture.get_width() != 32 or texture.get_height() != 32:
+				bad += 1
+	_check(item_count == 7 and bad == 0, "assets: 7 pixel items load")
+	var ui := DirAccess.get_files_at("res://assets/sprites/ui")
+	var ui_count := 0
+	bad = 0
+	for f in ui:
+		if String(f).ends_with(".png"):
+			ui_count += 1
+			if load("res://assets/sprites/ui/" + f) == null:
+				bad += 1
+	_check(ui_count == 48 and bad == 0, "assets: 48 UI and particle textures load")
+	var animated := DirAccess.get_files_at("res://assets/sprites/animated")
+	var animated_count := 0
+	bad = 0
+	for f in animated:
+		if String(f).ends_with(".png"):
+			animated_count += 1
+			var texture := load("res://assets/sprites/animated/" + f) as Texture2D
+			if texture == null or texture.get_width() != (228 if String(f).begins_with("variant_") else 192):
+				bad += 1
+	_check(animated_count == 39 and bad == 0, "assets: 39 six-frame goblin sheets load")
+	var vfx := DirAccess.get_files_at("res://assets/sprites/vfx")
+	var vfx_count := 0
+	bad = 0
+	for f in vfx:
+		if String(f).ends_with(".png"):
+			vfx_count += 1
+			var texture := load("res://assets/sprites/vfx/" + f) as Texture2D
+			if texture == null or texture.get_width() != 96 or texture.get_height() != 16:
+				bad += 1
+	_check(vfx_count == 5 and bad == 0, "assets: 5 six-frame VFX sheets load")
+	var icons := DirAccess.get_files_at("res://assets/sprites/app_icons")
+	var icon_count := 0
+	bad = 0
+	for f in icons:
+		if String(f).ends_with(".png"):
+			icon_count += 1
+			var texture := load("res://assets/sprites/app_icons/" + f) as Texture2D
+			var size := int(String(f).get_basename().get_slice("_", String(f).get_basename().get_slice_count("_") - 1))
+			if texture == null or texture.get_width() != size or texture.get_height() != size:
+				bad += 1
+	_check(icon_count == 17 and bad == 0, "assets: 17 platform icon textures load at target sizes")
 	_check(load("res://assets/audio/music/menu-theme.mp3") != null, "assets: menu music loads")
 	_check(load("res://assets/audio/music/background-theme.mp3") != null, "assets: game music loads")
 
@@ -457,7 +507,7 @@ func _s_menu_cycle() -> void:
 
 func _find_button(n: Node, prefix: String) -> Button:
 	for c in n.get_children():
-		if c is Button and String(c.text).begins_with(prefix):
+		if c is Button and (String(c.text).begins_with(prefix) or String(c.name) == prefix):
 			return c
 		var r := _find_button(c, prefix)
 		if r:
@@ -472,7 +522,7 @@ func _s_lang() -> void:
 		tries -= 1
 	var s: Control = _main._current
 	_check(s is SplashScreen, "lang: splash is current")
-	var btn := _find_button(s, "🌐")
+	var btn := _find_button(s, "LanguageButton")
 	_check(btn != null, "lang: 🌐 button exists")
 	if btn == null:
 		return
@@ -483,7 +533,7 @@ func _s_lang() -> void:
 	_check(SaveManager.language != before, "lang: toggles %s -> %s" % [before, SaveManager.language])
 	_check(TranslationServer.get_locale().begins_with(String(SaveManager.language)),
 		"lang: locale applied (%s)" % TranslationServer.get_locale())
-	var btn2 := _find_button(_main._current, "🌐")
+	var btn2 := _find_button(_main._current, "LanguageButton")
 	_check(btn2 != null and btn2 != btn, "lang: splash rebuilt with new button")
 	if btn2:
 		_check(btn2.text.ends_with(String(SaveManager.language).to_upper()),
@@ -497,7 +547,7 @@ func _s_clicklang() -> void:
 		await get_tree().process_frame
 		tries -= 1
 	await get_tree().process_frame
-	var btn := _find_button(_main._current, "🌐")
+	var btn := _find_button(_main._current, "LanguageButton")
 	_check(btn != null, "clicklang: 🌐 button exists")
 	if btn == null:
 		return
@@ -605,7 +655,7 @@ func _s_continue() -> void:
 	while tries > 0 and not (_main._current is SplashScreen):
 		await get_tree().process_frame
 		tries -= 1
-	var btn := _find_button(_main._current, "▶")
+	var btn := _find_button(_main._current, "ContinueButton")
 	_check(btn != null, "continue: ▶ button shown on splash")
 	if btn == null:
 		return

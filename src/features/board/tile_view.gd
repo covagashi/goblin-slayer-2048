@@ -4,15 +4,18 @@ extends Control
 
 const GOBLIN_TEX := "res://assets/sprites/goblins/goblin-%d.png"
 const VARIANT_DIR := "res://assets/sprites/variants/"
+const ANIM_DIR := "res://assets/sprites/animated/"
 const TWEEN_SLIDE := 0.11
 
 var tile: BoardTile
 
 var _sprite: TextureRect
+var _idle_frames: Array[AtlasTexture] = []
+var _idle_frame := 0
 var _hp_bar: ColorRect
 var _hp_bg: ColorRect
-var _badge: Label
 var _border: Panel
+var _badge_icon: TextureRect
 
 
 func setup(t: BoardTile, cell_size: float) -> void:
@@ -35,29 +38,15 @@ func _ignore_mouse(n: Node) -> void:
 func _build() -> void:
 	_border = Panel.new()
 	_border.set_anchors_preset(PRESET_FULL_RECT)
-	var style := StyleBoxFlat.new()
-	style.corner_radius_top_left = 6
-	style.corner_radius_top_right = 6
-	style.corner_radius_bottom_right = 6
-	style.corner_radius_bottom_left = 6
+	var frame_name := "tile"
 	match tile.kind:
 		BoardTile.Kind.CHEST:
-			style.bg_color = Color(0.35, 0.24, 0.08)
-			style.border_color = Color(0.85, 0.65, 0.1)
+			frame_name = "tile_chest"
 		BoardTile.Kind.SHOP:
-			style.bg_color = Color(0.28, 0.14, 0.38)
-			style.border_color = Color(0.62, 0.4, 0.9)
-		_:
-			style.bg_color = Color(0.13, 0.11, 0.1)
-			style.border_color = Color(0.28, 0.24, 0.22)
+			frame_name = "tile_shop"
 	if tile.is_golden:
-		style.border_color = Color(1.0, 0.84, 0.0)
-		style.bg_color = Color(0.3, 0.24, 0.05)
-	style.border_width_left = 2
-	style.border_width_top = 2
-	style.border_width_right = 2
-	style.border_width_bottom = 2
-	_border.add_theme_stylebox_override(&"panel", style)
+		frame_name = "tile_gold"
+	_border.add_theme_stylebox_override(&"panel", PixelUI.frame(frame_name))
 	add_child(_border)
 
 	if tile.kind == BoardTile.Kind.GOBLIN:
@@ -69,6 +58,21 @@ func _build() -> void:
 		var path := VARIANT_DIR + tile.variant_file if tile.variant_file != "" else GOBLIN_TEX % tile.value
 		_sprite.texture = load(path)
 		add_child(_sprite)
+		var sheet_name := tile.variant_file if tile.variant_file != "" else "goblin-%d.png" % tile.value
+		var sheet := load(ANIM_DIR + sheet_name) as Texture2D
+		if sheet != null:
+			var frame_size := 38 if tile.variant_file != "" else 32
+			for index in 6:
+				var frame := AtlasTexture.new()
+				frame.atlas = sheet
+				frame.region = Rect2(index * frame_size, 0, frame_size, frame_size)
+				_idle_frames.append(frame)
+			_sprite.texture = _idle_frames[0]
+			var idle_timer := Timer.new()
+			idle_timer.wait_time = 0.19
+			idle_timer.autostart = true
+			idle_timer.timeout.connect(_advance_idle)
+			add_child(idle_timer)
 
 		# HP bar (torch reveals it)
 		_hp_bg = ColorRect.new()
@@ -92,19 +96,15 @@ func _build() -> void:
 		lvl.offset_bottom = -8
 		lvl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		lvl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		lvl.add_theme_font_size_override(&"font_size", 12)
+		lvl.add_theme_font_size_override(&"font_size", 14)
 		lvl.add_theme_constant_override(&"outline_size", 5)
 		lvl.add_theme_color_override(&"font_outline_color", Color(0, 0, 0, 0.9))
 		lvl.text = str(tile.value)
 		lvl.mouse_filter = MOUSE_FILTER_IGNORE
 		add_child(lvl)
 	else:
-		var icon := Label.new()
+		var icon := PixelUI.icon("chest" if tile.kind == BoardTile.Kind.CHEST else "shop", 36)
 		icon.set_anchors_preset(PRESET_FULL_RECT)
-		icon.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		icon.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		icon.add_theme_font_size_override(&"font_size", 30)
-		icon.text = "📦" if tile.kind == BoardTile.Kind.CHEST else "🏪"
 		add_child(icon)
 		# Lifetime countdown — expires in `turns_left` moves
 		var ttl := Label.new()
@@ -112,7 +112,7 @@ func _build() -> void:
 		ttl.offset_top = 2
 		ttl.offset_bottom = 18
 		ttl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		ttl.add_theme_font_size_override(&"font_size", 11)
+		ttl.add_theme_font_size_override(&"font_size", 13)
 		ttl.add_theme_constant_override(&"outline_size", 4)
 		ttl.add_theme_color_override(&"font_outline_color", Color(0, 0, 0, 0.9))
 		ttl.add_theme_color_override(&"font_color", Color(1.0, 0.85, 0.45))
@@ -120,16 +120,19 @@ func _build() -> void:
 		add_child(ttl)
 
 	# Poison / golden badge
-	_badge = Label.new()
-	_badge.set_anchors_preset(PRESET_TOP_RIGHT)
-	_badge.offset_left = -22
-	_badge.offset_top = 1
-	_badge.offset_right = -2
-	_badge.offset_bottom = 20
-	_badge.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_badge.add_theme_font_size_override(&"font_size", 13)
-	add_child(_badge)
+	_badge_icon = PixelUI.icon("sparkle", 16)
+	_badge_icon.set_anchors_preset(PRESET_TOP_RIGHT)
+	_badge_icon.offset_left = -20
+	_badge_icon.offset_top = 3
+	_badge_icon.offset_right = -4
+	_badge_icon.offset_bottom = 19
+	add_child(_badge_icon)
 	_update_badge()
+
+
+func _advance_idle() -> void:
+	_idle_frame = (_idle_frame + 1) % _idle_frames.size()
+	_sprite.texture = _idle_frames[_idle_frame]
 
 
 func _update_hp_bar() -> void:
@@ -162,14 +165,16 @@ func _update_badge() -> void:
 	if tile.kind != BoardTile.Kind.GOBLIN:
 		var ttl := get_node_or_null(^"TtlLabel") as Label
 		if ttl:
-			ttl.text = "⏳%d" % tile.turns_left
+			ttl.text = str(tile.turns_left)
 		return
 	if tile.poisoned > 0:
-		_badge.text = "🤢"
+		_badge_icon.texture = PixelUI.icon_texture("poison")
+		_badge_icon.visible = true
 	elif tile.is_golden:
-		_badge.text = "✨"
+		_badge_icon.texture = PixelUI.icon_texture("sparkle")
+		_badge_icon.visible = true
 	else:
-		_badge.text = ""
+		_badge_icon.visible = false
 
 
 func flash_damage() -> void:

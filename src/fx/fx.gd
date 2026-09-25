@@ -5,10 +5,47 @@ extends RefCounted
 
 const FLOAT_SEC := 0.8
 const POP_SEC := 0.18
+const VFX_DIR := "res://assets/sprites/vfx/"
 
 
-static func burst(parent: Node, pos: Vector2, color: Color, count := 12, spread := 60.0) -> void:
+static func play_sprite(parent: Node, pos: Vector2, name: String) -> void:
+	var sheet := load(VFX_DIR + name + ".png") as Texture2D
+	if sheet == null:
+		return
+	var frames: Array[AtlasTexture] = []
+	for index in 6:
+		var frame := AtlasTexture.new()
+		frame.atlas = sheet
+		frame.region = Rect2(index * 16, 0, 16, 16)
+		frames.append(frame)
+	var effect := TextureRect.new()
+	effect.texture = frames[0]
+	effect.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	effect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	effect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	effect.size = Vector2(32, 32)
+	effect.position = pos - Vector2(16, 16)
+	effect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	effect.z_index = 55
+	parent.add_child(effect)
+	var state := {"frame": 0}
+	var timer := Timer.new()
+	timer.wait_time = 0.07
+	timer.autostart = true
+	timer.timeout.connect(func():
+		state["frame"] = int(state["frame"]) + 1
+		if state["frame"] >= frames.size():
+			effect.queue_free()
+		else:
+			effect.texture = frames[state["frame"]]
+	)
+	effect.add_child(timer)
+
+
+static func burst(parent: Node, pos: Vector2, color: Color, count := 12, spread := 60.0, kind := "particle_spark") -> void:
 	var p := CPUParticles2D.new()
+	p.texture = PixelUI.icon_texture(kind)
+	p.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	p.one_shot = true
 	p.explosiveness = 0.9
 	p.amount = count
@@ -20,8 +57,8 @@ static func burst(parent: Node, pos: Vector2, color: Color, count := 12, spread 
 	p.initial_velocity_min = spread * 0.5
 	p.initial_velocity_max = spread
 	p.gravity = Vector2(0, 220)
-	p.scale_amount_min = 2.0
-	p.scale_amount_max = 4.5
+	p.scale_amount_min = 0.75
+	p.scale_amount_max = 1.5
 	p.color = color
 	p.position = pos
 	p.z_index = 50

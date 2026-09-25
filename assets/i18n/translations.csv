@@ -10,6 +10,7 @@ endlessModeDesc,Survive the endless goblin waves.,Sobrevive a las infinitas olea
 howToPlay,How to Play,Cómo Jugar
 upgradesAndProgress,Upgrades & Progression,Mejoras y Progresión
 poweredBy,Powered by 2048 mechanics,Basado en la mecánica de 2048
+music,Music,Música
 headerTitle,Goblin Slayer 2048,Goblin Slayer 2048
 headerSubtitle,Combine goblins to slay them.,Combina goblins para matarlos.
 newGame,New Game,Nuevo Juego
@@ -39,7 +40,7 @@ xpEarned,XP Earned,XP Ganada
 playAgain,Play Again,Jugar de Nuevo
 slayAgain,Slay Again,Matar de Nuevo
 leaderboardTitle,Story Mode Leaderboard,Clasificación Modo Historia
-leaderboardDesc,Top 10 fastest times to defeat the Goblin Lord.,Los 10 mejores tiempos para derrotar al Goblin Lord.
+leaderboardDesc,Top 10 fastest times to defeat the Goblin Lord.,Los 10 mejores tiempos para derrotar al Señor Goblin.
 rank,Rank,Rango
 date,Date,Fecha
 kills,Kills,Muertes
@@ -57,9 +58,9 @@ noItemsAvailable,No items available this time.,No hay objetos disponibles esta v
 continueSlaying,Continue Slaying,Continuar Matando
 h2pTitle,How to Play,Cómo Jugar
 h2pDesc,A quick guide to becoming the best goblin slayer.,Una guía rápida para convertirte en el mejor cazador de goblins.
-h2pBasics,Basics,Básico
+h2pBasics,Basics,Fundamentos
 h2pCombat,Combat,Combate
-h2pPowerups,Power-ups,Power-ups
+h2pPowerups,Power-ups,Objetos
 h2pProgression,Progression,Progresión
 h2pModes,Modes,Modos
 h2pGotIt,Got it!,¡Entendido!
@@ -71,9 +72,9 @@ combatTitle,Combat & Goblins,Combate y Goblins
 combatL1,Goblins attack every 15 moves. Manage your health ({hp} initial HP) to survive!,Los goblins atacan cada 15 movimientos. ¡Gestiona tu vida ({hp} HP inicial) para sobrevivir!
 combatL2,"Combine goblins to create stronger, more dangerous versions:",Combina goblins para crear versiones más fuertes y peligrosas:
 combatL3,"Each time you combine, the resulting goblin takes damage. Goblins level 8 or higher will always survive the initial combination.","Cada vez que combinas, el goblin resultante recibe daño. Los goblins de nivel 8 o más siempre sobrevivirán a la combinación inicial."
-powerupsTitle,Items & Power-ups,Objetos y Power-ups
+powerupsTitle,Items & Power-ups,Objetos y mejoras
 powerupsL1,Get them from the shop that appears on the board. Unlock them first in the permanent upgrades shop!,Consíguelos en la tienda que aparece en el tablero. ¡Desbloquéalos primero en la tienda de mejoras permanentes!
-powerupsL2,"Chests and shops expire — the ⏳ counter shows moves left. Tap a chest to smash it open!","Los cofres y tiendas caducan — el ⏳ muestra los movimientos restantes. ¡Toca un cofre para abrirlo!"
+powerupsL2,"Chests and shops expire — the number shows moves left. Tap a chest to smash it open!","Los cofres y tiendas caducan — el número indica los movimientos restantes. ¡Toca un cofre para abrirlo!"
 progressionTitle,Progression & Upgrades,Progresión y Mejoras
 progressionL1,Gain Experience (XP) by defeating goblins.,Gana Experiencia (XP) al eliminar goblins.
 progressionL2,Use XP on the home screen to buy permanent upgrades that will help you in all your runs.,Usa la XP en la pantalla de inicio para comprar mejoras permanentes que te ayudarán en todas tus partidas.
@@ -165,7 +166,7 @@ log_heal,You healed for {hp} HP.,Te curaste {hp} HP.
 log_perm_upgrade_purchased,Purchased upgrade: {name}!,¡Mejora comprada: {name}!
 reason_crushed,You were crushed by the overwhelming horde.,Fuiste aplastado por la horda abrumadora.
 reason_slain,You were slain by the goblins.,Fuiste asesinado por los goblins.
-reason_victory,You have created the Goblin Lord! Victory is yours.,¡Has creado al Señor de los Goblins! La victoria es tuya.
+reason_victory,You have created the Goblin Lord! Victory is yours.,¡Has creado al Señor Goblin! La victoria es tuya.
 toast_no_ropes,No ropes left!,¡No quedan cuerdas!
 toast_not_enough_gold,Not enough gold!,¡Oro insuficiente!
 toast_not_enough_gold_desc,You need {cost} gold to buy {item}.,Necesitas {cost} de oro para comprar {item}.

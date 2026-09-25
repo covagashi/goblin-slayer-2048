@@ -27,6 +27,8 @@ var _rope_btn: Button
 var _items_row: HBoxContainer
 var _dmg_badge: Label
 var _dr_badge: Label
+var _dmg_icon: TextureRect
+var _dr_icon: TextureRect
 var _log_box: VBoxContainer
 var _streak_banner: Label
 var board_slot: Control # GameScene inserts the GameBoard here (between items and log)
@@ -65,9 +67,7 @@ func _build() -> void:
 	# HP
 	var hp_row := HBoxContainer.new()
 	hp_row.add_theme_constant_override(&"separation", 8)
-	var heart := Label.new()
-	heart.text = "❤"
-	heart.add_theme_color_override(&"font_color", Color(0.85, 0.15, 0.15))
+	var heart := PixelUI.icon("heart", 18)
 	hp_row.add_child(heart)
 	_hp_bar = ProgressBar.new()
 	_hp_bar.size_flags_horizontal = SIZE_EXPAND_FILL
@@ -85,16 +85,16 @@ func _build() -> void:
 	grid.columns = 4
 	grid.add_theme_constant_override(&"h_separation", 6)
 	vb.add_child(grid)
-	_score = _stat_cell(grid, "🏆")
-	_gold = _stat_cell(grid, "🪙")
-	_level = _stat_cell(grid, "⭐")
-	_xp = _stat_cell(grid, "✨")
+	_score = _stat_cell(grid, "trophy")
+	_gold = _stat_cell(grid, "coin")
+	_level = _stat_cell(grid, "star")
+	_xp = _stat_cell(grid, "sparkle")
 	var grid2 := GridContainer.new()
 	grid2.columns = 2
 	grid2.add_theme_constant_override(&"h_separation", 6)
 	vb.add_child(grid2)
-	_kills_left = _stat_cell(grid2, "🎯", true)
-	_moves_left = _stat_cell(grid2, "⚡", true)
+	_kills_left = _stat_cell(grid2, "target", true)
+	_moves_left = _stat_cell(grid2, "bolt", true)
 
 	# streak banner
 	_streak_banner = Label.new()
@@ -113,10 +113,7 @@ func _build() -> void:
 	items_h.add_theme_constant_override(&"separation", 10)
 	items_panel.add_child(items_h)
 
-	var rope_lbl := Label.new()
-	rope_lbl.text = "🪢"
-	rope_lbl.add_theme_font_size_override(&"font_size", 20)
-	items_h.add_child(rope_lbl)
+	items_h.add_child(PixelUI.icon("rope", 20))
 	_rope_btn = Button.new()
 	_rope_btn.custom_minimum_size = Vector2(90, 44)
 	_rope_btn.pressed.connect(func(): rope_pressed.emit())
@@ -129,9 +126,13 @@ func _build() -> void:
 	_items_row.size_flags_horizontal = SIZE_EXPAND_FILL
 	items_h.add_child(_items_row)
 
+	_dmg_icon = PixelUI.icon("sword")
+	items_h.add_child(_dmg_icon)
 	_dmg_badge = Label.new()
 	_dmg_badge.add_theme_font_size_override(&"font_size", 13)
 	items_h.add_child(_dmg_badge)
+	_dr_icon = PixelUI.icon("shield")
+	items_h.add_child(_dr_icon)
 	_dr_badge = Label.new()
 	_dr_badge.add_theme_font_size_override(&"font_size", 13)
 	items_h.add_child(_dr_badge)
@@ -150,6 +151,7 @@ func _build() -> void:
 	log_panel.theme_type_variation = &"CardPanel"
 	log_panel.size_flags_vertical = SIZE_EXPAND_FILL
 	var scroll := ScrollContainer.new()
+	PixelUI.style_scroll(scroll)
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	_log_box = VBoxContainer.new()
 	_log_box.size_flags_horizontal = SIZE_EXPAND_FILL
@@ -167,9 +169,7 @@ func _stat_cell(parent: Control, icon: String, clip := false) -> Label:
 	var hb := HBoxContainer.new()
 	hb.alignment = BoxContainer.ALIGNMENT_CENTER
 	hb.add_theme_constant_override(&"separation", 4)
-	var i := Label.new()
-	i.text = icon
-	i.add_theme_font_size_override(&"font_size", 13)
+	var i := PixelUI.icon(icon, 16)
 	hb.add_child(i)
 	var l := Label.new()
 	l.add_theme_font_size_override(&"font_size", 14)
@@ -200,8 +200,10 @@ func refresh() -> void:
 	_kills_left.text = "%d %s" % [GameConfig.KILLS_PER_LEVEL - _rs.kills_since_level, tr(&"killsToLevel")]
 	_rope_btn.text = "%s (%d)" % [tr(&"use"), _rs.rope_count]
 	_rope_btn.disabled = _rs.rope_count <= 0
-	_dmg_badge.text = ("🗡+%d" % _rs.damage_bonus) if _rs.damage_bonus > 0 else ""
-	_dr_badge.text = ("🛡+%d" % _rs.damage_reduction) if _rs.damage_reduction > 0 else ""
+	_dmg_icon.visible = _rs.damage_bonus > 0
+	_dr_icon.visible = _rs.damage_reduction > 0
+	_dmg_badge.text = ("+%d" % _rs.damage_bonus) if _rs.damage_bonus > 0 else ""
+	_dr_badge.text = ("+%d" % _rs.damage_reduction) if _rs.damage_reduction > 0 else ""
 
 
 func _refresh_items() -> void:
@@ -246,7 +248,7 @@ func add_log(message: String, tone: StringName = &"info") -> void:
 	var l := Label.new()
 	l.text = message
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	l.add_theme_font_size_override(&"font_size", 12)
+	l.add_theme_font_size_override(&"font_size", 14)
 	l.add_theme_color_override(&"font_color", LOG_COLORS.get(tone, LOG_COLORS[&"info"]))
 	l.modulate.a = 0.0
 	_log_box.add_child(l)
@@ -261,7 +263,7 @@ func add_log(message: String, tone: StringName = &"info") -> void:
 
 
 func show_streak(count: int) -> void:
-	_streak_banner.text = "🔥 " + tr(&"streak_banner").format({"count": count})
+	_streak_banner.text = tr(&"streak_banner").format({"count": count})
 	_streak_banner.visible = true
 	_streak_banner.scale = Vector2.ZERO
 	_streak_banner.pivot_offset = _streak_banner.size / 2.0

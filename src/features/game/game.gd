@@ -38,11 +38,7 @@ func _ready() -> void:
 
 
 func _build_layout() -> void:
-	var bg := ColorRect.new()
-	bg.color = Color(0.14, 0.12, 0.11)
-	bg.set_anchors_preset(PRESET_FULL_RECT)
-	bg.mouse_filter = MOUSE_FILTER_IGNORE
-	add_child(bg)
+	add_child(PixelUI.backdrop())
 
 	var safe := MarginContainer.new()
 	safe.set_anchors_preset(PRESET_FULL_RECT)
@@ -62,21 +58,21 @@ func _build_layout() -> void:
 	var title := Label.new()
 	title.text = tr(&"headerTitle")
 	title.add_theme_font_size_override(&"font_size", 20)
-	title.add_theme_color_override(&"font_color", Color(0.541, 0.0, 0.0))
+	title.add_theme_color_override(&"font_color", Color("eb6650"))
 	title.size_flags_horizontal = SIZE_EXPAND_FILL
 	header.add_child(title)
 	var music := Button.new()
-	music.text = "🔊" if SaveManager.music_enabled else "🔇"
+	PixelUI.button_icon(music, "volume" if SaveManager.music_enabled else "mute")
 	music.custom_minimum_size = Vector2(44, 36)
 	music.pressed.connect(func():
 		SaveManager.music_enabled = not SaveManager.music_enabled
 		SaveManager.save()
 		SignalBus.music_toggled.emit(SaveManager.music_enabled)
-		music.text = "🔊" if SaveManager.music_enabled else "🔇"
+		PixelUI.button_icon(music, "volume" if SaveManager.music_enabled else "mute")
 	)
 	header.add_child(music)
 	var menu := Button.new()
-	menu.text = "☰"
+	PixelUI.button_icon(menu, "menu")
 	menu.custom_minimum_size = Vector2(44, 36)
 	menu.pressed.connect(func(): AudioManager.play_sfx(&"ui_click"); menu_requested.emit())
 	header.add_child(menu)
@@ -394,7 +390,7 @@ func _exit_rope() -> void:
 
 func _on_rope_button() -> void:
 	if _rs.rope_count <= 0:
-		_hud.add_log("🪢 " + tr(&"toast_no_ropes"))
+		_hud.add_log(tr(&"toast_no_ropes"))
 		return
 	if _board.rope_mode:
 		_exit_rope()

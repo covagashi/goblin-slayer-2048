@@ -37,10 +37,7 @@ func _ready() -> void:
 	add_child(bg)
 	for i in GameConfig.GRID_SIZE * GameConfig.GRID_SIZE:
 		var cell := Panel.new()
-		var st := StyleBoxFlat.new()
-		st.bg_color = Color(0.16, 0.14, 0.13)
-		st.set_corner_radius_all(6)
-		cell.add_theme_stylebox_override(&"panel", st)
+		cell.add_theme_stylebox_override(&"panel", PixelUI.frame("cell"))
 		cell.size_flags_horizontal = SIZE_EXPAND_FILL
 		cell.size_flags_vertical = SIZE_EXPAND_FILL
 		cell.mouse_filter = MOUSE_FILTER_IGNORE # decorative — board owns input
@@ -69,7 +66,6 @@ func _ready() -> void:
 	dst.bg_color = Color(0, 0, 0, 0)
 	dst.border_color = Color(0.85, 0.1, 0.1, 0.9)
 	dst.set_border_width_all(3)
-	dst.set_corner_radius_all(8)
 	_danger.add_theme_stylebox_override(&"panel", dst)
 	_danger.mouse_filter = MOUSE_FILTER_IGNORE
 	_danger.visible = false
@@ -270,7 +266,10 @@ func apply_events(events: Array, final_grid: Array) -> void:
 	for e in events:
 		match e.type:
 			&"merge":
-				_delayed(func(): Fx.burst(_fx_layer, cell_center(e.at.x, e.at.y), Color(1.0, 0.6, 0.15), 10), IMPACT_DELAY)
+				_delayed(func():
+					Fx.play_sprite(_fx_layer, cell_center(e.at.x, e.at.y), "impact")
+					Fx.burst(_fx_layer, cell_center(e.at.x, e.at.y), Color(1.0, 0.6, 0.15), 10, 60.0, "particle_spark")
+				, IMPACT_DELAY)
 			&"merge_result":
 				_delayed(func():
 					var v := _spawn_view(e.tile)
@@ -279,21 +278,28 @@ func apply_events(events: Array, final_grid: Array) -> void:
 			&"slain":
 				_delayed(func():
 					_kill_view_at(e.at)
-					Fx.burst(_fx_layer, cell_center(e.at.x, e.at.y), Color(0.8, 0.1, 0.1) if not e.get("fire") else Color(1.0, 0.45, 0.05), 14)
+					Fx.play_sprite(_fx_layer, cell_center(e.at.x, e.at.y), "flame" if e.get("fire") else "slash")
+					Fx.burst(_fx_layer, cell_center(e.at.x, e.at.y), Color(0.8, 0.1, 0.1) if not e.get("fire") else Color(1.0, 0.45, 0.05), 14, 60.0, "particle_ember" if e.get("fire") else "particle_chunk")
 					Fx.floating_text(_fx_layer, cell_center(e.at.x, e.at.y), "+%d" % e.gold, Color(0.95, 0.75, 0.2), 16)
 				, IMPACT_DELAY)
 			&"chest_opened":
 				_delayed(func():
-					Fx.burst(_fx_layer, cell_center(e.at.x, e.at.y), Color(0.95, 0.75, 0.2), 12)
+					Fx.play_sprite(_fx_layer, cell_center(e.at.x, e.at.y), "gold")
+					Fx.burst(_fx_layer, cell_center(e.at.x, e.at.y), Color(0.95, 0.75, 0.2), 12, 60.0, "particle_spark")
 					Fx.floating_text(_fx_layer, cell_center(e.at.x, e.at.y), "+%d" % int(e.get("gold", 0)), Color(0.95, 0.75, 0.2), 16)
 				, IMPACT_DELAY)
 			&"spawn":
 				_delayed(func(): _spawn_view(e.tile), SPAWN_DELAY)
 			&"golden_spawn":
-				_delayed(func(): Fx.burst(_fx_layer, cell_center(e.at.x, e.at.y), Color(1.0, 0.9, 0.3), 18, 90.0), SPAWN_DELAY)
+				_delayed(func():
+					Fx.play_sprite(_fx_layer, cell_center(e.at.x, e.at.y), "gold")
+					Fx.burst(_fx_layer, cell_center(e.at.x, e.at.y), Color(1.0, 0.9, 0.3), 18, 90.0, "particle_spark")
+				, SPAWN_DELAY)
 			&"poison_tick":
 				var v := _view_at(e.at)
 				if v:
+					Fx.play_sprite(_fx_layer, cell_center(e.at.x, e.at.y), "poison")
+					Fx.burst(_fx_layer, cell_center(e.at.x, e.at.y), Color(0.5, 0.85, 0.24), 6, 35.0, "particle_poison")
 					if e.died:
 						_delayed(func(): _kill_view_at(e.at), IMPACT_DELAY)
 					else:
@@ -306,7 +312,8 @@ func apply_events(events: Array, final_grid: Array) -> void:
 					v.refresh()
 			&"fire_trigger":
 				for mc in e.cells:
-					Fx.burst(_fx_layer, cell_center(mc.x, mc.y), Color(1.0, 0.45, 0.05), 16, 110.0)
+					Fx.play_sprite(_fx_layer, cell_center(mc.x, mc.y), "flame")
+					Fx.burst(_fx_layer, cell_center(mc.x, mc.y), Color(1.0, 0.45, 0.05), 16, 110.0, "particle_ember")
 			&"shop_removed", &"chest_vanished":
 				_delayed(func(): _kill_view_at(e.at), SPAWN_DELAY)
 			&"poisoned":
