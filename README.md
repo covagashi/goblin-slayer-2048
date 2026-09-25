@@ -95,6 +95,11 @@ Presets are configured in `export_presets.cfg` (portrait-locked, arm64,
 5. Chests give gold (merge a goblin into them); shops appear every 5 levels.
 6. Spend gold on items mid-run and XP on permanent upgrades between runs.
 
-## 📝 License
+## Artwork and license
 
-MIT — see [LICENSE](LICENSE).
+The goblin portraits, item sprites, UI art, animations, VFX, and app icons are
+original pixel art created for this project with Pillow. Their sources and
+technical details are in [assets/PIXEL_ART.md](assets/PIXEL_ART.md). The VT323
+font is licensed under SIL OFL 1.1; see [assets/fonts/OFL.txt](assets/fonts/OFL.txt).
+
+Project code is MIT licensed; see [LICENSE](LICENSE).
