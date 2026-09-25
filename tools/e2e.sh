@@ -9,7 +9,7 @@ SCENARIOS=(
   core merge_kill chest golden streak
   shop rope fire
   gameover victory endless overcrowding
-  upgrades leaderboard persistence assets i18n
+  upgrades leaderboard persistence assets safe_area i18n
   chaos chaos_endless menu_cycle
   lang clicklang swipe_input continue
 )

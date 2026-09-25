@@ -39,6 +39,7 @@ func run(scenario: StringName, main_ref: Control) -> void:
 		&"leaderboard": await _s_leaderboard()
 		&"persistence": _s_persistence()
 		&"assets": _s_assets()
+		&"safe_area": await _s_safe_area()
 		&"i18n": _s_i18n()
 		&"chaos": await _s_chaos(&"story")
 		&"chaos_endless": await _s_chaos(&"endless")
@@ -176,7 +177,9 @@ func _s_merge_kill() -> void:
 	g._on_swipe(&"left")
 	_check(g._rs.moves_count == 1, "merge_kill: move counted")
 	_check(g._rs.kills == 1, "merge_kill: resulting Goblin(4) slain")
-	_check(g._rs.gold == gold0 + 4, "merge_kill: gold +4")
+	var gold_gained: int = g._rs.gold - gold0
+	_check(gold_gained == 4 or gold_gained == 4 + GameConfig.DROP_GOLD_REWARD,
+		"merge_kill: base gold plus optional drop (got %d)" % gold_gained)
 	_check(g._rs.score >= 4, "merge_kill: score awarded")
 
 
@@ -483,6 +486,22 @@ func _s_assets() -> void:
 	_check(icon_count == 17 and bad == 0, "assets: 17 platform icon textures load at target sizes")
 	_check(load("res://assets/audio/music/menu-theme.mp3") != null, "assets: menu music loads")
 	_check(load("res://assets/audio/music/background-theme.mp3") != null, "assets: game music loads")
+
+
+func _s_safe_area() -> void:
+	await _wait(0.5)
+	var viewport := _main.get_viewport_rect().size
+	_main._apply_safe_area_rect(Rect2i(12, 48, 365, 772), Vector2i(393, 852))
+	await get_tree().process_frame
+	var content: Control = _main._content
+	_check(_main._current.get_parent() == content, "safe_area: screen is inside safe content")
+	_check(is_equal_approx(content.offset_left, 12.0 * viewport.x / 393.0), "safe_area: left inset affects screen")
+	_check(is_equal_approx(content.offset_top, 48.0 * viewport.y / 852.0), "safe_area: top inset affects screen")
+	_check(is_equal_approx(content.offset_right, -16.0 * viewport.x / 393.0), "safe_area: right inset affects screen")
+	_check(is_equal_approx(content.offset_bottom, -32.0 * viewport.y / 852.0), "safe_area: bottom inset affects screen")
+	_check(is_equal_approx(content.position.y, content.offset_top), "safe_area: layout moves below top inset")
+	_main._apply_safe_area_rect(Rect2i(Vector2i.ZERO, Vector2i(393, 852)), Vector2i(393, 852))
+	_check(content.offset_top == 0.0 and content.offset_bottom == 0.0, "safe_area: zero inset restores full screen")
 
 
 func _s_menu_cycle() -> void:

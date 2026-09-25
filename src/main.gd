@@ -3,12 +3,17 @@ extends Control
 
 var _current: Control
 var _fade: ColorRect
+var _content: Control
 
 
 func _ready() -> void:
 	set_anchors_preset(PRESET_FULL_RECT)
 	_fit_desktop_window()
+	_content = Control.new()
+	_content.set_anchors_preset(PRESET_FULL_RECT)
+	add_child(_content)
 	_apply_safe_area()
+	get_viewport().size_changed.connect(_apply_safe_area)
 
 	_fade = ColorRect.new()
 	_fade.color = Color.BLACK
@@ -110,18 +115,22 @@ func _fit_desktop_window() -> void:
 
 func _apply_safe_area() -> void:
 	# Notch / dynamic island / gesture bar margins (mobile)
+	if not OS.has_feature(&"mobile"):
+		return
 	var safe := DisplayServer.get_display_safe_area()
 	var win := DisplayServer.window_get_size()
-	if safe.size == Vector2i.ZERO:
+	_apply_safe_area_rect(safe, win)
+
+
+func _apply_safe_area_rect(safe: Rect2i, win: Vector2i) -> void:
+	if win.x <= 0 or win.y <= 0 or safe.size == Vector2i.ZERO:
 		return
-	var top := safe.position.y
-	var bottom := win.y - (safe.position.y + safe.size.y)
-	var left := safe.position.x
-	var right := win.x - (safe.position.x + safe.size.x)
-	add_theme_constant_override(&"margin_top", maxi(top, 0))
-	add_theme_constant_override(&"margin_bottom", maxi(bottom, 0))
-	add_theme_constant_override(&"margin_left", maxi(left, 0))
-	add_theme_constant_override(&"margin_right", maxi(right, 0))
+	# DisplayServer reports physical pixels; Control offsets use viewport units.
+	var factor := get_viewport_rect().size / Vector2(win)
+	_content.offset_left = maxf(safe.position.x, 0) * factor.x
+	_content.offset_top = maxf(safe.position.y, 0) * factor.y
+	_content.offset_right = -maxf(win.x - safe.end.x, 0) * factor.x
+	_content.offset_bottom = -maxf(win.y - safe.end.y, 0) * factor.y
 
 
 func _swap(next: Control) -> void:
@@ -134,8 +143,7 @@ func _swap(next: Control) -> void:
 			_current.queue_free()
 		_current = next
 		next.set_anchors_preset(PRESET_FULL_RECT)
-		add_child(next)
-		move_child(next, 0)
+		_content.add_child(next)
 	)
 	tw.tween_property(_fade, "modulate:a", 0.0, 0.25)
 

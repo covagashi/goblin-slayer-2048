@@ -55,17 +55,16 @@ emulated from mouse drags (`emulate_touch_from_mouse`).
 ### Headless engine tests
 
 ```bash
-godot --headless -s tests/test_grid_engine.gd   # 20 assertions on game rules
+godot --headless -s tests/test_grid_engine.gd   # 25 assertions on game rules
 ```
 
 ### Headless e2e scenarios
 
 ```bash
-tools/e2e.sh    # 20 scenarios driving the real UI (shop, rope, fire scroll,
+tools/e2e.sh    # 25 scenarios driving the real UI (shop, rope, fire scroll,
                 # game over + restart, victory + leaderboard, endless,
-                # overcrowding, upgrades, persistence, assets, i18n, menu cycle)
-                # + 2 chaos runs: 600 random played moves with ~19K invariant
-                # checks (board shape, tile ids, hp/gold sanity, HUD sync)
+                # overcrowding, upgrades, persistence, assets, safe area, i18n,
+                # menu cycle, and 2 chaos runs with random played moves)
 
 # extra chaos seeds: godot --headless -- qa=chaos seed=<n>
 ```
