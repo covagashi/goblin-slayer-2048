@@ -61,7 +61,7 @@ godot --headless -s tests/test_grid_engine.gd   # 25 assertions on game rules
 ### Headless e2e scenarios
 
 ```bash
-tools/e2e.sh    # 25 scenarios driving the real UI (shop, rope, fire scroll,
+tools/e2e.sh    # 26 scenarios driving the real UI (shop, rope, fire scroll,
                 # game over + restart, victory + leaderboard, endless,
                 # overcrowding, upgrades, persistence, assets, safe area, i18n,
                 # menu cycle, and 2 chaos runs with random played moves)
@@ -83,7 +83,7 @@ Presets are configured in `export_presets.cfg` (portrait-locked, arm64,
 - **Android**: install export templates + Android SDK, then `Project → Export → Android`
   (set your release keystore in the preset).
 - **iOS**: export from macOS with Xcode installed — `Project → Export → iOS`
-  (fill in your Team ID / provisioning profile).
+  (iOS 15+, fill in your Team ID / provisioning profile).
 
 ## 🎯 How to Play
 

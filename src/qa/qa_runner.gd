@@ -48,6 +48,7 @@ func run(scenario: StringName, main_ref: Control) -> void:
 		&"clicklang": await _s_clicklang()
 		&"swipe_input": await _s_swipe_input()
 		&"continue": await _s_continue()
+		&"continue_invalid": await _s_continue_invalid()
 		_:
 			printerr("[E2E] unknown scenario: %s" % scenario)
 			_fail += 1
@@ -500,6 +501,10 @@ func _s_safe_area() -> void:
 	_check(is_equal_approx(content.offset_right, -16.0 * viewport.x / 393.0), "safe_area: right inset affects screen")
 	_check(is_equal_approx(content.offset_bottom, -32.0 * viewport.y / 852.0), "safe_area: bottom inset affects screen")
 	_check(is_equal_approx(content.position.y, content.offset_top), "safe_area: layout moves below top inset")
+	_main._apply_safe_area_rect(Rect2i(0, 24, 360, 752), Vector2i(360, 800))
+	_check(is_equal_approx(content.offset_top, 24.0 * viewport.y / 800.0)
+		and is_equal_approx(content.offset_bottom, -24.0 * viewport.y / 800.0),
+		"safe_area: Android-sized display scales both insets")
 	_main._apply_safe_area_rect(Rect2i(Vector2i.ZERO, Vector2i(393, 852)), Vector2i(393, 852))
 	_check(content.offset_top == 0.0 and content.offset_bottom == 0.0, "safe_area: zero inset restores full screen")
 
@@ -700,6 +705,72 @@ func _s_continue() -> void:
 	g2._rs.over = true
 	g2._post_move()
 	_check(not SaveManager.has_saved_run(), "continue: snapshot cleared on game end")
+
+
+func _s_continue_invalid() -> void:
+	var g := await _start(&"story")
+	if g == null:
+		_check(false, "continue_invalid: game started")
+		return
+	_set_board(g, [_goblin(2, 0, 0), _goblin(4, 1, 1)])
+	SaveManager.save_run(g._grid, g._rs)
+	var valid := SaveManager.saved_run.duplicate(true)
+	_check(SaveManager.has_saved_run(), "continue_invalid: valid snapshot accepted")
+	var with_variant := valid.duplicate(true)
+	with_variant.tiles[0].variant = "variant_01_goblin.png"
+	SaveManager.saved_run = with_variant
+	_check(SaveManager.has_saved_run(), "continue_invalid: imported cosmetic sprite accepted")
+	var bad := valid.duplicate(true)
+	bad.tiles[0].row = -1
+	SaveManager.saved_run = bad
+	_check(not SaveManager.has_saved_run(), "continue_invalid: out-of-range row rejected")
+	bad = valid.duplicate(true)
+	bad.tiles.append(bad.tiles[0].duplicate())
+	SaveManager.saved_run = bad
+	_check(not SaveManager.has_saved_run(), "continue_invalid: duplicate cell rejected")
+	bad = valid.duplicate(true)
+	bad.tiles[0].kind = 99
+	SaveManager.saved_run = bad
+	_check(not SaveManager.has_saved_run(), "continue_invalid: unknown tile kind rejected")
+	bad = valid.duplicate(true)
+	bad.tiles[0].value = 3
+	SaveManager.saved_run = bad
+	_check(not SaveManager.has_saved_run(), "continue_invalid: unknown goblin rank rejected")
+	bad = valid.duplicate(true)
+	bad.tiles[0].hp = 0
+	SaveManager.saved_run = bad
+	_check(not SaveManager.has_saved_run(), "continue_invalid: dead goblin rejected")
+	bad = valid.duplicate(true)
+	bad.tiles = "broken"
+	SaveManager.saved_run = bad
+	_check(not SaveManager.has_saved_run(), "continue_invalid: invalid tile collection rejected")
+	bad = valid.duplicate(true)
+	bad.gold = -1
+	SaveManager.saved_run = bad
+	_check(not SaveManager.has_saved_run(), "continue_invalid: negative currency rejected")
+	bad = valid.duplicate(true)
+	bad.version = 99
+	SaveManager.saved_run = bad
+	_check(not SaveManager.has_saved_run(), "continue_invalid: unknown save version rejected")
+	bad = valid.duplicate(true)
+	bad.tiles[0].variant = "../ui/heart.png"
+	SaveManager.saved_run = bad
+	_check(not SaveManager.has_saved_run(), "continue_invalid: asset path traversal rejected")
+	_check(not SaveManager._valid_run_snapshot("broken"), "continue_invalid: non-dictionary payload rejected")
+	bad = valid.duplicate(true)
+	bad.tiles[0].row = GameConfig.GRID_SIZE
+	SaveManager.saved_run = bad
+	_main._on_mode_selected(&"continue")
+	var tries := 90
+	while tries > 0:
+		var current: Control = _main._current
+		if current is GameScene and current != g and current._board != null and current._board.get_parent() != null:
+			break
+		await get_tree().process_frame
+		tries -= 1
+	var resumed := _main._current as GameScene
+	_check(resumed != null and resumed != g and resumed._rs.score == 0 and _count_tiles(resumed._grid) >= 2,
+		"continue_invalid: direct Continue starts a fresh story run")
 
 
 func _s_i18n() -> void:

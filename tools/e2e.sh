@@ -11,7 +11,7 @@ SCENARIOS=(
   gameover victory endless overcrowding
   upgrades leaderboard persistence assets safe_area i18n
   chaos chaos_endless menu_cycle
-  lang clicklang swipe_input continue
+  lang clicklang swipe_input continue continue_invalid
 )
 
 fail=0

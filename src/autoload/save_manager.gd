@@ -7,6 +7,7 @@ const SECTION_META := "meta"
 const SECTION_SETTINGS := "settings"
 const SECTION_LEADERBOARD := "leaderboard"
 const SECTION_RUN := "run"
+const RUN_SAVE_VERSION := 1
 
 var _cfg := ConfigFile.new()
 
@@ -31,7 +32,14 @@ func load_all() -> void:
 	leaderboard = _cfg.get_value(SECTION_META, "leaderboard", [])
 	language = StringName(_cfg.get_value(SECTION_SETTINGS, "language", "es"))
 	music_enabled = bool(_cfg.get_value(SECTION_SETTINGS, "music_enabled", true))
-	saved_run = _cfg.get_value(SECTION_RUN, "data", {})
+	var loaded_run: Variant = _cfg.get_value(SECTION_RUN, "data", {})
+	if _valid_run_snapshot(loaded_run):
+		saved_run = loaded_run
+	else:
+		saved_run = {}
+		if loaded_run != {}:
+			_cfg.set_value(SECTION_RUN, "data", {})
+			_cfg.save(SAVE_PATH)
 
 
 func save() -> void:
@@ -60,7 +68,91 @@ func buy_upgrade(id: StringName, cost: int, max_level: int) -> bool:
 
 
 func has_saved_run() -> bool:
-	return not saved_run.is_empty() and not saved_run.get("tiles", []).is_empty()
+	return _valid_run_snapshot(saved_run)
+
+
+func _valid_run_snapshot(data: Variant) -> bool:
+	if not data is Dictionary:
+		return false
+	var run: Dictionary = data
+	var version: Variant = run.get("version", RUN_SAVE_VERSION)
+	if typeof(version) != TYPE_INT or version != RUN_SAVE_VERSION:
+		return false
+	var mode: Variant = run.get("mode", "story")
+	if not (mode is String or mode is StringName) or String(mode) not in ["story", "endless"]:
+		return false
+	for key in ["elapsed", "score", "gold", "moves", "kills", "kills_since", "run_xp", "streak", "dmg", "dr", "ropes"]:
+		if not _nonnegative_int(run.get(key, 0)):
+			return false
+	var level: Variant = run.get("level", 1)
+	var max_hp: Variant = run.get("max_hp", GameConfig.INITIAL_PLAYER_HP)
+	var hp: Variant = run.get("hp", max_hp)
+	if not _nonnegative_int(level) or level < 1:
+		return false
+	if not _nonnegative_int(max_hp) or max_hp < 1 or not _nonnegative_int(hp) or hp < 1 or hp > max_hp:
+		return false
+	for key in ["torch", "poison", "fire"]:
+		if typeof(run.get(key, false)) != TYPE_BOOL:
+			return false
+	var milestones: Variant = run.get("milestones", [])
+	if not milestones is Array:
+		return false
+	for milestone in milestones:
+		if not _nonnegative_int(milestone):
+			return false
+	var items: Variant = run.get("items", [])
+	if not items is Array:
+		return false
+	for item in items:
+		if not (item is String or item is StringName) or GoblinDB.item_by_id(StringName(item)).is_empty():
+			return false
+	var tiles: Variant = run.get("tiles", [])
+	if not tiles is Array or tiles.is_empty() or tiles.size() > GameConfig.GRID_SIZE * GameConfig.GRID_SIZE:
+		return false
+	var occupied := {}
+	for tile in tiles:
+		if not tile is Dictionary:
+			return false
+		for key in ["kind", "row", "col"]:
+			if typeof(tile.get(key)) != TYPE_INT:
+				return false
+		var kind: int = tile.kind
+		var row: int = tile.row
+		var col: int = tile.col
+		if kind < BoardTile.Kind.GOBLIN or kind > BoardTile.Kind.SHOP:
+			return false
+		if row < 0 or row >= GameConfig.GRID_SIZE or col < 0 or col >= GameConfig.GRID_SIZE:
+			return false
+		var cell := row * GameConfig.GRID_SIZE + col
+		if occupied.has(cell):
+			return false
+		occupied[cell] = true
+		for key in ["value", "hp", "max_hp", "poisoned", "turns"]:
+			if not _nonnegative_int(tile.get(key, 0)):
+				return false
+		if typeof(tile.get("golden", false)) != TYPE_BOOL:
+			return false
+		var variant: Variant = tile.get("variant", "")
+		if not variant is String:
+			return false
+		if variant != "" and (not variant.begins_with("variant_") or not variant.ends_with(".png")
+				or variant.get_file() != variant or not ResourceLoader.exists("res://assets/sprites/variants/" + variant, "Texture2D")):
+			return false
+		if kind == BoardTile.Kind.GOBLIN:
+			if not GoblinDB.STATS.has(tile.get("value", 0)):
+				return false
+			var goblin_max_hp: int = tile.get("max_hp", 1)
+			var goblin_hp: int = tile.get("hp", 1)
+			if goblin_max_hp < 1 or goblin_hp < 1 or goblin_hp > goblin_max_hp:
+				return false
+		else:
+			if tile.get("turns", 0) < 1:
+				return false
+	return true
+
+
+func _nonnegative_int(value: Variant) -> bool:
+	return typeof(value) == TYPE_INT and value >= 0
 
 
 ## Snapshot the whole run (grid + state) so it survives app restarts.
@@ -83,6 +175,7 @@ func save_run(grid: Array, rs: RunState) -> void:
 	for i in rs.purchased_items:
 		items.append(String(i))
 	saved_run = {
+		"version": RUN_SAVE_VERSION,
 		"mode": String(rs.mode), "elapsed": rs.elapsed_seconds(), "tiles": tiles,
 		"score": rs.score, "gold": rs.gold, "hp": rs.player_hp, "max_hp": rs.player_max_hp,
 		"moves": rs.moves_count, "level": rs.level, "kills": rs.kills,

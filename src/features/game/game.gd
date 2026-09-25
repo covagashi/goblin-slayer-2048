@@ -118,6 +118,11 @@ func _ready_run() -> void:
 
 ## Resume an in-progress run saved by SaveManager.save_run.
 func _ready_continue() -> void:
+	if not SaveManager.has_saved_run():
+		SaveManager.clear_run()
+		_mode = &"story"
+		_ready_run()
+		return
 	_upgrades = SaveManager.upgrades.duplicate()
 	var data: Dictionary = SaveManager.saved_run
 	_mode = StringName(data.get("mode", "story"))
