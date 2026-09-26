@@ -85,6 +85,21 @@ Presets are configured in `export_presets.cfg` (portrait-locked, arm64,
 - **iOS**: export from macOS with Xcode installed — `Project → Export → iOS`
   (iOS 15+, fill in your Team ID / provisioning profile).
 
+### Install a debug build on Android over USB
+
+Configure the Java and Android SDK paths in Godot's Editor Settings. The preset
+uses the editor's debug keystore; leave all three debug signing fields empty
+unless supplying a complete custom keystore configuration.
+
+Enable USB debugging on the phone and accept its authorization prompt, then run:
+
+```bash
+mkdir -p exports
+godot --headless --path . --export-debug Android exports/goblin-slayer-2048.apk
+adb -d install -r exports/goblin-slayer-2048.apk
+adb -d shell am start -W -n com.covagashi.goblinslayer2048/com.godot.game.GodotAppLauncher
+```
+
 ## 🎯 How to Play
 
 1. **Swipe** to slide goblins; equal levels merge.
