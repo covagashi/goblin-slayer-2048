@@ -19,10 +19,19 @@ func _build() -> void:
 	outer.set_anchors_preset(PRESET_FULL_RECT)
 	outer.add_theme_constant_override(&"margin_left", 16)
 	outer.add_theme_constant_override(&"margin_right", 16)
+	outer.add_theme_constant_override(&"margin_top", 12)
+	outer.add_theme_constant_override(&"margin_bottom", 12)
 	add_child(outer)
 
+	var scroll := ScrollContainer.new()
+	scroll.name = &"MenuScroll"
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	PixelUI.style_scroll(scroll)
+	outer.add_child(scroll)
 	var center := CenterContainer.new()
-	outer.add_child(center)
+	center.size_flags_horizontal = SIZE_EXPAND_FILL
+	center.size_flags_vertical = SIZE_EXPAND_FILL
+	scroll.add_child(center)
 
 	var card := PanelContainer.new()
 	card.custom_minimum_size = Vector2(340, 0)
@@ -136,12 +145,29 @@ func _build() -> void:
 	)
 	settings.add_child(music)
 
+	var links := HBoxContainer.new()
+	links.add_theme_constant_override(&"separation", 8)
+	for page in [&"about", &"privacy"]:
+		var link := Button.new()
+		link.name = String(page).capitalize() + "Button"
+		link.text = tr(page)
+		link.custom_minimum_size.y = 44
+		link.size_flags_horizontal = SIZE_EXPAND_FILL
+		PixelUI.button_icon(link, "book" if page == &"about" else "shield")
+		link.pressed.connect(func():
+			AudioManager.play_sfx(&"ui_click")
+			InfoPanel.new().open(page, self)
+		)
+		links.add_child(link)
+	vb.add_child(links)
+
 	var foot := Label.new()
 	foot.text = tr(&"poweredBy")
 	foot.theme_type_variation = &"MutedLabel"
 	foot.add_theme_font_size_override(&"font_size", 13)
 	foot.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vb.add_child(foot)
+	PixelUI.pass_scroll_gestures(center)
 
 	# Entrance animation
 	card.modulate.a = 0.0

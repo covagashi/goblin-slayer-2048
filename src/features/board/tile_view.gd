@@ -6,6 +6,11 @@ const GOBLIN_TEX := "res://assets/sprites/goblins/goblin-%d.png"
 const VARIANT_DIR := "res://assets/sprites/variants/"
 const ANIM_DIR := "res://assets/sprites/animated/"
 const TWEEN_SLIDE := 0.11
+const RANK_COLORS := {
+	2: Color("a1c958"), 4: Color("eb6650"), 8: Color("b0c0ba"),
+	16: Color("6cc3ce"), 32: Color("f18a57"), 64: Color("b997de"),
+	128: Color("eb6650"), 256: Color("f5c65a"),
+}
 
 var tile: BoardTile
 
@@ -52,6 +57,7 @@ func _build() -> void:
 	if tile.kind == BoardTile.Kind.GOBLIN:
 		_sprite = TextureRect.new()
 		_sprite.set_anchors_preset(PRESET_FULL_RECT)
+		_sprite.offset_bottom = -20
 		_sprite.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		_sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
@@ -77,11 +83,11 @@ func _build() -> void:
 		# HP bar (torch reveals it)
 		_hp_bg = ColorRect.new()
 		_hp_bg.color = Color(0, 0, 0, 0.55)
-		_hp_bg.set_anchors_preset(PRESET_BOTTOM_WIDE)
-		_hp_bg.offset_top = -7
+		_hp_bg.set_anchors_preset(PRESET_TOP_WIDE)
+		_hp_bg.offset_top = 3
 		_hp_bg.offset_left = 3
 		_hp_bg.offset_right = -3
-		_hp_bg.offset_bottom = -3
+		_hp_bg.offset_bottom = 7
 		_hp_bar = ColorRect.new()
 		_hp_bar.color = Color(0.85, 0.12, 0.12)
 		_hp_bar.set_anchors_preset(PRESET_FULL_RECT)
@@ -89,14 +95,25 @@ func _build() -> void:
 		add_child(_hp_bg)
 		_update_hp_bar()
 
-		# Level value — needed to tell tiers apart at a glance
+		# Opaque rank strip remains readable on every costume, including variants.
+		var rank_strip := ColorRect.new()
+		rank_strip.set_anchors_preset(PRESET_BOTTOM_WIDE)
+		rank_strip.offset_top = -21
+		rank_strip.color = Color("100e13")
+		add_child(rank_strip)
+		var rank_line := ColorRect.new()
+		rank_line.set_anchors_preset(PRESET_TOP_WIDE)
+		rank_line.offset_bottom = 2
+		rank_line.color = RANK_COLORS.get(tile.value, Color.WHITE)
+		rank_strip.add_child(rank_line)
 		var lvl := Label.new()
 		lvl.set_anchors_preset(PRESET_BOTTOM_WIDE)
-		lvl.offset_top = -19
-		lvl.offset_bottom = -8
+		lvl.offset_top = -21
+		lvl.offset_bottom = 0
 		lvl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		lvl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		lvl.add_theme_font_size_override(&"font_size", 14)
+		lvl.add_theme_font_size_override(&"font_size", 20)
+		lvl.add_theme_color_override(&"font_color", RANK_COLORS.get(tile.value, Color.WHITE))
 		lvl.add_theme_constant_override(&"outline_size", 5)
 		lvl.add_theme_color_override(&"font_outline_color", Color(0, 0, 0, 0.9))
 		lvl.text = str(tile.value)
@@ -105,7 +122,17 @@ func _build() -> void:
 	else:
 		var icon := PixelUI.icon("chest" if tile.kind == BoardTile.Kind.CHEST else "shop", 36)
 		icon.set_anchors_preset(PRESET_FULL_RECT)
+		icon.offset_top = 14
+		icon.offset_bottom = -18
 		add_child(icon)
+		var action := Label.new()
+		action.set_anchors_preset(PRESET_BOTTOM_WIDE)
+		action.offset_top = -20
+		action.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		action.text = tr(&"tapShop") if tile.kind == BoardTile.Kind.SHOP else tr(&"tapChest")
+		action.add_theme_font_size_override(&"font_size", 14)
+		action.add_theme_color_override(&"font_color", Color("ead6ac"))
+		add_child(action)
 		# Lifetime countdown — expires in `turns_left` moves
 		var ttl := Label.new()
 		ttl.set_anchors_preset(PRESET_TOP_WIDE)
@@ -163,6 +190,7 @@ func refresh() -> void:
 
 func _update_badge() -> void:
 	if tile.kind != BoardTile.Kind.GOBLIN:
+		_badge_icon.visible = false
 		var ttl := get_node_or_null(^"TtlLabel") as Label
 		if ttl:
 			ttl.text = str(tile.turns_left)

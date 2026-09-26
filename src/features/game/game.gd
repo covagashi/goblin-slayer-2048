@@ -16,6 +16,7 @@ var _hud: GameHud
 var _rope_selected := Vector2i(-1, -1)
 var _modal_open := false
 var _upgrades: Dictionary
+var _last_warning_move := -1
 
 
 func start(mode: StringName) -> void:
@@ -100,6 +101,7 @@ func _attach_board() -> void:
 
 
 func _ready_run() -> void:
+	_last_warning_move = -1
 	_upgrades = SaveManager.upgrades.duplicate()
 	_rs.reset(_mode, _upgrades)
 	_hud.bind(_rs, _upgrades)
@@ -112,7 +114,7 @@ func _ready_run() -> void:
 		_handle_event(e)
 	_board.set_torch_lit(false)
 	AudioManager.play_music(&"game")
-	SaveManager.save_run(_grid, _rs)
+	_post_move()
 	_qa_hooks()
 
 
@@ -216,6 +218,9 @@ func _post_move() -> void:
 	var mpa := GoblinDB.moves_per_attack(_rs.level, _rs.mode, _upgrades)
 	var left := mpa - (_rs.moves_count % mpa)
 	_board.set_danger(left <= GameConfig.HORDE_WARNING_MOVES)
+	if left <= GameConfig.HORDE_WARNING_MOVES and _last_warning_move != _rs.moves_count and not _rs.over:
+		_last_warning_move = _rs.moves_count
+		SignalBus.haptic.emit(0.35 if left > 1 else 0.65)
 	if _rs.torch_active:
 		_board.set_torch_lit(true)
 	# Run finished → nothing to resume; otherwise snapshot for Continue
@@ -357,7 +362,7 @@ func _on_cell_tapped(r: int, c: int) -> void:
 		_rs.add_log(tr(&"log_chest_opened").format({"gold": GameConfig.CHEST_GOLD_REWARD}), &"gold")
 		_board.apply_events([
 			{"type": &"chest_opened", "at": Vector2i(r, c), "gold": GameConfig.CHEST_GOLD_REWARD},
-			{"type": &"chest_vanished", "at": Vector2i(r, c)},
+			{"type": &"chest_vanished", "id": t.id, "at": Vector2i(r, c)},
 		], _grid)
 		AudioManager.play_sfx(&"coin")
 		SignalBus.haptic.emit(0.3)

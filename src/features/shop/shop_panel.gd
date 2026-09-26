@@ -38,11 +38,20 @@ func open(rs: RunState, upgrades: Dictionary, parent: Node) -> void:
 
 
 func _roll_offers() -> void:
-	# Show every item (like the web version): locked ones render disabled.
-	var pool: Array[Dictionary] = []
-	pool.append_array(GoblinDB.SHOP_ITEMS)
-	pool.shuffle()
-	_offers = pool.slice(0, mini(3, pool.size()))
+	# Always offer usable unlocked stock before previews of locked items.
+	var available: Array[Dictionary] = []
+	var locked: Array[Dictionary] = []
+	for item in GoblinDB.SHOP_ITEMS:
+		if item.unique and _rs.purchased_items.has(item.id):
+			continue
+		if _is_unlocked(item.id):
+			available.append(item)
+		else:
+			locked.append(item)
+	available.shuffle()
+	locked.shuffle()
+	available.append_array(locked)
+	_offers = available.slice(0, mini(3, available.size()))
 
 
 func _is_unlocked(item_id: StringName) -> bool:
@@ -64,10 +73,19 @@ func _build() -> void:
 	vb.add_child(PixelUI.heading(tr(&"shopTitle"), "shop", 22, Color("a17ac5")))
 
 	var desc := Label.new()
-	desc.text = tr(&"shopDesc") + "  %d G" % _rs.gold
+	desc.text = tr(&"shopDesc")
 	desc.theme_type_variation = &"MutedLabel"
 	desc.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	vb.add_child(desc)
+	vb.add_child(PixelUI.heading("%s: %d" % [tr(&"gold"), _rs.gold], "coin", 18))
+	if _offers.any(func(item: Dictionary): return not _is_unlocked(item.id)):
+		var hint := Label.new()
+		hint.text = tr(&"shopUnlockHint")
+		hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		hint.add_theme_font_size_override(&"font_size", 15)
+		hint.add_theme_color_override(&"font_color", Color("f5c65a"))
+		vb.add_child(hint)
 
 	if _offers.is_empty():
 		var empty := Label.new()
@@ -127,7 +145,7 @@ func _offer_row(it: Dictionary) -> Control:
 	elif locked:
 		buy.text = tr(&"locked")
 		buy.disabled = true
-		row.modulate = Color(1, 1, 1, 0.55)
+		icon.modulate.a = 0.55
 	elif _rs.gold < it.cost:
 		buy.text = str(it.cost)
 		PixelUI.button_icon(buy, "coin")

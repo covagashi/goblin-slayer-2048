@@ -43,7 +43,7 @@ def portrait(skin: str, cloth: str, accent: str, role: str, *,
     dark_cloth = tone(cloth, .55)
     light_cloth = tone(cloth, 1.2)
 
-    # Bust and ears give every rank the same playable silhouette and anchor.
+    # Stable bust anchor; equipment changes the silhouette of each rank.
     d.polygon([(0, 31), (2, 27), (8, 25), (12, 24), (20, 24), (24, 25), (29, 27), (31, 31)], fill=INK)
     d.polygon([(2, 31), (4, 28), (10, 26), (22, 26), (28, 28), (30, 31)], fill=dark_cloth)
     d.polygon([(4, 31), (7, 27), (14, 25), (18, 25), (25, 27), (28, 31)], fill=cloth)
@@ -181,6 +181,51 @@ def portrait(skin: str, cloth: str, accent: str, role: str, *,
         d.point((5, 27), fill=GOLD)
         d.point((26, 27), fill=GOLD)
 
+    # Rank costumes deliberately use large clusters rather than small recolors.
+    if role == "rank_bandit":
+        # Deep red hood, pointed crown and face wrap: clearly unlike the bare 2.
+        d.polygon([(4, 19), (5, 8), (12, 1), (20, 1), (27, 8), (28, 21),
+                   (23, 25), (22, 10), (18, 6), (13, 6), (9, 11), (9, 24)], fill=INK)
+        d.polygon([(6, 18), (7, 8), (13, 2), (19, 2), (25, 8), (26, 19),
+                   (24, 20), (22, 9), (18, 5), (13, 5), (9, 10), (8, 19)], fill=RED)
+        d.line((8, 8, 13, 3, 18, 3), fill="#f18a57")
+        d.polygon([(9, 20), (14, 22), (22, 19), (21, 25), (16, 28), (11, 25)], fill=INK)
+        d.polygon([(10, 21), (15, 23), (21, 21), (20, 25), (16, 26), (12, 24)], fill=RED)
+    if role == "rank_brute":
+        # Broad bone horns, massive tusks and orange hide, no metal helmet.
+        d.polygon([(8, 11), (3, 8), (1, 2), (4, 3), (7, 6), (11, 7)], fill=INK)
+        d.polygon([(7, 9), (4, 7), (3, 4), (7, 7), (9, 8)], fill=WHITE)
+        d.polygon([(22, 11), (28, 8), (30, 2), (27, 3), (23, 6), (20, 7)], fill=INK)
+        d.polygon([(24, 9), (27, 7), (28, 4), (24, 7), (22, 8)], fill=WHITE)
+        d.rectangle((11, 21, 13, 26), fill=INK)
+        d.rectangle((19, 21, 21, 26), fill=INK)
+        d.rectangle((12, 21, 13, 24), fill=WHITE)
+        d.rectangle((19, 21, 20, 24), fill=WHITE)
+        d.polygon([(1, 30), (4, 24), (10, 25), (12, 31)], fill=INK)
+        d.polygon([(3, 30), (5, 26), (9, 27), (10, 31)], fill=cloth)
+        d.polygon([(20, 31), (22, 25), (28, 24), (31, 30)], fill=INK)
+        d.polygon([(22, 31), (23, 27), (27, 26), (29, 30)], fill=cloth)
+    if role == "rank_champion":
+        # Closed crimson greathelm and high crest: a solid, square silhouette.
+        d.polygon([(12, 6), (12, 2), (16, 0), (20, 2), (20, 7)], fill=INK)
+        d.rectangle((14, 2, 18, 6), fill=RED)
+        d.line((14, 2, 17, 1), fill="#f18a57")
+        d.polygon([(7, 7), (11, 5), (22, 5), (25, 8), (25, 23),
+                   (21, 27), (11, 27), (7, 23)], fill=INK)
+        d.polygon([(9, 8), (12, 7), (21, 7), (23, 9), (23, 22),
+                   (20, 25), (12, 25), (9, 22)], fill="#9b363f")
+        d.rectangle((10, 8, 13, 22), fill=RED)
+        d.line((11, 8, 20, 8), fill="#f18a57")
+        d.rectangle((9, 13, 23, 17), fill=INK)
+        d.line((10, 14, 13, 14), fill=GOLD)
+        d.line((19, 14, 22, 14), fill=GOLD)
+        d.rectangle((15, 8, 17, 23), fill=BRONZE)
+        d.point((16, 9), fill=GOLD)
+        d.rectangle((3, 26, 9, 31), fill=INK)
+        d.rectangle((22, 26, 28, 31), fill=INK)
+        d.rectangle((4, 27, 8, 31), fill=RED)
+        d.rectangle((23, 27, 27, 31), fill=RED)
+
     if small:
         # Pixel size stays 1: the tiny variant is drawn on the same grid.
         # Remove outer shoulder fragments to make its bust more compact.
@@ -194,11 +239,11 @@ def portrait(skin: str, cloth: str, accent: str, role: str, *,
 
 
 RANKS = [
-    (2,   "#76af43", "#5c4634", BRONZE, "raider", GOLD),
-    (4,   "#87b74a", "#765041", RED, "bandit", GOLD),
+    (2,   "#a1c958", "#5c4634", BRONZE, "scout", GOLD),
+    (4,   "#76a34b", "#973d39", RED, "rank_bandit", GOLD),
     (8,   "#6fa342", "#69747c", IRON_LIT, "guard", GOLD),
-    (16,  "#629542", "#536578", BLUE, "knight", RED),
-    (32,  "#7b9a3e", "#727b83", RED, "champion", RED),
+    (16,  "#53a18a", "#bd783e", WHITE, "rank_brute", RED),
+    (32,  "#7b9a3e", "#722e39", RED, "rank_champion", RED),
     (64,  "#71ad75", "#463959", VIOLET, "shaman", BLUE),
     (128, "#497e3c", "#5b3740", RED, "warlord", RED),
     (256, "#8aba48", "#735a2e", GOLD, "king", GOLD),
@@ -210,7 +255,11 @@ def idle_frames(sprite: Image.Image, skin: str, role: str) -> list[Image.Image]:
     breath = Image.new("RGBA", (32, 32))
     breath.alpha_composite(sprite, (0, -1))
     blink = sprite.copy()
-    if role not in {"halloween", "postapoc"}:
+    if role == "rank_champion":
+        d = ImageDraw.Draw(blink)
+        d.line((10, 14, 13, 14), fill=BRONZE)
+        d.line((19, 14, 22, 14), fill=BRONZE)
+    elif role not in {"halloween", "postapoc"}:
         d = ImageDraw.Draw(blink)
         d.rectangle((10, 14, 13, 16), fill=tone(skin, .55))
         d.rectangle((18, 14, 21, 16), fill=tone(skin, .55))

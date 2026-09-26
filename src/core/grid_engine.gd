@@ -204,7 +204,7 @@ func _remove_shops(grid: Array, events: Array) -> Array:
 				t.turns_left -= 1
 				if t.turns_left <= 0:
 					grid[r][c] = null
-					events.append({"type": &"shop_removed", "at": Vector2i(r, c)})
+					events.append({"type": &"shop_removed", "id": t.id, "at": Vector2i(r, c)})
 					events.append({"type": &"log", "key": &"log_shop_disappeared"})
 	return grid
 
@@ -454,7 +454,7 @@ func move(grid: Array, dir: StringName, rs: RunState, upgrades: Dictionary) -> D
 				if t.turns_left <= 0:
 					new_grid[r][c] = null
 					chest_vanished = true
-					events.append({"type": &"chest_vanished", "at": Vector2i(r, c)})
+					events.append({"type": &"chest_vanished", "id": t.id, "at": Vector2i(r, c)})
 	if chest_vanished and not acc.chest_opened:
 		events.append({"type": &"log", "key": &"log_chest_vanished"})
 

@@ -34,6 +34,13 @@ rewards, red for damage, cyan for magic/technology and purple for rare gear.
 Ranks gain equipment and increasingly strong silhouettes. Variants keep the
 same face and bust scale, with distinct color and costume cues.
 
+Rank readability: 2 has an uncovered head, 4 a deep red hood and mask,
+8 an open steel helmet, 16 broad bone horns and tusks over teal skin, and
+32 a closed crimson greathelm with a high crest. These are silhouette changes,
+not just palette swaps. Every tile also carries a large number on an opaque
+rank strip; collectible costumes retain this strip so their rank stays clear.
+All updated portraits keep their six-frame idle animation and 32×32 source grid.
+
 Artwork and UI textures: authored in this project with Pillow. The pixel font
 is [VT323](https://github.com/google/fonts/tree/main/ofl/vt323), licensed
 under SIL OFL 1.1; see `fonts/OFL.txt`.

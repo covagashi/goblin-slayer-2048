@@ -23,6 +23,7 @@ var _level: Label
 var _xp: Label
 var _kills_left: Label
 var _moves_left: Label
+var _horde_bar: ProgressBar
 var _rope_btn: Button
 var _items_row: HBoxContainer
 var _dmg_badge: Label
@@ -90,11 +91,25 @@ func _build() -> void:
 	_level = _stat_cell(grid, "star")
 	_xp = _stat_cell(grid, "sparkle")
 	var grid2 := GridContainer.new()
-	grid2.columns = 2
+	grid2.columns = 1
 	grid2.add_theme_constant_override(&"h_separation", 6)
 	vb.add_child(grid2)
 	_kills_left = _stat_cell(grid2, "target", true)
-	_moves_left = _stat_cell(grid2, "bolt", true)
+	var warning := HBoxContainer.new()
+	warning.add_theme_constant_override(&"separation", 6)
+	warning.add_child(PixelUI.icon("skull", 20))
+	_moves_left = Label.new()
+	_moves_left.name = &"HordeCountdown"
+	_moves_left.size_flags_horizontal = SIZE_EXPAND_FILL
+	_moves_left.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_moves_left.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_moves_left.add_theme_font_size_override(&"font_size", 18)
+	warning.add_child(_moves_left)
+	vb.add_child(warning)
+	_horde_bar = ProgressBar.new()
+	_horde_bar.custom_minimum_size.y = 8
+	_horde_bar.show_percentage = false
+	vb.add_child(_horde_bar)
 
 	# streak banner
 	_streak_banner = Label.new()
@@ -196,7 +211,15 @@ func refresh() -> void:
 	_xp.text = str(SaveManager.total_xp)
 	var mpa := GoblinDB.moves_per_attack(_rs.level, _rs.mode, _upgrades)
 	var moves_left := mpa - (_rs.moves_count % mpa)
-	_moves_left.text = "%d %s" % [moves_left, tr(&"movesUntilAttack")]
+	var warning_key: StringName = &"hordeCountdown"
+	if moves_left <= GameConfig.HORDE_WARNING_MOVES:
+		warning_key = &"hordeSoon"
+	if moves_left == 1:
+		warning_key = &"hordeNextMove"
+	_moves_left.text = tr(warning_key).format({"count": moves_left})
+	_moves_left.add_theme_color_override(&"font_color", Color("eb6650") if moves_left <= GameConfig.HORDE_WARNING_MOVES else Color("f5c65a"))
+	_horde_bar.max_value = mpa
+	_horde_bar.value = mpa - moves_left
 	_kills_left.text = "%d %s" % [GameConfig.KILLS_PER_LEVEL - _rs.kills_since_level, tr(&"killsToLevel")]
 	_rope_btn.text = "%s (%d)" % [tr(&"use"), _rs.rope_count]
 	_rope_btn.disabled = _rs.rope_count <= 0

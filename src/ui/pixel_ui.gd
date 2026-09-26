@@ -51,8 +51,19 @@ static func backdrop() -> TextureRect:
 
 
 static func style_scroll(scroll: ScrollContainer) -> void:
+	scroll.scroll_deadzone = 8
 	scroll.get_v_scroll_bar().custom_minimum_size.x = 10
 	scroll.add_theme_constant_override(&"scrollbar_v_separation", 3)
+
+
+static func pass_scroll_gestures(root: Control) -> void:
+	# A row or button must let the ScrollContainer see the initial press.
+	# Godot cancels button activation via NOTIFICATION_SCROLL_BEGIN on drag.
+	if root.mouse_filter != Control.MOUSE_FILTER_IGNORE:
+		root.mouse_filter = Control.MOUSE_FILTER_PASS
+	for child in root.get_children():
+		if child is Control:
+			pass_scroll_gestures(child)
 
 
 static func frame(name: String) -> StyleBoxTexture:

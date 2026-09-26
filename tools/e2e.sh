@@ -7,11 +7,11 @@ cd "$(dirname "$0")/.."
 GODOT="${1:-godot}"
 SCENARIOS=(
   core merge_kill chest golden streak
-  shop rope fire
+  shop shop_expiry rope fire
   gameover victory endless overcrowding
   upgrades leaderboard persistence assets safe_area i18n
   chaos chaos_endless menu_cycle
-  lang clicklang swipe_input continue continue_invalid
+  lang clicklang swipe_input touch_ui horde_warning info_pages continue continue_invalid
 )
 
 fail=0

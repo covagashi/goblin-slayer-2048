@@ -43,11 +43,11 @@
         32,
         32
       ],
-      "colors": 15,
+      "colors": 11,
       "alpha": "binary",
       "source": "tools/generate_goblins.py",
       "rights": "project-authored Pillow art",
-      "sha256": "268968055e367a8d1c12292edc64991ac26c9df03892e77d59df7812fdbabbc9"
+      "sha256": "d4f4731bf34c03937590e417961d460b70eccfe061cec96bfdea487b13544c5d"
     },
     {
       "path": "assets/sprites/animated/goblin-2.png",
@@ -61,11 +61,11 @@
         32,
         32
       ],
-      "colors": 12,
+      "colors": 11,
       "alpha": "binary",
       "source": "tools/generate_goblins.py",
       "rights": "project-authored Pillow art",
-      "sha256": "0640cfb2f4f322b767dabbb57e37b45c24c19c9881fed1378c2316a5fb803c33"
+      "sha256": "fc33bdca6df55df2e92bd957796d11ff2323383b328fa2bd795de4162d3259eb"
     },
     {
       "path": "assets/sprites/animated/goblin-256.png",
@@ -97,11 +97,11 @@
         32,
         32
       ],
-      "colors": 14,
+      "colors": 13,
       "alpha": "binary",
       "source": "tools/generate_goblins.py",
       "rights": "project-authored Pillow art",
-      "sha256": "d8c99fd0a6af3a8aa62e6aa09f5a43e9047097870747f83f37aeee6c50c3c650"
+      "sha256": "450b837994c1c50b9afebc0b0e54839b77fbe66295ed3d0230728aac3180bf28"
     },
     {
       "path": "assets/sprites/animated/goblin-4.png",
@@ -115,11 +115,11 @@
         32,
         32
       ],
-      "colors": 12,
+      "colors": 13,
       "alpha": "binary",
       "source": "tools/generate_goblins.py",
       "rights": "project-authored Pillow art",
-      "sha256": "7b2896db336402f8c1f85e235e8c930c4999b557139c3172a9c2b56a0ea462a8"
+      "sha256": "274e60520605b6335d5a167ac891619f7454387be6ef20f6bb9ce18e19f56f15"
     },
     {
       "path": "assets/sprites/animated/goblin-64.png",
@@ -1051,11 +1051,11 @@
         32,
         32
       ],
-      "colors": 14,
+      "colors": 10,
       "alpha": "binary",
       "source": "tools/generate_goblins.py",
       "rights": "project-authored Pillow art",
-      "sha256": "4c3c36b853b7565ea115b0284e8384fcf9778c98dfe2bea71940d88cab406843"
+      "sha256": "932e95ad60338dc1362b0dd391167f5fd177ac8112f4f04562a603531a7d4aa5"
     },
     {
       "path": "assets/sprites/goblins/goblin-2.png",
@@ -1069,11 +1069,11 @@
         32,
         32
       ],
-      "colors": 12,
+      "colors": 11,
       "alpha": "binary",
       "source": "tools/generate_goblins.py",
       "rights": "project-authored Pillow art",
-      "sha256": "497e716f4913522b3de0474a4654cd55670d86256f86f4057c468f09b9c42afe"
+      "sha256": "08735329171c5534b30023b572abf63407a121e53ab017c5fbcfcd9a1417d0ea"
     },
     {
       "path": "assets/sprites/goblins/goblin-256.png",
@@ -1109,7 +1109,7 @@
       "alpha": "binary",
       "source": "tools/generate_goblins.py",
       "rights": "project-authored Pillow art",
-      "sha256": "76a57c6d46b8481fcf857a71081296adced09cd4885deeca9c3b1dd857266104"
+      "sha256": "5812fa1abeb305606d61209389486e325429116e84afd78c30e08f2ff2bdb0ae"
     },
     {
       "path": "assets/sprites/goblins/goblin-4.png",
@@ -1123,11 +1123,11 @@
         32,
         32
       ],
-      "colors": 12,
+      "colors": 13,
       "alpha": "binary",
       "source": "tools/generate_goblins.py",
       "rights": "project-authored Pillow art",
-      "sha256": "92bc21e1f0fe3a0106d6939a5c384f8520c68c174d10f8b8f2782ee87ed844a4"
+      "sha256": "0977aca93e63a03f3309b4d86f0564e260a378b5900b757940398cb7915e119c"
     },
     {
       "path": "assets/sprites/goblins/goblin-64.png",

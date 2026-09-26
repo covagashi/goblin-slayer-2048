@@ -74,7 +74,7 @@ combatL2,"Combine goblins to create stronger, more dangerous versions:",Combina 
 combatL3,"Each time you combine, the resulting goblin takes damage. Goblins level 8 or higher will always survive the initial combination.","Cada vez que combinas, el goblin resultante recibe daño. Los goblins de nivel 8 o más siempre sobrevivirán a la combinación inicial."
 powerupsTitle,Items & Power-ups,Objetos y mejoras
 powerupsL1,Get them from the shop that appears on the board. Unlock them first in the permanent upgrades shop!,Consíguelos en la tienda que aparece en el tablero. ¡Desbloquéalos primero en la tienda de mejoras permanentes!
-powerupsL2,"Chests and shops expire — the number shows moves left. Tap a chest to smash it open!","Los cofres y tiendas caducan — el número indica los movimientos restantes. ¡Toca un cofre para abrirlo!"
+powerupsL2,Tap a shop to enter or a chest to open it. Both expire: the number shows moves left.,Toca una tienda para entrar o un cofre para abrirlo. Ambos caducan: el número indica los movimientos restantes.
 progressionTitle,Progression & Upgrades,Progresión y Mejoras
 progressionL1,Gain Experience (XP) by defeating goblins.,Gana Experiencia (XP) al eliminar goblins.
 progressionL2,Use XP on the home screen to buy permanent upgrades that will help you in all your runs.,Usa la XP en la pantalla de inicio para comprar mejoras permanentes que te ayudarán en todas tus partidas.
@@ -132,7 +132,7 @@ log_continued,Run resumed. The hunt continues!,Partida reanudada. ¡La caza cont
 log_new_goblin,A new Lv.{value} goblin appeared.,Apareció un nuevo goblin de Nv.{value}.
 log_game_start,"Game started: {gameMode}. Good luck, slayer.","Juego iniciado: {gameMode}. ¡Buena suerte, cazador!"
 log_chest_opened,You opened a chest! +{gold} gold.,¡Abriste un cofre! +{gold} de oro.
-log_shop_appeared,A mysterious shop tile has appeared!,¡Ha aparecido una misteriosa tienda!
+log_shop_appeared,A mysterious shop appeared! Tap it to enter.,¡Ha aparecido una tienda! Tócala para entrar.
 log_no_room_for_shop,No room for a shop to appear!,¡No hay espacio para que aparezca una tienda!
 log_shop_disappeared,The shop disappeared before you could visit.,La tienda desapareció antes de que pudieras visitarla.
 log_goblin_combine_damage,Merged two Lv.{value} goblins — {damage} damage.,Fusionaste dos goblins Nv.{value} — {damage} de daño.
@@ -181,3 +181,24 @@ back_to_menu,Back to Menu,Volver al Menú
 menu_title,Menu,Menú
 music_on,Music: ON,Música: ON
 music_off,Music: OFF,Música: OFF
+tapShop,ENTER,ENTRAR
+tapChest,OPEN,ABRIR
+hordeCountdown,Horde attacks in {count} moves,Ataque en {count} movimientos
+hordeSoon,Horde incoming! {count} moves left,¡Se acerca la horda! Quedan {count}
+hordeNextMove,NEXT MOVE: HORDE ATTACK!,¡ATAQUE EN EL PRÓXIMO MOVIMIENTO!
+shopUnlockHint,Locked items need an unlock in Permanent Upgrades on the main menu. Spend XP there; spend gold here.,Desbloquea objetos en Mejoras Permanentes desde el menú principal. Allí gastas XP; aquí gastas oro.
+about,About,Acerca de
+privacy,Privacy,Privacidad
+versionLabel,Version {version},Versión {version}
+aboutGameTitle,Goblin Slayer 2048,Goblin Slayer 2048
+aboutGameBody,"A tactical 2048 puzzle: merge matching goblins, survive the horde and build your permanent upgrades. Story and Endless modes are playable offline.","Un puzle táctico de 2048: combina goblins iguales, sobrevive a la horda y consigue mejoras permanentes. Los modos Historia e Infinito se juegan sin conexión."
+aboutArtTitle,Original pixel art,Pixel art original
+aboutArtBody,"Goblin portraits, interface, icons and animated effects were drawn for this project with Pillow. Font: VT323 by Peter Hull, licensed under SIL Open Font License 1.1.","Los goblins, la interfaz, los iconos y los efectos animados se dibujaron para este proyecto con Pillow. Fuente: VT323 de Peter Hull, con licencia SIL Open Font License 1.1."
+aboutTechTitle,Built with Godot,Hecho con Godot
+aboutTechBody,Created by covagashi. Built with Godot Engine. The game code and Godot Engine use the MIT license.,Creado por covagashi. Desarrollado con Godot Engine. El código del juego y Godot Engine utilizan la licencia MIT.
+privacyOfflineTitle,No ads or tracking,Sin anuncios ni seguimiento
+privacyOfflineBody,"This game does not collect or send personal information. It has no advertising, analytics, accounts or tracking services. There are no data-sharing options to enable.","Este juego no recopila ni envía información personal. No incluye publicidad, analíticas, cuentas ni servicios de seguimiento. No hay opciones de compartir datos que activar."
+privacyLocalTitle,Your progress stays on this device,Tu progreso se guarda en este dispositivo
+privacyLocalBody,"Your saved run, XP, upgrades, local leaderboard, language and audio preferences are stored on this device. They are not uploaded to a server. Clearing the app data removes this progress.","La partida, la XP, las mejoras, la clasificación local, el idioma y las preferencias de audio se guardan en este dispositivo. No se suben a ningún servidor. Borrar los datos de la app elimina este progreso."
+privacyPermissionsTitle,Device access,Acceso al dispositivo
+privacyPermissionsBody,"The Android app uses vibration for gameplay feedback. It does not request internet, camera, microphone, contacts or location access.","La app de Android usa la vibración para responder a las acciones del juego. No solicita acceso a internet, cámara, micrófono, contactos ni ubicación."

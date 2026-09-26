@@ -22,6 +22,8 @@ var _fx_layer: Control
 var _rope_layer: Control
 var _danger: Panel
 var _touch_start := Vector2.INF
+var _touch_index := -1
+var _danger_tween: Tween
 var _cell := 0.0
 
 
@@ -147,11 +149,15 @@ func _gui_input(event: InputEvent) -> void:
 	if not input_enabled:
 		return
 	if event is InputEventScreenTouch:
-		if event.pressed:
+		if event.pressed and _touch_index == -1:
+			_touch_index = event.index
 			_touch_start = event.position
-		elif _touch_start != Vector2.INF:
-			_release(event.position)
-	elif event is InputEventScreenDrag and _touch_start != Vector2.INF:
+		elif not event.pressed and event.index == _touch_index:
+			if not event.canceled and _touch_start != Vector2.INF:
+				_release(event.position)
+			_touch_start = Vector2.INF
+			_touch_index = -1
+	elif event is InputEventScreenDrag and event.index == _touch_index and _touch_start != Vector2.INF:
 		# Commit swipe early once past threshold — feels snappier
 		var d: Vector2 = event.position - _touch_start
 		if d.length() > GameConfig.SWIPE_MIN_DIST_PX * 2.0:
@@ -160,11 +166,11 @@ func _gui_input(event: InputEvent) -> void:
 
 func _release(pos: Vector2) -> void:
 	var d: Vector2 = pos - _touch_start
-	_touch_start = Vector2.INF
 	if d.length() < GameConfig.SWIPE_MIN_DIST_PX:
 		_tap(pos)
 	else:
 		_commit_swipe(d)
+	_touch_start = Vector2.INF
 
 
 func _commit_swipe(d: Vector2) -> void:
@@ -182,6 +188,8 @@ func _commit_swipe(d: Vector2) -> void:
 
 
 func _tap(pos: Vector2) -> void:
+	if _cell <= 0 or not Rect2(Vector2.ZERO, size).has_point(pos):
+		return
 	var r := int(pos.y / _cell)
 	var c := int(pos.x / _cell)
 	if r >= 0 and r < GameConfig.GRID_SIZE and c >= 0 and c < GameConfig.GRID_SIZE:
@@ -216,11 +224,15 @@ func _draw_rope_hints() -> void:
 # ---------------------------------------------------------------------------
 
 func set_danger(on: bool) -> void:
+	if _danger.visible == on:
+		return
+	if _danger_tween:
+		_danger_tween.kill()
 	_danger.visible = on
 	if on:
-		var tw := _danger.create_tween().set_loops()
-		tw.tween_property(_danger, "modulate:a", 0.25, 0.4)
-		tw.tween_property(_danger, "modulate:a", 1.0, 0.4)
+		_danger_tween = _danger.create_tween().set_loops()
+		_danger_tween.tween_property(_danger, "modulate:a", 0.25, 0.4)
+		_danger_tween.tween_property(_danger, "modulate:a", 1.0, 0.4)
 	else:
 		_danger.modulate.a = 1.0
 
@@ -315,7 +327,8 @@ func apply_events(events: Array, final_grid: Array) -> void:
 					Fx.play_sprite(_fx_layer, cell_center(mc.x, mc.y), "flame")
 					Fx.burst(_fx_layer, cell_center(mc.x, mc.y), Color(1.0, 0.45, 0.05), 16, 110.0, "particle_ember")
 			&"shop_removed", &"chest_vanished":
-				_delayed(func(): _kill_view_at(e.at), SPAWN_DELAY)
+				# Another tile may already be sliding into the expired tile's cell.
+				_delayed(func(): _kill_view_id(e.id), SPAWN_DELAY)
 			&"poisoned":
 				var v := _view_at(e.at)
 				if v:
@@ -349,8 +362,14 @@ func _view_at(at: Vector2i) -> TileView:
 func _kill_view_at(at: Vector2i) -> void:
 	var v := _view_at(at)
 	if v:
-		_views.erase(v.tile.id)
-		v.die_then_free()
+		_kill_view_id(v.tile.id)
+
+
+func _kill_view_id(id: int) -> void:
+	var view: TileView = _views.get(id)
+	if view:
+		_views.erase(id)
+		view.die_then_free()
 
 
 func _delayed(cb: Callable, delay: float) -> void:

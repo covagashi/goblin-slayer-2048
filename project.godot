@@ -11,6 +11,7 @@ buses/default_bus_layout="res://resources/default_bus_layout.tres"
 [application]
 
 config/name="Goblin Slayer 2048"
+config/version="1.0.0"
 config/description="Tactical 2048-style puzzle RPG — slay goblins by merging them."
 run/main_scene="res://src/main.tscn"
 config/features=PackedStringArray("4.7", "Mobile")

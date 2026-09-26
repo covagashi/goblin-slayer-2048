@@ -4,6 +4,8 @@ extends CanvasLayer
 
 signal closed
 
+var _scroll: ScrollContainer
+
 
 func open(parent: Node) -> void:
 	parent.add_child(self)
@@ -27,7 +29,7 @@ func _build() -> void:
 	head.add_child(title)
 	var xp := Label.new()
 	xp.text = "%s %d" % [tr(&"totalXpLabel"), SaveManager.total_xp]
-	xp.add_theme_color_override(&"font_color", Color(0.72, 0.53, 0.04))
+	xp.add_theme_color_override(&"font_color", Color("f5c65a"))
 	head.add_child(xp)
 	vb.add_child(head)
 
@@ -35,11 +37,14 @@ func _build() -> void:
 	sub.text = tr(&"permUpgradesDesc")
 	sub.theme_type_variation = &"MutedLabel"
 	sub.add_theme_font_size_override(&"font_size", 14)
+	sub.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	vb.add_child(sub)
 
 	var scroll := ScrollContainer.new()
+	_scroll = scroll
+	scroll.name = &"UpgradesScroll"
 	PixelUI.style_scroll(scroll)
-	scroll.custom_minimum_size = Vector2(0, 430)
+	scroll.custom_minimum_size = Vector2(0, minf(430, get_viewport().get_visible_rect().size.y - 240))
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	var list := VBoxContainer.new()
 	list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -89,6 +94,7 @@ func _upgrade_row(up: Dictionary) -> Control:
 
 	var buy := Button.new()
 	buy.custom_minimum_size = Vector2(80, 40)
+	buy.name = String(up.id) + "Buy"
 	if cur >= up.max_level:
 		buy.text = tr(&"maxLevel")
 		buy.disabled = true
@@ -101,6 +107,7 @@ func _upgrade_row(up: Dictionary) -> Control:
 		PixelUI.button_icon(buy, "sparkle")
 		buy.pressed.connect(_buy.bind(up))
 	hb.add_child(buy)
+	PixelUI.pass_scroll_gestures(row)
 	return row
 
 
@@ -109,6 +116,9 @@ func _buy(up: Dictionary) -> void:
 		return
 	AudioManager.play_sfx(&"levelup")
 	SignalBus.haptic.emit(0.5)
+	var previous_scroll := _scroll.scroll_vertical
 	for c in get_children():
+		remove_child(c)
 		c.queue_free()
 	_build()
+	_scroll.set_deferred(&"scroll_vertical", previous_scroll)

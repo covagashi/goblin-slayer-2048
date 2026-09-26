@@ -29,6 +29,7 @@ func run(scenario: StringName, main_ref: Control) -> void:
 		&"golden": await _s_golden()
 		&"streak": await _s_streak()
 		&"shop": await _s_shop()
+		&"shop_expiry": await _s_shop_expiry()
 		&"rope": await _s_rope()
 		&"fire": await _s_fire()
 		&"gameover": await _s_gameover()
@@ -47,6 +48,10 @@ func run(scenario: StringName, main_ref: Control) -> void:
 		&"lang": await _s_lang()
 		&"clicklang": await _s_clicklang()
 		&"swipe_input": await _s_swipe_input()
+		&"touch_ui": await _s_touch_ui()
+		&"horde_warning": await _s_horde_warning()
+		&"info_pages": await _s_info_pages()
+		&"visual_review": await _s_visual_review()
 		&"continue": await _s_continue()
 		&"continue_invalid": await _s_continue_invalid()
 		_:
@@ -263,6 +268,32 @@ func _s_shop() -> void:
 	await get_tree().process_frame
 	_check(not g._modal_open, "shop: modal closed")
 	_check(g._grid[0][0] == null, "shop: shopkeeper leaves after purchase")
+
+
+func _s_shop_expiry() -> void:
+	var g := await _start(&"story")
+	if g == null: _check(false, "shop_expiry: boot"); return
+	g._engine.spawn_enabled = false
+	var goblin := _goblin(8, 0, 0)
+	var shop := _special(BoardTile.Kind.SHOP, 0, 3)
+	shop.turns_left = 1
+	_set_board(g, [goblin, shop])
+	g._on_swipe(&"right")
+	await _wait(0.55)
+	_check(g._grid[0][3] == goblin, "shop_expiry: goblin enters expired shop cell")
+	_check(g._board.view_for(shop.id) == null, "shop_expiry: expired shop has no ghost visual")
+	_check(g._board.view_for(goblin.id) != null, "shop_expiry: replacement goblin stays visible")
+	_check(g._board._views.size() == _count_tiles(g._grid), "shop_expiry: visual count matches grid")
+	# A living shop must remain tappable after a slide updates its coordinates.
+	shop = _special(BoardTile.Kind.SHOP, 0, 3)
+	_set_board(g, [shop, _goblin(8, 1, 3)])
+	g._on_swipe(&"left")
+	await _wait(0.4)
+	await _touch_tap(g._board.global_position + g._board.cell_center(0, 0))
+	var panel := _find_panel(g, "ShopPanel") as ShopPanel
+	_check(panel != null, "shop_expiry: moved shop opens at its visible position")
+	if panel:
+		panel._close()
 
 
 func _s_rope() -> void:
@@ -642,6 +673,164 @@ func _s_swipe_input() -> void:
 	_check(got_tap[0].x >= 0, "swipe_input: mouse click emits cell_tapped %s" % got_tap[0])
 
 
+func _touch_event(pos: Vector2, pressed: bool, index := 0) -> InputEventScreenTouch:
+	var event := InputEventScreenTouch.new()
+	event.position = get_viewport().get_screen_transform() * pos
+	event.pressed = pressed
+	event.index = index
+	return event
+
+
+func _touch_tap(pos: Vector2) -> void:
+	Input.parse_input_event(_touch_event(pos, true))
+	await get_tree().process_frame
+	Input.parse_input_event(_touch_event(pos, false))
+	await get_tree().process_frame
+	await get_tree().process_frame
+
+
+func _touch_drag(from: Vector2, to: Vector2) -> void:
+	Input.parse_input_event(_touch_event(from, true))
+	await get_tree().process_frame
+	var previous := from
+	for step in range(1, 9):
+		var pos := from.lerp(to, step / 8.0)
+		var drag := InputEventScreenDrag.new()
+		var xf := get_viewport().get_screen_transform()
+		drag.position = xf * pos
+		drag.relative = xf.basis_xform(pos - previous)
+		Input.parse_input_event(drag)
+		previous = pos
+		await get_tree().process_frame
+	Input.parse_input_event(_touch_event(to, false))
+	await get_tree().process_frame
+	await get_tree().process_frame
+
+
+func _s_touch_ui() -> void:
+	var g := await _start(&"story")
+	if g == null: _check(false, "touch_ui: boot"); return
+	await _wait(0.4)
+	# Exercise native ScreenTouch delivery through viewport hit testing.
+	var shop := _special(BoardTile.Kind.SHOP, 1, 1)
+	_set_board(g, [shop, _goblin(2, 3, 0)])
+	await get_tree().process_frame
+	var shop_pos := g._board.global_position + g._board.cell_center(1, 1)
+	var before := g._rs.moves_count
+	await _touch_tap(shop_pos)
+	var panel := _find_panel(g, "ShopPanel") as ShopPanel
+	_check(panel != null and g._modal_open, "touch_ui: native tap on lilac tile opens shop")
+	_check(g._rs.moves_count == before, "touch_ui: opening shop does not spend a move")
+	if panel:
+		panel._upgrades = {&"unlockTorch": 1}
+		panel._rs.purchased_items.clear()
+		for i in 12:
+			panel._roll_offers()
+			_check(panel._offers.any(func(it: Dictionary): return it.id == &"torch"), "touch_ui: unlocked stock is offered")
+		panel._close()
+		await get_tree().process_frame
+		_check(g._grid[1][1] == shop, "touch_ui: closing without buying preserves shop")
+	# A swipe between tap distance and early-commit distance must work on release.
+	var swipes: Array[StringName] = []
+	g._board.swiped.connect(func(dir: StringName): swipes.append(dir))
+	var start := g._board.global_position + g._board.cell_center(3, 0)
+	await _touch_drag(start, start + Vector2(GameConfig.SWIPE_MIN_DIST_PX * 1.5, 0))
+	_check(swipes.size() == 1 and swipes[0] == &"right", "touch_ui: short drag commits once on release")
+
+	_main._show_splash()
+	await _wait(0.6)
+	SaveManager.upgrades = {}
+	SaveManager.total_xp = 5000
+	var upgrades := UpgradesPanel.new()
+	upgrades.open(_main._current)
+	await _wait(0.2)
+	var scroll := upgrades._scroll
+	var area := scroll.get_global_rect()
+	var xp0 := SaveManager.total_xp
+	await _touch_drag(area.position + Vector2(40, area.size.y * 0.8), area.position + Vector2(40, 35))
+	_check(scroll.scroll_vertical > 80, "touch_ui: drag on upgrade description scrolls list (%d)" % scroll.scroll_vertical)
+	_check(SaveManager.total_xp == xp0, "touch_ui: scrolling does not buy")
+	# Start a second swipe on an enabled buy button; cancellation must prevent purchase.
+	scroll.scroll_vertical = 0
+	await _wait(0.1)
+	var buy := _find_button(upgrades, "maxHpBuy")
+	_check(buy != null and not buy.disabled, "touch_ui: enabled purchase target exists")
+	if buy:
+		var button_pos := buy.get_global_rect().get_center()
+		await _touch_drag(button_pos, button_pos + Vector2(0, -140))
+		_check(scroll.scroll_vertical > 40, "touch_ui: drag starting on buy button scrolls")
+		_check(SaveManager.total_xp == xp0 and SaveManager.upgrade_level(&"maxHp") == 0, "touch_ui: drag cancels button purchase")
+	# Purchasing further down keeps the list position.
+	scroll.scroll_vertical = 220
+	await get_tree().process_frame
+	var saved_y := scroll.scroll_vertical
+	upgrades._buy(GoblinDB.PERMANENT_UPGRADES[0])
+	await _wait(0.15)
+	_check(absi(upgrades._scroll.scroll_vertical - saved_y) <= 2, "touch_ui: purchase preserves scroll position")
+	upgrades.queue_free()
+	await get_tree().process_frame
+	SaveManager.total_xp = 0
+	upgrades = UpgradesPanel.new()
+	upgrades.open(_main._current)
+	await _wait(0.15)
+	buy = _find_button(upgrades, "maxHpBuy")
+	_check(buy.disabled, "touch_ui: unaffordable purchase target is disabled")
+	var disabled_pos := buy.get_global_rect().get_center()
+	await _touch_drag(disabled_pos, disabled_pos + Vector2(0, -140))
+	_check(upgrades._scroll.scroll_vertical > 40, "touch_ui: disabled buttons also allow scrolling")
+	upgrades.queue_free()
+
+
+func _s_horde_warning() -> void:
+	var g := await _start(&"story")
+	if g == null: _check(false, "horde_warning: boot"); return
+	g._upgrades = {}
+	g._engine.spawn_enabled = false
+	_set_board(g, [_goblin(8, 0, 0)])
+	for locale in ["en", "es"]:
+		TranslationServer.set_locale(locale)
+		g._rs.moves_count = 12
+		g._post_move()
+		_check(g._hud._moves_left.text == tr(&"hordeSoon").format({"count": 3}), "horde_warning: three-move warning in " + locale)
+		_check(g._board._danger.visible, "horde_warning: board border active")
+		var tween := g._board._danger_tween
+		g._post_move()
+		_check(tween == g._board._danger_tween, "horde_warning: refresh does not stack pulse tweens")
+		g._rs.moves_count = 14
+		g._post_move()
+		_check(g._hud._moves_left.text == tr(&"hordeNextMove"), "horde_warning: next-move warning in " + locale)
+		var hp0 := g._rs.player_hp
+		g._on_swipe(&"right" if locale == "en" else &"left")
+		_check(g._rs.player_hp < hp0, "horde_warning: warned move triggers horde damage")
+		_check(not g._board._danger.visible and g._hud._horde_bar.value == 0, "horde_warning: countdown and pulse reset after attack")
+	TranslationServer.set_locale(String(_bak_lang))
+
+
+func _s_info_pages() -> void:
+	await _wait(0.6)
+	for locale in ["en", "es"]:
+		TranslationServer.set_locale(locale)
+		_main._show_splash()
+		await _wait(0.6)
+		var splash := _main._current as SplashScreen
+		var menu_scroll := splash.find_child("MenuScroll", true, false) as ScrollContainer
+		for page in [&"about", &"privacy"]:
+			var button := _find_button(splash, String(page).capitalize() + "Button")
+			_check(button != null, "info_pages: " + String(page) + " button in " + locale)
+			menu_scroll.ensure_control_visible(button)
+			await _wait(0.1)
+			await _touch_tap(button.get_global_rect().get_center())
+			var info := _find_panel(splash, "InfoPanel") as InfoPanel
+			_check(info != null and info.page == page, "info_pages: touch opens " + String(page) + " in " + locale)
+			if info:
+				for section in InfoPanel.SECTIONS[page]:
+					_check(tr(section[1]) != String(section[1]), "info_pages: localized body " + String(section[1]))
+				var close := _find_button(info, "CloseButton")
+				await _touch_tap(close.get_global_rect().get_center())
+				_check(_find_panel(splash, "InfoPanel") == null, "info_pages: close returns to menu")
+	TranslationServer.set_locale(String(_bak_lang))
+
+
 func _count_kind(grid: Array, kind: BoardTile.Kind) -> int:
 	var n := 0
 	for r in GameConfig.GRID_SIZE:
@@ -950,3 +1139,56 @@ func _check_invariants(g: GameScene, step: int) -> void:
 	# HUD reflects state
 	_check(g._hud._score.text == str(rs.score), "chaos@%d: HUD score desync (%s vs %d)" % [step, g._hud._score.text, rs.score])
 	_check(g._hud._gold.text == str(rs.gold), "chaos@%d: HUD gold desync" % step)
+
+
+func _review_shot(name: String) -> void:
+	await _wait(0.25)
+	await RenderingServer.frame_post_draw
+	var folder := "/tmp/gs2048_mobile_review"
+	DirAccess.make_dir_recursive_absolute(folder)
+	_check(get_viewport().get_texture().get_image().save_png(folder.path_join(name + ".png")) == OK, "visual_review: " + name)
+
+
+func _s_visual_review() -> void:
+	get_window().size = Vector2i(393, 873)
+	SaveManager.saved_run = {}
+	TranslationServer.set_locale("es")
+	_main._show_splash()
+	await _wait(0.7)
+	await _review_shot("menu")
+	var upgrades := UpgradesPanel.new()
+	upgrades.open(_main._current)
+	await _review_shot("upgrades")
+	upgrades._scroll.scroll_vertical = 10000
+	await _review_shot("upgrades_bottom")
+	upgrades.queue_free()
+	await get_tree().process_frame
+	for page in [&"about", &"privacy"]:
+		var info := InfoPanel.new()
+		info.open(page, _main._current)
+		await _review_shot(String(page))
+		info.queue_free()
+		await get_tree().process_frame
+	var g := await _start(&"story")
+	var tiles: Array = []
+	var index := 0
+	for rank in GoblinDB.STATS:
+		tiles.append(_goblin(rank, index / 4, index % 4))
+		index += 1
+	tiles.append(_special(BoardTile.Kind.SHOP, 2, 0))
+	tiles.append(_special(BoardTile.Kind.CHEST, 2, 1))
+	_set_board(g, tiles)
+	g._rs.moves_count = 12
+	g._post_move()
+	await _review_shot("ranks_warning")
+	g._rs.moves_count = 14
+	g._post_move()
+	await _review_shot("horde_next")
+	g._upgrades = {}
+	g._open_shop()
+	await _review_shot("shop_locked")
+	var shop := _find_panel(g, "ShopPanel") as ShopPanel
+	shop._close()
+	_main._show_splash()
+	await _wait(0.6)
+	await _review_shot("menu_continue")
