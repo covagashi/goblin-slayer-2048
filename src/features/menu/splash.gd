@@ -133,15 +133,15 @@ func _build() -> void:
 	settings.add_child(lang)
 
 	var music := Button.new()
-	PixelUI.button_icon(music, "volume" if SaveManager.music_enabled else "mute")
-	music.tooltip_text = tr(&"music")
+	music.name = &"SoundButton"
+	PixelUI.button_icon(music, "mute" if AudioManager.is_silent() else "volume")
+	music.tooltip_text = tr(&"soundSettings")
 	music.custom_minimum_size = Vector2(56, 40)
 	music.pressed.connect(func():
-		SaveManager.music_enabled = not SaveManager.music_enabled
-		SaveManager.save()
-		SignalBus.music_toggled.emit(SaveManager.music_enabled)
-		PixelUI.button_icon(music, "volume" if SaveManager.music_enabled else "mute")
 		AudioManager.play_sfx(&"ui_click")
+		var audio := AudioPanel.new()
+		audio.closed.connect(func(): PixelUI.button_icon(music, "mute" if AudioManager.is_silent() else "volume"))
+		audio.open(self)
 	)
 	settings.add_child(music)
 
@@ -161,12 +161,6 @@ func _build() -> void:
 		links.add_child(link)
 	vb.add_child(links)
 
-	var foot := Label.new()
-	foot.text = tr(&"poweredBy")
-	foot.theme_type_variation = &"MutedLabel"
-	foot.add_theme_font_size_override(&"font_size", 13)
-	foot.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	vb.add_child(foot)
 	PixelUI.pass_scroll_gestures(center)
 
 	# Entrance animation

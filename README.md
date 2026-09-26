@@ -61,10 +61,10 @@ godot --headless -s tests/test_grid_engine.gd   # 25 assertions on game rules
 ### Headless e2e scenarios
 
 ```bash
-tools/e2e.sh    # 30 scenarios driving the real UI (shop, rope, fire scroll,
+tools/e2e.sh    # 31 scenarios driving the real UI (shop, rope, fire scroll,
                 # game over + restart, victory + leaderboard, endless,
                 # overcrowding, upgrades, persistence, assets, safe area, i18n,
-                # native touch scrolling, horde warnings, About/Privacy,
+                # native touch scrolling, audio controls, horde warnings, About/Privacy,
                 # menu cycle, and 2 chaos runs with random played moves)
 
 # extra chaos seeds: godot --headless -- qa=chaos seed=<n>

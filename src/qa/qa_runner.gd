@@ -16,6 +16,9 @@ var _bak_upgrades: Dictionary = {}
 var _bak_lb: Array = []
 var _bak_lang: StringName = &"es"
 var _bak_music := true
+var _bak_sfx := true
+var _bak_music_volume := 1.0
+var _bak_sfx_volume := 1.0
 var _bak_run: Dictionary = {}
 
 
@@ -51,6 +54,8 @@ func run(scenario: StringName, main_ref: Control) -> void:
 		&"touch_ui": await _s_touch_ui()
 		&"horde_warning": await _s_horde_warning()
 		&"info_pages": await _s_info_pages()
+		&"audio_settings": await _s_audio_settings()
+		&"audio_visuals": await _s_audio_visuals()
 		&"visual_review": await _s_visual_review()
 		&"continue": await _s_continue()
 		&"continue_invalid": await _s_continue_invalid()
@@ -142,6 +147,9 @@ func _backup_save() -> void:
 	_bak_lb = SaveManager.leaderboard.duplicate(true)
 	_bak_lang = SaveManager.language
 	_bak_music = SaveManager.music_enabled
+	_bak_sfx = SaveManager.sfx_enabled
+	_bak_music_volume = SaveManager.music_volume
+	_bak_sfx_volume = SaveManager.sfx_volume
 	_bak_run = SaveManager.saved_run.duplicate(true)
 
 
@@ -151,8 +159,12 @@ func _restore_save() -> void:
 	SaveManager.leaderboard = _bak_lb
 	SaveManager.language = _bak_lang
 	SaveManager.music_enabled = _bak_music
+	SaveManager.sfx_enabled = _bak_sfx
+	SaveManager.music_volume = _bak_music_volume
+	SaveManager.sfx_volume = _bak_sfx_volume
 	SaveManager.saved_run = _bak_run
 	SaveManager.save()
+	AudioManager.apply_settings()
 
 
 # ---------------------------------------------------------------------------
@@ -1192,3 +1204,101 @@ func _s_visual_review() -> void:
 	_main._show_splash()
 	await _wait(0.6)
 	await _review_shot("menu_continue")
+
+
+func _s_audio_settings() -> void:
+	await _wait(0.6)
+	SaveManager.set_audio_enabled(&"Music", true)
+	SaveManager.set_audio_enabled(&"SFX", true)
+	SaveManager.set_audio_volume(&"Music", 1.0)
+	SaveManager.set_audio_volume(&"SFX", 1.0)
+	var music_bus := AudioServer.get_bus_index(&"Music")
+	var sfx_bus := AudioServer.get_bus_index(&"SFX")
+	var splash := _main._current as SplashScreen
+	var button := _find_button(splash, "SoundButton")
+	await _touch_tap(button.get_global_rect().get_center())
+	var panel := _find_panel(splash, "AudioPanel") as AudioPanel
+	_check(panel != null, "audio: speaker button opens settings by touch")
+	if panel == null: return
+	var music_toggle := panel._toggles[&"Music"] as Button
+	await _touch_tap(music_toggle.get_global_rect().get_center())
+	_check(not SaveManager.music_enabled and AudioServer.is_bus_mute(music_bus), "audio: music toggle mutes Music bus")
+	_check(not AudioServer.is_bus_mute(sfx_bus), "audio: music mute leaves SFX audible")
+	AudioManager.play_music(&"game")
+	_check(AudioServer.is_bus_mute(music_bus), "audio: changing music track preserves mute")
+	await _touch_tap(music_toggle.get_global_rect().get_center())
+	var music_slider := panel._sliders[&"Music"] as HSlider
+	var rect := music_slider.get_global_rect()
+	await _touch_drag(rect.position + Vector2(rect.size.x - 8, rect.size.y / 2), rect.position + Vector2(rect.size.x * 0.4, rect.size.y / 2))
+	_check(SaveManager.music_volume > 0.25 and SaveManager.music_volume < 0.55, "audio: native drag adjusts music volume")
+	_check(is_equal_approx(db_to_linear(AudioServer.get_bus_volume_db(music_bus)), SaveManager.music_volume), "audio: music slider changes actual bus volume")
+	_check(is_equal_approx(AudioServer.get_bus_volume_db(sfx_bus), 0.0), "audio: music volume leaves SFX unchanged")
+	var effects_slider := panel._sliders[&"SFX"] as HSlider
+	effects_slider.value = 25
+	_check(is_equal_approx(db_to_linear(AudioServer.get_bus_volume_db(sfx_bus)), 0.25), "audio: independent effects volume reaches bus")
+	var slot := AudioManager._sfx_idx
+	await _touch_tap(panel._preview.get_global_rect().get_center())
+	_check(AudioManager._sfx_idx != slot, "audio: test sound uses SFX playback pool")
+	await _touch_tap((panel._toggles[&"SFX"] as Button).get_global_rect().get_center())
+	_check(not SaveManager.sfx_enabled and AudioServer.is_bus_mute(sfx_bus), "audio: effects toggle mutes SFX bus")
+	_check(panel._preview.disabled and not effects_slider.editable, "audio: disabled effects disable preview and slider")
+	_check(not AudioServer.is_bus_mute(music_bus), "audio: effects mute leaves music audible")
+	slot = AudioManager._sfx_idx
+	AudioManager.play_sfx(&"coin")
+	_check(AudioManager._sfx_idx == slot, "audio: disabled effects do not start playback")
+	_check(is_equal_approx(SaveManager.sfx_volume, 0.25), "audio: muting remembers the volume")
+	music_slider.value = 0
+	_check(AudioServer.is_bus_mute(music_bus) and is_finite(AudioServer.get_bus_volume_db(music_bus)), "audio: zero percent is silent without infinite gain")
+	music_slider.value = 38
+	await _touch_tap(_find_button(panel, "CloseButton").get_global_rect().get_center())
+	SaveManager.music_volume = 1.0
+	SaveManager.sfx_volume = 1.0
+	SaveManager.sfx_enabled = true
+	SaveManager.load_all()
+	AudioManager.apply_settings()
+	_check(is_equal_approx(SaveManager.music_volume, 0.38) and is_equal_approx(SaveManager.sfx_volume, 0.25) and not SaveManager.sfx_enabled, "audio: both volumes and mute survive disk reload")
+
+	var g := await _start(&"story")
+	await _wait(0.3)
+	await _touch_tap(_find_button(g, "SoundButton").get_global_rect().get_center())
+	panel = _find_panel(g, "AudioPanel") as AudioPanel
+	_check(panel != null and g._modal_open, "audio: in-game speaker opens same settings")
+	var moves0 := g._rs.moves_count
+	g._on_swipe(&"right")
+	_check(g._rs.moves_count == moves0, "audio: settings modal blocks board moves")
+	if panel:
+		await _touch_tap(_find_button(panel, "CloseButton").get_global_rect().get_center())
+		_check(not g._modal_open, "audio: closing settings resumes board input")
+
+	# Old saves have only music_enabled; new fields must default without losing it.
+	SaveManager.save()
+	var cfg := ConfigFile.new()
+	cfg.load(SaveManager.SAVE_PATH)
+	cfg.set_value("settings", "music_enabled", false)
+	for key in ["sfx_enabled", "music_volume", "sfx_volume"]:
+		cfg.erase_section_key("settings", key)
+	cfg.save(SaveManager.SAVE_PATH)
+	SaveManager.load_all()
+	AudioManager.apply_settings()
+	_check(not SaveManager.music_enabled and SaveManager.sfx_enabled and SaveManager.music_volume == 1.0 and SaveManager.sfx_volume == 1.0, "audio: legacy save keeps music choice and defaults new controls")
+	AudioManager.play_music(&"menu")
+	_check(AudioServer.is_bus_mute(music_bus), "audio: loaded mute survives returning to menu")
+	cfg.set_value("settings", "music_volume", 20)
+	cfg.set_value("settings", "sfx_volume", "broken")
+	cfg.save(SaveManager.SAVE_PATH)
+	SaveManager.load_all()
+	_check(SaveManager.music_volume == 1.0 and SaveManager.sfx_volume == 1.0, "audio: invalid saved volumes are clamped or defaulted")
+
+
+func _s_audio_visuals() -> void:
+	get_window().size = Vector2i(393, 873)
+	for locale in ["es", "en"]:
+		TranslationServer.set_locale(locale)
+		_main._show_splash()
+		await _wait(0.6)
+		await _review_shot("audio_menu_" + locale)
+		var panel := AudioPanel.new()
+		panel.open(_main._current)
+		await _review_shot("audio_panel_" + locale)
+		panel._close()
+		await get_tree().process_frame

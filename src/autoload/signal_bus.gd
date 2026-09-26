@@ -5,7 +5,7 @@ extends Node
 signal run_started(mode: StringName)
 signal run_ended(victory: bool)
 signal language_changed(lang: StringName)
-signal music_toggled(enabled: bool)
+signal audio_settings_changed
 signal haptic(strength: float)
 signal screen_shake(strength: float)
 signal floating_text(world_pos: Vector2, text: String, color: Color)

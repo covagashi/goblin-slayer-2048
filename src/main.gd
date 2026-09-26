@@ -23,7 +23,7 @@ func _ready() -> void:
 	_fade.z_index = 100
 
 	TranslationServer.set_locale(String(SaveManager.language))
-	AudioManager.set_music_enabled(SaveManager.music_enabled)
+	AudioManager.apply_settings()
 	_show_splash()
 
 	# QA hook: godot -- auto_story → skip splash (used by tools/screenshot.sh)

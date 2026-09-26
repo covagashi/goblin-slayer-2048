@@ -6,7 +6,6 @@ endlessMode
 endlessModeDesc
 howToPlay
 upgradesAndProgress
-poweredBy
 headerTitle
 headerSubtitle
 newGame
@@ -188,3 +187,9 @@ privacyLocalTitle
 privacyLocalBody
 privacyPermissionsTitle
 privacyPermissionsBody
+soundSettings
+backgroundMusic
+soundEffects
+audioOn
+audioOff
+testSound

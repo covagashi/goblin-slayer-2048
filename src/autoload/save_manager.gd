@@ -17,6 +17,9 @@ var upgrades: Dictionary = {} # upgrade_id -> level (int)
 var leaderboard: Array = []   # Array[Dictionary]
 var language: StringName = &"es"
 var music_enabled: bool = true
+var sfx_enabled: bool = true
+var music_volume: float = 1.0
+var sfx_volume: float = 1.0
 var saved_run: Dictionary = {} # in-progress run snapshot (empty = none)
 
 
@@ -25,6 +28,8 @@ func _ready() -> void:
 
 
 func load_all() -> void:
+	# ConfigFile.load merges keys; start fresh so missing legacy settings use defaults.
+	_cfg.clear()
 	if _cfg.load(SAVE_PATH) != OK:
 		return # first run — defaults are fine
 	total_xp = int(_cfg.get_value(SECTION_META, "total_xp", 0))
@@ -32,6 +37,9 @@ func load_all() -> void:
 	leaderboard = _cfg.get_value(SECTION_META, "leaderboard", [])
 	language = StringName(_cfg.get_value(SECTION_SETTINGS, "language", "es"))
 	music_enabled = bool(_cfg.get_value(SECTION_SETTINGS, "music_enabled", true))
+	sfx_enabled = bool(_cfg.get_value(SECTION_SETTINGS, "sfx_enabled", true))
+	music_volume = _load_volume("music_volume")
+	sfx_volume = _load_volume("sfx_volume")
 	var loaded_run: Variant = _cfg.get_value(SECTION_RUN, "data", {})
 	if _valid_run_snapshot(loaded_run):
 		saved_run = loaded_run
@@ -48,10 +56,42 @@ func save() -> void:
 	_cfg.set_value(SECTION_META, "leaderboard", leaderboard)
 	_cfg.set_value(SECTION_SETTINGS, "language", String(language))
 	_cfg.set_value(SECTION_SETTINGS, "music_enabled", music_enabled)
+	_cfg.set_value(SECTION_SETTINGS, "sfx_enabled", sfx_enabled)
+	_cfg.set_value(SECTION_SETTINGS, "music_volume", music_volume)
+	_cfg.set_value(SECTION_SETTINGS, "sfx_volume", sfx_volume)
 	_cfg.set_value(SECTION_RUN, "data", saved_run)
 	var err := _cfg.save(SAVE_PATH)
 	if err != OK:
 		push_error("SaveManager: failed to write save file (%s)" % error_string(err))
+
+
+func _load_volume(key: String) -> float:
+	var value: Variant = _cfg.get_value(SECTION_SETTINGS, key, 1.0)
+	if typeof(value) not in [TYPE_FLOAT, TYPE_INT] or not is_finite(float(value)):
+		return 1.0
+	return clampf(float(value), 0.0, 1.0)
+
+
+func set_audio_enabled(channel: StringName, enabled: bool) -> void:
+	if channel == &"Music":
+		music_enabled = enabled
+	elif channel == &"SFX":
+		sfx_enabled = enabled
+	else:
+		return
+	SignalBus.audio_settings_changed.emit()
+
+
+func set_audio_volume(channel: StringName, volume: float) -> void:
+	if not is_finite(volume):
+		return
+	if channel == &"Music":
+		music_volume = clampf(volume, 0.0, 1.0)
+	elif channel == &"SFX":
+		sfx_volume = clampf(volume, 0.0, 1.0)
+	else:
+		return
+	SignalBus.audio_settings_changed.emit()
 
 
 func upgrade_level(id: StringName) -> int:

@@ -63,13 +63,21 @@ func _build_layout() -> void:
 	title.size_flags_horizontal = SIZE_EXPAND_FILL
 	header.add_child(title)
 	var music := Button.new()
-	PixelUI.button_icon(music, "volume" if SaveManager.music_enabled else "mute")
+	music.name = &"SoundButton"
+	music.tooltip_text = tr(&"soundSettings")
+	PixelUI.button_icon(music, "mute" if AudioManager.is_silent() else "volume")
 	music.custom_minimum_size = Vector2(44, 36)
 	music.pressed.connect(func():
-		SaveManager.music_enabled = not SaveManager.music_enabled
-		SaveManager.save()
-		SignalBus.music_toggled.emit(SaveManager.music_enabled)
-		PixelUI.button_icon(music, "volume" if SaveManager.music_enabled else "mute")
+		if _modal_open:
+			return
+		_modal_open = true
+		AudioManager.play_sfx(&"ui_click")
+		var audio := AudioPanel.new()
+		audio.closed.connect(func():
+			_modal_open = false
+			PixelUI.button_icon(music, "mute" if AudioManager.is_silent() else "volume")
+		)
+		audio.open(self)
 	)
 	header.add_child(music)
 	var menu := Button.new()

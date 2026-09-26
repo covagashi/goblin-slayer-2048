@@ -9,7 +9,6 @@ endlessMode,Endless Mode,Modo Infinito
 endlessModeDesc,Survive the endless goblin waves.,Sobrevive a las infinitas oleadas de goblins.
 howToPlay,How to Play,Cómo Jugar
 upgradesAndProgress,Upgrades & Progression,Mejoras y Progresión
-poweredBy,Powered by 2048 mechanics,Basado en la mecánica de 2048
 music,Music,Música
 headerTitle,Goblin Slayer 2048,Goblin Slayer 2048
 headerSubtitle,Combine goblins to slay them.,Combina goblins para matarlos.
@@ -202,3 +201,9 @@ privacyLocalTitle,Your progress stays on this device,Tu progreso se guarda en es
 privacyLocalBody,"Your saved run, XP, upgrades, local leaderboard, language and audio preferences are stored on this device. They are not uploaded to a server. Clearing the app data removes this progress.","La partida, la XP, las mejoras, la clasificación local, el idioma y las preferencias de audio se guardan en este dispositivo. No se suben a ningún servidor. Borrar los datos de la app elimina este progreso."
 privacyPermissionsTitle,Device access,Acceso al dispositivo
 privacyPermissionsBody,"The Android app uses vibration for gameplay feedback. It does not request internet, camera, microphone, contacts or location access.","La app de Android usa la vibración para responder a las acciones del juego. No solicita acceso a internet, cámara, micrófono, contactos ni ubicación."
+soundSettings,Sound settings,Ajustes de sonido
+backgroundMusic,Background music,Música de fondo
+soundEffects,Sound effects,Efectos de sonido
+audioOn,On,Sí
+audioOff,Off,No
+testSound,Test sound,Probar efecto

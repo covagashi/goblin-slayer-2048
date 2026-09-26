@@ -1,6 +1,6 @@
 extends Node
-## Music + SFX playback. Music crossfades between menu/game themes on a
-## dedicated bus; SFX pool avoids allocating players per effect.
+## Music + SFX playback on independent buses with persistent volume/mute.
+## SFX pool avoids allocating players per effect.
 
 const MUSIC_MENU := "res://assets/audio/music/menu-theme.mp3"
 const MUSIC_GAME := "res://assets/audio/music/background-theme.mp3"
@@ -22,7 +22,8 @@ func _ready() -> void:
 		p.bus = &"SFX"
 		add_child(p)
 		_sfx_pool.append(p)
-	SignalBus.music_toggled.connect(_on_music_toggled)
+	SignalBus.audio_settings_changed.connect(apply_settings)
+	apply_settings()
 
 
 func play_music(track: StringName) -> void:
@@ -39,15 +40,28 @@ func play_music(track: StringName) -> void:
 	_music_player.play()
 
 
-func set_music_enabled(enabled: bool) -> void:
-	if enabled:
-		if _music_player.stream and not _music_player.playing:
-			_music_player.play()
-	else:
-		_music_player.stop()
+func apply_settings() -> void:
+	_apply_bus(&"Music", SaveManager.music_enabled, SaveManager.music_volume)
+	_apply_bus(&"SFX", SaveManager.sfx_enabled, SaveManager.sfx_volume)
+	if not SaveManager.sfx_enabled or SaveManager.sfx_volume <= 0.0:
+		for player in _sfx_pool:
+			player.stop()
+
+
+func _apply_bus(channel: StringName, enabled: bool, volume: float) -> void:
+	var bus := AudioServer.get_bus_index(channel)
+	AudioServer.set_bus_mute(bus, not enabled or volume <= 0.0)
+	# Clamp the conversion at silence to avoid -INF; the mute handles exact 0%.
+	AudioServer.set_bus_volume_db(bus, linear_to_db(maxf(volume, 0.0001)))
+
+
+func is_silent() -> bool:
+	return (not SaveManager.music_enabled or SaveManager.music_volume <= 0.0) and (not SaveManager.sfx_enabled or SaveManager.sfx_volume <= 0.0)
 
 
 func play_sfx(sfx_name: StringName, pitch: float = 1.0) -> void:
+	if not SaveManager.sfx_enabled or SaveManager.sfx_volume <= 0.0:
+		return
 	var stream: AudioStream = _sfx_cache.get(sfx_name)
 	if stream == null:
 		stream = load(SFX_DIR + String(sfx_name) + ".wav")
@@ -59,10 +73,6 @@ func play_sfx(sfx_name: StringName, pitch: float = 1.0) -> void:
 	p.stream = stream
 	p.pitch_scale = pitch
 	p.play()
-
-
-func _on_music_toggled(enabled: bool) -> void:
-	set_music_enabled(enabled)
 
 
 func stop_all() -> void:
