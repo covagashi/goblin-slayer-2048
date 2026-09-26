@@ -123,10 +123,13 @@ func _build() -> void:
 	# --- Items bar -----------------------------------------------------------
 	var items_panel := PanelContainer.new()
 	items_panel.theme_type_variation = &"InsetPanel"
+	var items_v := VBoxContainer.new()
+	items_v.add_theme_constant_override(&"separation", 6)
+	items_panel.add_child(items_v)
 	var items_h := HBoxContainer.new()
 	items_h.alignment = BoxContainer.ALIGNMENT_CENTER
 	items_h.add_theme_constant_override(&"separation", 10)
-	items_panel.add_child(items_h)
+	items_v.add_child(items_h)
 
 	items_h.add_child(PixelUI.icon("rope", 20))
 	_rope_btn = Button.new()
@@ -134,12 +137,9 @@ func _build() -> void:
 	_rope_btn.pressed.connect(func(): rope_pressed.emit())
 	items_h.add_child(_rope_btn)
 
-	var sep := VSeparator.new()
-	items_h.add_child(sep)
-	_items_row = HBoxContainer.new()
-	_items_row.add_theme_constant_override(&"separation", 6)
-	_items_row.size_flags_horizontal = SIZE_EXPAND_FILL
-	items_h.add_child(_items_row)
+	var spacer := Control.new()
+	spacer.size_flags_horizontal = SIZE_EXPAND_FILL
+	items_h.add_child(spacer)
 
 	_dmg_icon = PixelUI.icon("sword")
 	items_h.add_child(_dmg_icon)
@@ -151,6 +151,11 @@ func _build() -> void:
 	_dr_badge = Label.new()
 	_dr_badge.add_theme_font_size_override(&"font_size", 13)
 	items_h.add_child(_dr_badge)
+	# Gear gets its own row so long action labels never widen the game board.
+	_items_row = HBoxContainer.new()
+	_items_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	_items_row.add_theme_constant_override(&"separation", 6)
+	items_v.add_child(_items_row)
 	add_child(items_panel)
 
 	# --- Board slot (GameScene reparents GameBoard here) ---------------------
@@ -231,6 +236,7 @@ func refresh() -> void:
 
 func _refresh_items() -> void:
 	for c in _items_row.get_children():
+		_items_row.remove_child(c)
 		c.queue_free()
 	# Gear strip: every unlocked item gets a slot — lit when owned this run,
 	# dimmed when available but not bought. Teaches the item system visually.
@@ -255,6 +261,7 @@ func _refresh_items() -> void:
 		if not owned:
 			tr_icon.modulate = Color(1, 1, 1, 0.25)
 		_items_row.add_child(tr_icon)
+	_items_row.visible = _items_row.get_child_count() > 0
 
 
 const LOG_COLORS := {

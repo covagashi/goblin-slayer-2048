@@ -10,7 +10,7 @@ buses/default_bus_layout="res://resources/default_bus_layout.tres"
 
 [application]
 
-config/name="Goblin Slayer 2048"
+config/name="Goblin Shift"
 config/version="1.0.0"
 config/description="Tactical 2048-style puzzle RPG — slay goblins by merging them."
 run/main_scene="res://src/main.tscn"
@@ -45,7 +45,7 @@ pointing/emulate_touch_from_mouse=true
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://assets/i18n/translations.en.translation", "res://assets/i18n/translations.es.translation")
+locale/translations=PackedStringArray("res://assets/i18n/translations.en.translation", "res://assets/i18n/translations.es.translation", "res://assets/i18n/translations.pt_BR.translation", "res://assets/i18n/translations.fr.translation", "res://assets/i18n/translations.de.translation", "res://assets/i18n/translations.it.translation")
 locale/fallback="en"
 
 [rendering]

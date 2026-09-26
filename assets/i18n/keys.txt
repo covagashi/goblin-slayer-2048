@@ -2,10 +2,13 @@ splashTitle
 splashDescription
 storyMode
 storyModeDesc
+continueRun
+continueRunDesc
 endlessMode
 endlessModeDesc
 howToPlay
 upgradesAndProgress
+music
 headerTitle
 headerSubtitle
 newGame
@@ -69,12 +72,15 @@ combatL2
 combatL3
 powerupsTitle
 powerupsL1
+powerupsL2
 progressionTitle
 progressionL1
 progressionL2
 progressionL3
 progressionL4
 modesTitle
+modesL1
+modesL2
 storyModeTitle
 endlessModeTitle
 healthPotion_name
@@ -120,6 +126,7 @@ unlockRope_desc
 unlockFireScroll_name
 unlockFireScroll_desc
 log_chest_appeared
+log_continued
 log_new_goblin
 log_game_start
 log_chest_opened
@@ -166,6 +173,12 @@ toast_max_level
 toast_error_saving
 toast_upgrade_purchased
 toast_upgrade_purchased_desc
+streak_banner
+log_golden_appeared
+back_to_menu
+menu_title
+music_on
+music_off
 tapShop
 tapChest
 hordeCountdown
@@ -193,3 +206,6 @@ soundEffects
 audioOn
 audioOff
 testSound
+languageTitle
+languageHint
+upgradeLevel

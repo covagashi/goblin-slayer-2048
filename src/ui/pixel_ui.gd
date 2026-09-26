@@ -35,6 +35,9 @@ static func heading(text: String, name: String, pixels := 22, color := Color("f5
 	label.text = text
 	label.add_theme_font_size_override(&"font_size", pixels)
 	label.add_theme_color_override(&"font_color", color)
+	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	row.add_child(label)
 	return row
 

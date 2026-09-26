@@ -2,6 +2,7 @@ extends Node
 ## Persistence for meta-progression: total XP, permanent upgrades,
 ## leaderboard, settings. All data lives under user:// — never res://.
 
+# Keep the existing filename and mobile application ID so installed builds retain progress.
 const SAVE_PATH := "user://goblin_slayer_save.cfg"
 const SECTION_META := "meta"
 const SECTION_SETTINGS := "settings"
@@ -9,13 +10,14 @@ const SECTION_LEADERBOARD := "leaderboard"
 const SECTION_RUN := "run"
 const RUN_SAVE_VERSION := 1
 
+var save_path := SAVE_PATH
 var _cfg := ConfigFile.new()
 
 # -- Meta state (loaded at boot) -------------------------------------------
 var total_xp: int = 0
 var upgrades: Dictionary = {} # upgrade_id -> level (int)
 var leaderboard: Array = []   # Array[Dictionary]
-var language: StringName = &"es"
+var language: StringName = &"en"
 var music_enabled: bool = true
 var sfx_enabled: bool = true
 var music_volume: float = 1.0
@@ -24,18 +26,29 @@ var saved_run: Dictionary = {} # in-progress run snapshot (empty = none)
 
 
 func _ready() -> void:
+	# QA must never write the player's save, even if a test or the machine crashes.
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("qa="):
+			save_path = "user://qa_goblin_slayer_save.cfg"
+			break
 	load_all()
 
 
 func load_all() -> void:
 	# ConfigFile.load merges keys; start fresh so missing legacy settings use defaults.
 	_cfg.clear()
-	if _cfg.load(SAVE_PATH) != OK:
-		return # first run — defaults are fine
+	var migrated := false
+	if save_path == SAVE_PATH and not FileAccess.file_exists(save_path) and not OS.has_feature("mobile"):
+		# Desktop user:// is named after the project. Import the previous title's save once.
+		var legacy := OS.get_user_data_dir().get_base_dir().path_join("Goblin Slayer 2048/goblin_slayer_save.cfg")
+		if FileAccess.file_exists(legacy):
+			migrated = _cfg.load(legacy) == OK
+	if not migrated:
+		_cfg.load(save_path)
 	total_xp = int(_cfg.get_value(SECTION_META, "total_xp", 0))
 	upgrades = _cfg.get_value(SECTION_META, "upgrades", {})
 	leaderboard = _cfg.get_value(SECTION_META, "leaderboard", [])
-	language = StringName(_cfg.get_value(SECTION_SETTINGS, "language", "es"))
+	language = GameLocale.preference(_cfg.get_value(SECTION_SETTINGS, "language", ""), OS.get_locale())
 	music_enabled = bool(_cfg.get_value(SECTION_SETTINGS, "music_enabled", true))
 	sfx_enabled = bool(_cfg.get_value(SECTION_SETTINGS, "sfx_enabled", true))
 	music_volume = _load_volume("music_volume")
@@ -47,7 +60,18 @@ func load_all() -> void:
 		saved_run = {}
 		if loaded_run != {}:
 			_cfg.set_value(SECTION_RUN, "data", {})
-			_cfg.save(SAVE_PATH)
+			_cfg.save(save_path)
+	if migrated:
+		save()
+
+
+func set_language(locale: StringName) -> void:
+	if not GameLocale.NAMES.has(locale):
+		return
+	language = locale
+	save()
+	TranslationServer.set_locale(String(locale))
+	SignalBus.language_changed.emit(locale)
 
 
 func save() -> void:
@@ -60,7 +84,7 @@ func save() -> void:
 	_cfg.set_value(SECTION_SETTINGS, "music_volume", music_volume)
 	_cfg.set_value(SECTION_SETTINGS, "sfx_volume", sfx_volume)
 	_cfg.set_value(SECTION_RUN, "data", saved_run)
-	var err := _cfg.save(SAVE_PATH)
+	var err := _cfg.save(save_path)
 	if err != OK:
 		push_error("SaveManager: failed to write save file (%s)" % error_string(err))
 

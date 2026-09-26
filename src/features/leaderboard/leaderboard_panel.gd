@@ -24,6 +24,7 @@ func _build() -> void:
 	desc.theme_type_variation = &"MutedLabel"
 	desc.add_theme_font_size_override(&"font_size", 14)
 	desc.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	vb.add_child(desc)
 
 	if SaveManager.leaderboard.is_empty():
@@ -31,6 +32,7 @@ func _build() -> void:
 		empty.text = tr(&"noVictories")
 		empty.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		empty.custom_minimum_size.y = 60
+		empty.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		vb.add_child(empty)
 	else:
 		var i := 0
@@ -69,6 +71,7 @@ func _row(rank: int, e: Dictionary) -> Control:
 	d.text = "%s · %s %d · XP %d" % [str(e.get("date", "")), tr(&"kills"), int(e.get("kills", 0)), int(e.get("xp", 0))]
 	d.theme_type_variation = &"MutedLabel"
 	d.add_theme_font_size_override(&"font_size", 14)
+	d.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	mid.add_child(d)
 	hb.add_child(mid)
 	return row

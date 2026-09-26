@@ -1,6 +1,6 @@
-# Goblin Slayer 2048
+# Goblin Shift
 
-A tactical puzzle game based on 2048 mechanics with a Goblin Slayer theme.
+**Swipe. Merge. Survive.** A tactical fantasy puzzle inspired by 2048.
 Combine goblins to slay them — now built with **Godot 4.7** for **iOS & Android** (iPhone 16 portrait layout, expandable to other screens).
 
 ## Game Features
@@ -12,7 +12,7 @@ Combine goblins to slay them — now built with **Godot 4.7** for **iOS & Androi
 - **Shop**: mysterious shop tiles sell potions, torch, sword, shield, poison, rope & fire scroll
 - **Meta progression**: persistent XP buys 14 permanent upgrades
 - **Extras**: cosmetic rare goblin variants (31 skins), ultra-rare **Golden Goblin** (10× gold), kill-streak **MASSACRE** bonuses, haptics, particles, screen shake, danger vignette
-- **Leaderboard** (top-10 fastest story wins), **EN/ES** translations, music + generated chiptune SFX
+- **Leaderboard** (top-10 fastest story wins), **EN / ES / PT-BR / FR / DE / IT** translations, music + generated chiptune SFX
 
 ## 🛠️ Tech Stack
 
@@ -42,7 +42,7 @@ assets/
   sprites/                 # pixel goblins (8 tiers), variants (31), items,
                            # 39 idle strips, five VFX strips and pixel GUI
   audio/                   # music (mp3) + sfx (generated wavs)
-  i18n/                    # translations.csv (en/es)
+  i18n/                    # translations.csv (6 languages)
 tests/                     # headless engine tests
 tools/                     # generate_sfx.py, screenshot.sh
 ```
@@ -61,7 +61,7 @@ godot --headless -s tests/test_grid_engine.gd   # 25 assertions on game rules
 ### Headless e2e scenarios
 
 ```bash
-tools/e2e.sh    # 31 scenarios driving the real UI (shop, rope, fire scroll,
+tools/e2e.sh    # 32 scenarios driving the real UI (shop, rope, fire scroll,
                 # game over + restart, victory + leaderboard, endless,
                 # overcrowding, upgrades, persistence, assets, safe area, i18n,
                 # native touch scrolling, audio controls, horde warnings, About/Privacy,
@@ -70,17 +70,21 @@ tools/e2e.sh    # 31 scenarios driving the real UI (shop, rope, fire scroll,
 # extra chaos seeds: godot --headless -- qa=chaos seed=<n>
 ```
 
+QA uses a separate save file and fresh progress for each scenario. It does not
+modify the player's save, even if a test is interrupted.
+
 ### Visual QA snapshots
 
 ```bash
 tools/screenshot.sh /tmp/shots   # boots the game, self-captures viewport PNGs
 godot -- qa=visual_review       # touch UI/rank review in /tmp/gs2048_mobile_review
+godot -- qa=locale_visuals      # 6-language screenshots in exports/store/screenshots/
 ```
 
 ## 📱 Exporting
 
 Presets are configured in `export_presets.cfg` (portrait-locked, arm64,
-`com.covagashi.goblinslayer2048`):
+`com.covagashi.goblinslayer2048`, retained as the internal ID for updates that preserve existing saves):
 
 - **Android**: install export templates + Android SDK, then `Project → Export → Android`
   (set your release keystore in the preset).
@@ -97,8 +101,8 @@ Enable USB debugging on the phone and accept its authorization prompt, then run:
 
 ```bash
 mkdir -p exports
-godot --headless --path . --export-debug Android exports/goblin-slayer-2048.apk
-adb -d install -r exports/goblin-slayer-2048.apk
+godot --headless --path . --export-debug Android exports/goblin-shift.apk
+adb -d install -r exports/goblin-shift.apk
 adb -d shell am start -W -n com.covagashi.goblinslayer2048/com.godot.game.GodotAppLauncher
 ```
 
@@ -110,6 +114,17 @@ adb -d shell am start -W -n com.covagashi.goblinslayer2048/com.godot.game.GodotA
 4. Every ~15 moves the horde attacks — manage your HP.
 5. Chests give gold (merge a goblin into them); shops appear every 5 levels.
 6. Spend gold on items mid-run and XP on permanent upgrades between runs.
+
+## Languages and store materials
+
+The first launch detects the device language (English fallback). The language picker
+uses native language names and persists the player's choice. Portuguese devices
+use the Brazilian Portuguese translation. Existing language preferences are preserved.
+Desktop saves from the previous project title are imported without deleting the original.
+
+All 211 translation keys live in `assets/i18n/translations.csv`. QA checks coverage,
+format placeholders, accented glyphs, locale selection and the layout of 14 screens
+in each language. Store copy and screenshot instructions are in [store/README.md](store/README.md).
 
 ## Artwork and license
 

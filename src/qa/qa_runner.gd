@@ -3,8 +3,8 @@ extends Node
 ## Headless e2e scenarios driven through the real UI paths.
 ## Run: godot --headless -- qa=<scenario>
 ## Prints "[E2E] PASS/FAIL <label>" lines; exit code 1 on any failure.
-## Save data is snapshotted on start and restored at the end — QA runs
-## never pollute the player's real user:// save.
+## SaveManager uses a separate QA save file; scenarios start with fresh progress.
+## QA data is snapshotted and restored without touching the player's real save.
 
 var _main: Control
 var _pass := 0
@@ -22,9 +22,78 @@ var _bak_sfx_volume := 1.0
 var _bak_run: Dictionary = {}
 
 
+const SCENARIOS: Array[StringName] = [
+	&"core",
+	&"merge_kill",
+	&"chest",
+	&"golden",
+	&"streak",
+	&"shop",
+	&"shop_expiry",
+	&"rope",
+	&"fire",
+	&"gameover",
+	&"victory",
+	&"endless",
+	&"overcrowding",
+	&"upgrades",
+	&"leaderboard",
+	&"persistence",
+	&"assets",
+	&"safe_area",
+	&"i18n",
+	&"locale_layout",
+	&"chaos",
+	&"chaos_endless",
+	&"menu_cycle",
+	&"lang",
+	&"clicklang",
+	&"swipe_input",
+	&"touch_ui",
+	&"horde_warning",
+	&"info_pages",
+	&"audio_settings",
+	&"continue",
+	&"continue_invalid",
+]
+
+
 func run(scenario: StringName, main_ref: Control) -> void:
 	_main = main_ref
 	_backup_save()
+	# Let the initial splash finish attaching before any scenario replaces it.
+	await _wait(0.6)
+	var selected: Array[StringName] = []
+	if scenario == &"all":
+		selected.assign(SCENARIOS)
+	else:
+		selected.append(scenario)
+	for current in selected:
+		_quiet = false
+		SaveManager.total_xp = 0
+		SaveManager.upgrades = {}
+		SaveManager.leaderboard = []
+		SaveManager.saved_run = {}
+		SaveManager.save()
+		if scenario == &"all":
+			_main._show_splash()
+			await _wait(0.7)
+		var passed_before := _pass
+		var failed_before := _fail
+		await _run_scenario(current)
+		await _wait(0.5)
+		_restore_save()
+		TranslationServer.set_locale(String(_bak_lang))
+		print("[E2E] %s => %d passed, %d failed" % [current, _pass - passed_before, _fail - failed_before])
+	if scenario == &"all":
+		print("[E2E] all => %d passed, %d failed across %d scenarios" % [_pass, _fail, selected.size()])
+	AudioManager.stop_all()
+	# Give the audio thread time to release MP3 playback before engine teardown.
+	await _wait(0.4)
+	get_tree().quit(1 if _fail > 0 else 0)
+
+
+func _run_scenario(scenario: StringName) -> void:
 	match scenario:
 		&"core": await _s_core()
 		&"merge_kill": await _s_merge_kill()
@@ -45,6 +114,8 @@ func run(scenario: StringName, main_ref: Control) -> void:
 		&"assets": _s_assets()
 		&"safe_area": await _s_safe_area()
 		&"i18n": _s_i18n()
+		&"locale_layout": await _s_locale_layout()
+		&"locale_visuals": await _s_locale_visuals()
 		&"chaos": await _s_chaos(&"story")
 		&"chaos_endless": await _s_chaos(&"endless")
 		&"menu_cycle": await _s_menu_cycle()
@@ -62,10 +133,6 @@ func run(scenario: StringName, main_ref: Control) -> void:
 		_:
 			printerr("[E2E] unknown scenario: %s" % scenario)
 			_fail += 1
-	_restore_save()
-	print("[E2E] %s => %d passed, %d failed" % [scenario, _pass, _fail])
-	await get_tree().process_frame
-	get_tree().quit(1 if _fail > 0 else 0)
 
 
 # ---------------------------------------------------------------------------
@@ -155,14 +222,14 @@ func _backup_save() -> void:
 
 func _restore_save() -> void:
 	SaveManager.total_xp = _bak_xp
-	SaveManager.upgrades = _bak_upgrades
-	SaveManager.leaderboard = _bak_lb
+	SaveManager.upgrades = _bak_upgrades.duplicate(true)
+	SaveManager.leaderboard = _bak_lb.duplicate(true)
 	SaveManager.language = _bak_lang
 	SaveManager.music_enabled = _bak_music
 	SaveManager.sfx_enabled = _bak_sfx
 	SaveManager.music_volume = _bak_music_volume
 	SaveManager.sfx_volume = _bak_sfx_volume
-	SaveManager.saved_run = _bak_run
+	SaveManager.saved_run = _bak_run.duplicate(true)
 	SaveManager.save()
 	AudioManager.apply_settings()
 
@@ -183,8 +250,10 @@ func _s_core() -> void:
 				tiles += 1
 	_check(tiles >= 2, "core: initial grid spawned %d tiles" % tiles)
 	_check(g._hud != null and g._hud._log_box != null, "core: HUD bound")
-	g._on_swipe(&"left")
-	_check(g._rs.moves_count >= 1, "core: swipe registered (moves=%d)" % g._rs.moves_count)
+	for direction in [&"left", &"right", &"up", &"down"]:
+		if g._rs.moves_count > 0: break
+		g._on_swipe(direction)
+	_check(g._rs.moves_count >= 1, "core: a valid opening swipe registers (moves=%d)" % g._rs.moves_count)
 
 
 func _s_merge_kill() -> void:
@@ -583,61 +652,59 @@ func _find_button(n: Node, prefix: String) -> Button:
 
 
 func _s_lang() -> void:
-	var tries := 90
-	while tries > 0 and not (_main._current is SplashScreen):
+	await _wait(0.6)
+	_check(_main._current is SplashScreen, "lang: splash is current")
+	for locale in GameLocale.NAMES:
+		var button := _find_button(_main._current, "LanguageButton")
+		_check(button != null, "lang: language button exists")
+		if button == null: return
+		var before := SaveManager.language
+		button.pressed.emit()
 		await get_tree().process_frame
-		tries -= 1
-	var s: Control = _main._current
-	_check(s is SplashScreen, "lang: splash is current")
-	var btn := _find_button(s, "LanguageButton")
-	_check(btn != null, "lang: 🌐 button exists")
-	if btn == null:
-		return
+		var picker := _find_panel(_main._current, "LanguagePanel") as LanguagePanel
+		_check(picker != null and SaveManager.language == before, "lang: opening picker preserves language")
+		if picker == null: return
+		var current := _find_button(picker, "Locale_" + String(before))
+		_check(current != null and current.button_pressed, "lang: current language is selected")
+		_find_button(picker, "Locale_" + String(locale)).pressed.emit()
+		await get_tree().process_frame
+		await get_tree().process_frame
+		_check(SaveManager.language == locale and TranslationServer.get_locale() == String(locale), "lang: applies " + String(locale))
+		SaveManager.load_all()
+		_check(SaveManager.language == locale, "lang: survives disk reload " + String(locale))
+		var rebuilt := _find_button(_main._current, "LanguageButton")
+		_check(rebuilt != null and rebuilt.text == GameLocale.NAMES[locale], "lang: shows native name " + String(locale))
+		_check(_find_panel(_main._current, "LanguagePanel") == null, "lang: selection closes picker")
 	var before := SaveManager.language
-	btn.pressed.emit()
+	_find_button(_main._current, "LanguageButton").pressed.emit()
 	await get_tree().process_frame
+	var picker := _find_panel(_main._current, "LanguagePanel")
+	_find_button(picker, "CloseButton").pressed.emit()
 	await get_tree().process_frame
-	_check(SaveManager.language != before, "lang: toggles %s -> %s" % [before, SaveManager.language])
-	_check(TranslationServer.get_locale().begins_with(String(SaveManager.language)),
-		"lang: locale applied (%s)" % TranslationServer.get_locale())
-	var btn2 := _find_button(_main._current, "LanguageButton")
-	_check(btn2 != null and btn2 != btn, "lang: splash rebuilt with new button")
-	if btn2:
-		_check(btn2.text.ends_with(String(SaveManager.language).to_upper()),
-			"lang: new label shows %s" % btn2.text)
+	_check(SaveManager.language == before, "lang: closing without a selection preserves language")
 
 
 func _s_clicklang() -> void:
-	# Real-input path: inject an actual mouse click at the button's center
-	var tries := 90
-	while tries > 0 and not (_main._current is SplashScreen):
-		await get_tree().process_frame
-		tries -= 1
+	await _wait(0.6)
+	var button := _find_button(_main._current, "LanguageButton")
+	_check(button != null, "clicklang: language button exists")
+	if button == null: return
+	var scroll := _main._current.find_child("MenuScroll", true, false) as ScrollContainer
+	scroll.ensure_control_visible(button)
+	await _wait(0.1)
+	var pos := get_viewport().get_screen_transform() * button.get_global_rect().get_center()
+	Input.parse_input_event(_mouse_at(pos, true))
 	await get_tree().process_frame
-	var btn := _find_button(_main._current, "LanguageButton")
-	_check(btn != null, "clicklang: 🌐 button exists")
-	if btn == null:
-		return
-	var before := SaveManager.language
-	var center := btn.get_global_rect().get_center()
-	var xf := get_viewport().get_screen_transform()
-	var pos: Vector2 = xf * center
-	var press := InputEventMouseButton.new()
-	press.button_index = MOUSE_BUTTON_LEFT
-	press.pressed = true
-	press.position = pos
-	Input.parse_input_event(press)
-	await get_tree().process_frame
-	await get_tree().process_frame
-	var rel := InputEventMouseButton.new()
-	rel.button_index = MOUSE_BUTTON_LEFT
-	rel.pressed = false
-	rel.position = pos
-	Input.parse_input_event(rel)
-	await get_tree().process_frame
-	await get_tree().process_frame
-	_check(SaveManager.language != before,
-		"clicklang: real click toggles %s -> %s" % [before, SaveManager.language])
+	Input.parse_input_event(_mouse_at(pos, false))
+	await _wait(0.1)
+	var picker := _find_panel(_main._current, "LanguagePanel")
+	_check(picker != null, "clicklang: real mouse click opens picker")
+	if picker == null: return
+	var target := &"fr" if SaveManager.language != &"fr" else &"pt_BR"
+	var choice := _find_button(picker, "Locale_" + String(target))
+	await _touch_tap(choice.get_global_rect().get_center())
+	_check(SaveManager.language == target, "clicklang: native touch selects " + String(target))
+	_check(_find_panel(_main._current, "LanguagePanel") == null, "clicklang: native selection dismisses picker")
 
 
 func _mouse_at(pos: Vector2, pressed: bool) -> InputEventMouseButton:
@@ -975,28 +1042,56 @@ func _s_continue_invalid() -> void:
 
 
 func _s_i18n() -> void:
-	TranslationServer.set_locale("en")
-	var en: String = tr(&"storyMode")
-	TranslationServer.set_locale("es")
-	var es: String = tr(&"storyMode")
-	_check(en != es, "i18n: en/es differ (%s / %s)" % [en, es])
-	# Every key in the CSV must translate in both locales (missing => tr returns the key)
-	var missing := 0
-	var tr_en := load("res://assets/i18n/translations.en.translation") as Translation
-	var tr_es := load("res://assets/i18n/translations.es.translation") as Translation
-	for key in tr_en.get_message_list():
-		if String(tr_en.get_message(key)).is_empty() or String(tr_es.get_message(key)).is_empty():
-			missing += 1
-			push_warning("i18n: empty translation for " + String(key))
-	_check(missing == 0, "i18n: %d keys untranslated" % missing)
-	# Every key the HowTo panel renders must resolve
-	var bad := 0
-	for sec in HowToPanel.SECTIONS:
-		for k in [sec[0]] + sec[1]:
-			if tr(k) == String(k):
-				bad += 1
-				push_warning("i18n: unresolved key " + String(k))
-	_check(bad == 0, "i18n: %d how-to keys unresolved" % bad)
+	var reference := load("res://assets/i18n/translations.en.translation") as Translation
+	# OptimizedTranslation cannot enumerate keys; use the explicit source key index.
+	var keys := FileAccess.get_file_as_string("res://assets/i18n/keys.txt").strip_edges().split("\n")
+	_check(keys.size() >= 211, "i18n: key index covers the entire catalog")
+	var font := load("res://assets/fonts/VT323-Regular.ttf") as FontFile
+	var tokens := RegEx.new()
+	tokens.compile("\\{[a-zA-Z_]+\\}")
+	for locale in GameLocale.NAMES:
+		var translation := load("res://assets/i18n/translations.%s.translation" % locale) as Translation
+		_check(translation != null, "i18n: resource loads " + String(locale))
+		if translation == null: continue
+		TranslationServer.set_locale(String(locale))
+		var missing: Array[String] = []
+		var mismatched: Array[String] = []
+		var unsupported := ""
+		for key in keys:
+			var value := String(translation.get_message(key))
+			if value.is_empty() or tr(key) != value:
+				missing.append(String(key))
+			var expected: Array[String] = []
+			var actual: Array[String] = []
+			for token in tokens.search_all(reference.get_message(key)): expected.append(token.get_string())
+			for token in tokens.search_all(value): actual.append(token.get_string())
+			expected.sort()
+			actual.sort()
+			if expected != actual: mismatched.append(String(key))
+			for character in value:
+				if character.unicode_at(0) > 127 and character not in "→—×" and not font.has_char(character.unicode_at(0)) and not unsupported.contains(character):
+					unsupported += character
+		_check(missing.is_empty(), "i18n: complete and active %s (%s)" % [locale, ", ".join(missing)])
+		_check(mismatched.is_empty(), "i18n: format tokens preserved %s (%s)" % [locale, ", ".join(mismatched)])
+		_check(unsupported.is_empty(), "i18n: font covers accented characters %s (%s)" % [locale, unsupported])
+		_check(tr(&"splashTitle") == "Goblin Shift" and tr(&"aboutGameTitle") == "Goblin Shift", "i18n: brand " + String(locale))
+	var devices := {"es_MX": &"es", "en-GB": &"en", "pt_BR": &"pt_BR", "pt-PT": &"pt_BR", "fr_CA": &"fr", "de_AT": &"de", "it_IT": &"it", "ja_JP": &"en", "": &"en"}
+	for device in devices:
+		_check(GameLocale.preference("", device) == devices[device], "i18n: first-launch device detection " + device)
+	_check(GameLocale.preference("de", "es_ES") == &"de", "i18n: saved choice overrides device locale")
+	_check(GameLocale.preference("xx", "it_IT") == &"it", "i18n: unknown saved language uses device locale")
+	_check(GameLocale.preference(123, "pt_BR") == &"pt_BR", "i18n: invalid saved language uses device locale")
+	var cfg := ConfigFile.new()
+	SaveManager.save()
+	cfg.load(SaveManager.save_path)
+	cfg.erase_section_key("settings", "language")
+	cfg.save(SaveManager.save_path)
+	SaveManager.load_all()
+	_check(SaveManager.language == GameLocale.from_device(OS.get_locale()), "i18n: missing preference loads device language from real save")
+	cfg.set_value("settings", "language", "fr")
+	cfg.save(SaveManager.save_path)
+	SaveManager.load_all()
+	_check(SaveManager.language == &"fr", "i18n: real saved choice overrides device after reload")
 	TranslationServer.set_locale(String(_bak_lang))
 
 
@@ -1273,11 +1368,11 @@ func _s_audio_settings() -> void:
 	# Old saves have only music_enabled; new fields must default without losing it.
 	SaveManager.save()
 	var cfg := ConfigFile.new()
-	cfg.load(SaveManager.SAVE_PATH)
+	cfg.load(SaveManager.save_path)
 	cfg.set_value("settings", "music_enabled", false)
 	for key in ["sfx_enabled", "music_volume", "sfx_volume"]:
 		cfg.erase_section_key("settings", key)
-	cfg.save(SaveManager.SAVE_PATH)
+	cfg.save(SaveManager.save_path)
 	SaveManager.load_all()
 	AudioManager.apply_settings()
 	_check(not SaveManager.music_enabled and SaveManager.sfx_enabled and SaveManager.music_volume == 1.0 and SaveManager.sfx_volume == 1.0, "audio: legacy save keeps music choice and defaults new controls")
@@ -1285,7 +1380,7 @@ func _s_audio_settings() -> void:
 	_check(AudioServer.is_bus_mute(music_bus), "audio: loaded mute survives returning to menu")
 	cfg.set_value("settings", "music_volume", 20)
 	cfg.set_value("settings", "sfx_volume", "broken")
-	cfg.save(SaveManager.SAVE_PATH)
+	cfg.save(SaveManager.save_path)
 	SaveManager.load_all()
 	_check(SaveManager.music_volume == 1.0 and SaveManager.sfx_volume == 1.0, "audio: invalid saved volumes are clamped or defaulted")
 
@@ -1302,3 +1397,136 @@ func _s_audio_visuals() -> void:
 		await _review_shot("audio_panel_" + locale)
 		panel._close()
 		await get_tree().process_frame
+
+
+func _check_locale_layout(root: Node, label: String) -> void:
+	var failures: Array[String] = []
+	_collect_overflow(root, failures)
+	_check(failures.is_empty(), "locale_layout: %s %s" % [label, "; ".join(failures)])
+
+
+func _collect_overflow(root: Node, failures: Array[String]) -> void:
+	if root is Control and root.is_visible_in_tree():
+		var rect: Rect2 = root.get_global_rect()
+		var width := get_viewport().get_visible_rect().size.x
+		if rect.position.x < -1 or rect.end.x > width + 1:
+			failures.append("%s x=%.0f width=%.0f" % [root.name, rect.position.x, rect.size.x])
+		# Main modal panels must also fit vertically; scroll contents may be taller.
+		if root is PanelContainer and root.get_parent() is CenterContainer:
+			if rect.position.y < -1 or rect.end.y > get_viewport().get_visible_rect().size.y + 1:
+				failures.append("%s y=%.0f height=%.0f" % [root.name, rect.position.y, rect.size.y])
+	for child in root.get_children():
+		_collect_overflow(child, failures)
+
+
+func _locale_capture(locale: StringName, screen: String, capture: bool) -> void:
+	# Capture after scene fades finish, with the actual portrait viewport.
+	await _wait(0.35)
+	_check_locale_layout(_main._current, "%s/%s" % [locale, screen])
+	if not capture: return
+	await RenderingServer.frame_post_draw
+	var folder := "res://exports/store/screenshots/" + String(locale)
+	DirAccess.make_dir_recursive_absolute(folder)
+	# Generated store media must not be imported or included in game exports.
+	var ignore := FileAccess.open("res://exports/.gdignore", FileAccess.WRITE)
+	if ignore: ignore.close()
+	_check(get_viewport().get_texture().get_image().save_png(folder.path_join(screen + ".png")) == OK,
+		"locale_visuals: %s/%s" % [locale, screen])
+
+
+func _s_locale_visuals() -> void:
+	# Confirm a valid opening move before rendering the store review.
+	await _s_core()
+	await _s_locale_layout(true)
+
+
+func _s_locale_layout(capture := false) -> void:
+	# Test the phone width in headless runs too. Large macOS windows are clamped
+	# by the screen, changing the aspect ratio and concealing narrow-screen bugs.
+	get_window().size = Vector2i(393, 852)
+	await get_tree().process_frame
+	for locale in GameLocale.NAMES:
+		SaveManager.language = locale
+		TranslationServer.set_locale(String(locale))
+		SaveManager.saved_run = {}
+		SaveManager.total_xp = 2500
+		SaveManager.upgrades = {}
+		SaveManager.leaderboard = []
+		_main._show_splash()
+		await _wait(0.7)
+		await _locale_capture(locale, "menu", capture)
+		var splash := _main._current as SplashScreen
+		var picker := LanguagePanel.new()
+		picker.open(splash)
+		await _locale_capture(locale, "language", capture)
+		picker.queue_free()
+		await get_tree().process_frame
+		var audio := AudioPanel.new()
+		audio.open(splash)
+		await _locale_capture(locale, "audio", capture)
+		audio._close()
+		await get_tree().process_frame
+		var upgrades := UpgradesPanel.new()
+		upgrades.open(splash)
+		await _locale_capture(locale, "upgrades", capture)
+		upgrades._scroll.scroll_vertical = 10000
+		await _locale_capture(locale, "upgrades_bottom", capture)
+		upgrades.queue_free()
+		await get_tree().process_frame
+		var howto := HowToPanel.new()
+		howto.open(splash)
+		await _locale_capture(locale, "howto", capture)
+		howto.queue_free()
+		await get_tree().process_frame
+		for page in [&"about", &"privacy"]:
+			var info := InfoPanel.new()
+			info.open(page, splash)
+			await _locale_capture(locale, String(page), capture)
+			info.queue_free()
+			await get_tree().process_frame
+		for populated in [false, true]:
+			if populated:
+				SaveManager.leaderboard = [{"score": 123456, "kills": 123, "xp": 4567, "time": 256, "date": "2026-09-26"}]
+			var leaderboard := LeaderboardPanel.new()
+			leaderboard.open(splash)
+			await _locale_capture(locale, "leaderboard" if populated else "leaderboard_empty", capture)
+			leaderboard.queue_free()
+			await get_tree().process_frame
+		var g := await _start(&"story")
+		if g == null: _check(false, "locale_layout: game started"); return
+		var tiles: Array = [_goblin(2, 0, 0), _goblin(4, 0, 1), _goblin(8, 0, 2), _goblin(16, 1, 0), _goblin(32, 1, 1), _goblin(64, 1, 2), _special(BoardTile.Kind.SHOP, 2, 0), _special(BoardTile.Kind.CHEST, 2, 1)]
+		_set_board(g, tiles)
+		g._rs.moves_count = 12
+		g._rs.score = 1240
+		g._rs.gold = 320
+		g._rs.rope_count = 1
+		g._rs.damage_bonus = 3
+		g._rs.damage_reduction = 2
+		for item in GoblinDB.SHOP_ITEMS:
+			if item.unique:
+				var id: StringName = item.id
+				g._upgrades[StringName("unlock" + String(id).substr(0, 1).to_upper() + String(id).substr(1))] = 1
+				g._rs.purchased_items.append(id)
+		g._hud._refresh_items()
+		g._post_move()
+		await _locale_capture(locale, "gameplay", capture)
+		g._rs.moves_count = 14
+		g._post_move()
+		await _locale_capture(locale, "horde", capture)
+		var shop := ShopPanel.new()
+		shop.open(g._rs, {}, g)
+		shop._offers = [GoblinDB.item_by_id(&"healthPotion"), GoblinDB.item_by_id(&"fireScroll"), GoblinDB.item_by_id(&"shield")]
+		for child in shop.get_children():
+			shop.remove_child(child)
+			child.queue_free()
+		shop._build()
+		await _locale_capture(locale, "shop", capture)
+		shop.queue_free()
+		await get_tree().process_frame
+		g._rs.over_reason_key = &"reason_slain"
+		var gameover := GameOverPanel.new()
+		gameover.open(g._rs, g)
+		await _locale_capture(locale, "gameover", capture)
+		gameover.queue_free()
+		await get_tree().process_frame
+	TranslationServer.set_locale(String(_bak_lang))

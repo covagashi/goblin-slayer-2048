@@ -50,9 +50,8 @@ func _ready() -> void:
 		)
 	if qa.has(&"shot_lang_en"):
 		get_tree().create_timer(1.0).timeout.connect(func():
-			var b := _find_btn(_current, "LanguageButton")
-			if b:
-				b.pressed.emit()
+			SaveManager.set_language(&"en")
+			_show_splash()
 		)
 	if qa.has(&"shot_continue"):
 		# fake mid-run snapshot so the splash offers ▶ Continuar

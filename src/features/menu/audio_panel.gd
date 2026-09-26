@@ -51,6 +51,7 @@ func _channel_controls(channel: StringName, label_key: StringName, enabled: bool
 	var label := Label.new()
 	label.text = tr(label_key)
 	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	label.add_theme_font_size_override(&"font_size", 20)
 	row.add_child(label)
 	var toggle := Button.new()

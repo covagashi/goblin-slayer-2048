@@ -126,6 +126,7 @@ func _offer_row(it: Dictionary) -> Control:
 	var name_l := Label.new()
 	name_l.text = tr(StringName(String(it.id) + "_name"))
 	name_l.add_theme_font_size_override(&"font_size", 15)
+	name_l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	info.add_child(name_l)
 	var desc_l := Label.new()
 	desc_l.text = tr(StringName(String(it.id) + "_desc"))

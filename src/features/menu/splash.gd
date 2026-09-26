@@ -12,6 +12,7 @@ func _ready() -> void:
 
 func _build() -> void:
 	for c in get_children():
+		remove_child(c)
 		c.queue_free()
 	add_child(PixelUI.backdrop())
 
@@ -118,17 +119,15 @@ func _build() -> void:
 
 	var lang := Button.new()
 	lang.name = &"LanguageButton"
-	lang.text = String(SaveManager.language).to_upper()
+	lang.text = GameLocale.NAMES[SaveManager.language]
+	lang.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
 	PixelUI.button_icon(lang, "globe")
-	lang.custom_minimum_size = Vector2(80, 40)
+	lang.custom_minimum_size = Vector2(80, 48)
 	lang.pressed.connect(func():
-		var nl := &"en" if SaveManager.language == &"es" else &"es"
-		SaveManager.language = nl
-		SaveManager.save()
-		TranslationServer.set_locale(String(nl))
-		SignalBus.language_changed.emit(nl)
 		AudioManager.play_sfx(&"ui_click")
-		_build()
+		var picker := LanguagePanel.new()
+		picker.selected.connect(func(_locale: StringName): _build.call_deferred())
+		picker.open(self)
 	)
 	settings.add_child(lang)
 
@@ -136,7 +135,7 @@ func _build() -> void:
 	music.name = &"SoundButton"
 	PixelUI.button_icon(music, "mute" if AudioManager.is_silent() else "volume")
 	music.tooltip_text = tr(&"soundSettings")
-	music.custom_minimum_size = Vector2(56, 40)
+	music.custom_minimum_size = Vector2(56, 48)
 	music.pressed.connect(func():
 		AudioManager.play_sfx(&"ui_click")
 		var audio := AudioPanel.new()
@@ -177,6 +176,7 @@ func _mode_desc(text: String) -> Label:
 	l.theme_type_variation = &"MutedLabel"
 	l.add_theme_font_size_override(&"font_size", 14)
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	return l
 
 

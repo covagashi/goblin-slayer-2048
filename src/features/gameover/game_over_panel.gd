@@ -65,6 +65,7 @@ func _stat_row(icon: String, label: String, value: String) -> Control:
 	var l := Label.new()
 	l.text = label
 	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	l.add_theme_font_size_override(&"font_size", 14)
 	hb.add_child(l)
 	var v := Label.new()

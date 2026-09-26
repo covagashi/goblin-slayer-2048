@@ -25,6 +25,7 @@ func _build() -> void:
 	title.add_theme_font_size_override(&"font_size", 20)
 	title.add_theme_color_override(&"font_color", Color("f5c65a"))
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	head.add_child(PixelUI.icon("sparkle", 20))
 	head.add_child(title)
 	var xp := Label.new()
@@ -77,6 +78,7 @@ func _upgrade_row(up: Dictionary) -> Control:
 	var uid: StringName = up.id
 	name_l.text = tr(StringName(String(uid) + "_name"))
 	name_l.add_theme_font_size_override(&"font_size", 14)
+	name_l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	info.add_child(name_l)
 	var desc_l := Label.new()
 	desc_l.text = tr(StringName(String(uid) + "_desc"))
@@ -86,7 +88,7 @@ func _upgrade_row(up: Dictionary) -> Control:
 	info.add_child(desc_l)
 	var lvl_l := Label.new()
 	var cur := SaveManager.upgrade_level(uid)
-	lvl_l.text = "Lv %d/%d" % [cur, up.max_level]
+	lvl_l.text = tr(&"upgradeLevel").format({"current": cur, "max": up.max_level})
 	lvl_l.theme_type_variation = &"MutedLabel"
 	lvl_l.add_theme_font_size_override(&"font_size", 14)
 	info.add_child(lvl_l)

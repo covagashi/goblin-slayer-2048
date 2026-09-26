@@ -1,209 +1,212 @@
-keys,en,es
-splashTitle,Goblin Slayer 2048,Goblin Slayer 2048
-splashDescription,Combine goblins to eliminate them in this tactical puzzle game.,Combina goblins para eliminarlos en este juego de puzle táctico.
-storyMode,Story Mode,Modo Historia
-storyModeDesc,Create a Goblin(256) to win.,Crea un Goblin(256) para ganar.
-continueRun,Continue,Continuar
-continueRunDesc,Resume your in-progress run.,Retoma tu partida en curso.
-endlessMode,Endless Mode,Modo Infinito
-endlessModeDesc,Survive the endless goblin waves.,Sobrevive a las infinitas oleadas de goblins.
-howToPlay,How to Play,Cómo Jugar
-upgradesAndProgress,Upgrades & Progression,Mejoras y Progresión
-music,Music,Música
-headerTitle,Goblin Slayer 2048,Goblin Slayer 2048
-headerSubtitle,Combine goblins to slay them.,Combina goblins para matarlos.
-newGame,New Game,Nuevo Juego
-openMenu,Open Menu,Abrir Menú
-score,Score,Puntuación
-gold,Gold,Oro
-level,Level,Nivel
-totalXp,Total XP,XP Total
-killsToLevel,to Lvl,para Nvl
-movesUntilAttack,moves,movimientos
-itemsAndUpgrades,Items & Upgrades,Objetos y Mejoras
-combineDamageBonus,Combine Damage Bonus,Bonus de Daño por Combinar
-damageReduction,Damage Reduction,Reducción de Daño
-useRope,Use Rope,Usar Cuerda
-moveGoblin,Move a goblin to an empty space.,Mueve un goblin a un espacio vacío.
-use,Use,Usar
-active,Active,Activo
-inactive,Inactive,Inactivo
-showInactiveUpgrades,Show Inactive Upgrades,Mostrar Mejoras Inactivas
-victory,Victory!,¡Victoria!
-gameOver,Game Over,Fin del Juego
-finalScore,Your final score is,Tu puntuación final es
-runSummary,Run Summary,Resumen de la Partida
-time,Time,Tiempo
-goblinsSlain,Goblins Slain,Goblins Eliminados
-xpEarned,XP Earned,XP Ganada
-playAgain,Play Again,Jugar de Nuevo
-slayAgain,Slay Again,Matar de Nuevo
-leaderboardTitle,Story Mode Leaderboard,Clasificación Modo Historia
-leaderboardDesc,Top 10 fastest times to defeat the Goblin Lord.,Los 10 mejores tiempos para derrotar al Señor Goblin.
-rank,Rank,Rango
-date,Date,Fecha
-kills,Kills,Muertes
-noVictories,No victories yet. Be the first!,Aún no hay victorias. ¡Sé el primero!
-close,Close,Cerrar
-permUpgradesTitle,Permanent Upgrades,Mejoras Permanentes
-permUpgradesDesc,Spend your XP on permanent buffs.,Gasta tu XP en mejoras permanentes.
-totalXpLabel,Total XP:,XP Total:
-maxLevel,Max Level,Nivel Máx.
-shopTitle,Mysterious Shop,Tienda Misteriosa
-shopDesc,Spend your gold on powerful items.,Gasta tu oro en objetos poderosos.
-owned,Owned,Adquirido
-locked,Locked,Bloqueado
-noItemsAvailable,No items available this time.,No hay objetos disponibles esta vez.
-continueSlaying,Continue Slaying,Continuar Matando
-h2pTitle,How to Play,Cómo Jugar
-h2pDesc,A quick guide to becoming the best goblin slayer.,Una guía rápida para convertirte en el mejor cazador de goblins.
-h2pBasics,Basics,Fundamentos
-h2pCombat,Combat,Combate
-h2pPowerups,Power-ups,Objetos
-h2pProgression,Progression,Progresión
-h2pModes,Modes,Modos
-h2pGotIt,Got it!,¡Entendido!
-basicsL1,Swipe to combine goblins of the same number.,Desliza para combinar goblins del mismo número.
-basicsL2,Each combination damages the resulting goblin (e.g. Goblin(2) + Goblin(2) → Damaged Goblin(4)).,Cada combinación daña al goblin resultante (Ej: Goblin(2) + Goblin(2) → Goblin(4) dañado).
-basicsL3,"Defeat goblins to earn points, gold, and experience.","Elimina goblins para ganar puntos, oro y experiencia."
-basicsL4,"Be careful! If the board fills up and you can't move, you'll take damage.","¡Cuidado! Si el tablero se llena y no puedes mover, recibirás daño."
-combatTitle,Combat & Goblins,Combate y Goblins
-combatL1,Goblins attack every 15 moves. Manage your health ({hp} initial HP) to survive!,Los goblins atacan cada 15 movimientos. ¡Gestiona tu vida ({hp} HP inicial) para sobrevivir!
-combatL2,"Combine goblins to create stronger, more dangerous versions:",Combina goblins para crear versiones más fuertes y peligrosas:
-combatL3,"Each time you combine, the resulting goblin takes damage. Goblins level 8 or higher will always survive the initial combination.","Cada vez que combinas, el goblin resultante recibe daño. Los goblins de nivel 8 o más siempre sobrevivirán a la combinación inicial."
-powerupsTitle,Items & Power-ups,Objetos y mejoras
-powerupsL1,Get them from the shop that appears on the board. Unlock them first in the permanent upgrades shop!,Consíguelos en la tienda que aparece en el tablero. ¡Desbloquéalos primero en la tienda de mejoras permanentes!
-powerupsL2,Tap a shop to enter or a chest to open it. Both expire: the number shows moves left.,Toca una tienda para entrar o un cofre para abrirlo. Ambos caducan: el número indica los movimientos restantes.
-progressionTitle,Progression & Upgrades,Progresión y Mejoras
-progressionL1,Gain Experience (XP) by defeating goblins.,Gana Experiencia (XP) al eliminar goblins.
-progressionL2,Use XP on the home screen to buy permanent upgrades that will help you in all your runs.,Usa la XP en la pantalla de inicio para comprar mejoras permanentes que te ayudarán en todas tus partidas.
-progressionL3,Unlock new and powerful items to appear in the in-game shop.,Desbloquea nuevos y poderosos objetos para que aparezcan en la tienda del juego.
-progressionL4,Every upgrade gets you closer to victory!,¡Cada mejora te acerca más a la victoria!
-modesTitle,Game Modes,Modos de Juego
-modesL1,Story Mode — merge your way to Goblin(256) and slay the Goblin Lord.,Modo Historia — combina hasta crear un Goblin(256) y derrota al Señor Goblin.
-modesL2,"Endless Mode — no victory, just survival. How long can you last?","Modo Infinito — sin victoria, solo supervivencia. ¿Cuánto aguantas?"
-storyModeTitle,Story Mode,Modo Historia
-endlessModeTitle,Endless Mode,Modo Infinito
-healthPotion_name,Health Potion,Poción de Vida
-healthPotion_desc,+5 HP,+5 HP
-torch_name,Torch,Antorcha
-torch_desc,Reveals HP of goblins,Revela los HP de los goblins
-sword_name,Sword,Espada
-sword_desc,+1 damage on combines,+1 de daño en combos
-shield_name,Shield,Escudo
-shield_desc,Reduce damage taken by 1,Reduce el daño recibido en 1
-poison_name,Poison,Veneno
-poison_desc,Combos apply poison,Los combos aplican veneno
-rope_name,Rope,Cuerda
-rope_desc,Move a goblin freely (1 use),Mueve un goblin libremente (1 uso)
-fireScroll_name,Fire Scroll,Pergamino de Fuego
-fireScroll_desc,Combos cause splash damage,Los combos causan daño en área
-maxHp_name,Fortitude,Fortaleza
-maxHp_desc,Increases max player HP by +5.,Aumenta los HP máximos en +5.
-baseDamage_name,Sharpened Blade,Hoja Afilada
-baseDamage_desc,+1 base damage on combinations.,+1 de daño base en combinaciones.
-powerupFreq_name,Lucky Charm,Amuleto de la Suerte
-powerupFreq_desc,+15% chance for slain goblins to drop bonus gold.,+15% de probabilidad de que los goblins suelten oro extra.
-attackTimer_name,Vigilance,Vigilancia
-attackTimer_desc,+2 moves before horde attacks.,+2 movimientos antes del ataque de la horda.
-xpBonus_name,Wisdom,Sabiduría
-xpBonus_desc,Permanently gain +25% XP from kills.,Gana permanentemente +25% de XP.
-startGold_name,Deep Pockets,Bolsillos Profundos
-startGold_desc,Start runs with +100 gold.,Empieza las partidas con +100 de oro.
-overcrowdingResist_name,Thick Skin,Piel Gruesa
-overcrowdingResist_desc,Reduces damage from being crushed by 1.,Reduce el daño por aplastamiento en 1.
-unlockSword_name,Unlock: Sword,Desbloquear: Espada
-unlockSword_desc,Unlocks the Sword in the shop.,Desbloquea la Espada en la tienda.
-unlockTorch_name,Unlock: Torch,Desbloquear: Antorcha
-unlockTorch_desc,Unlocks the Torch in the shop.,Desbloquea la Antorcha en la tienda.
-unlockShield_name,Unlock: Shield,Desbloquear: Escudo
-unlockShield_desc,Unlocks the Shield in the shop.,Desbloquea el Escudo en la tienda.
-unlockHealthPotion_name,Unlock: Health Potion,Desbloquear: Poción
-unlockHealthPotion_desc,Unlocks the Health Potion in the shop.,Desbloquea la Poción de Vida en la tienda.
-unlockPoison_name,Unlock: Poison,Desbloquear: Veneno
-unlockPoison_desc,Unlocks Poison in the shop.,Desbloquea el Veneno en la tienda.
-unlockRope_name,Unlock: Rope,Desbloquear: Cuerda
-unlockRope_desc,Unlocks the Rope in the shop.,Desbloquea la Cuerda en la tienda.
-unlockFireScroll_name,Unlock: Fire Scroll,Desbloquear: Pergamino
-unlockFireScroll_desc,Unlocks the Fire Scroll in the shop.,Desbloquea el Pergamino de Fuego en la tienda.
-log_chest_appeared,A treasure chest appeared! Tap it before it vanishes.,¡Apareció un cofre! Tócalo antes de que desaparezca.
-log_continued,Run resumed. The hunt continues!,Partida reanudada. ¡La caza continúa!
-log_new_goblin,A new Lv.{value} goblin appeared.,Apareció un nuevo goblin de Nv.{value}.
-log_game_start,"Game started: {gameMode}. Good luck, slayer.","Juego iniciado: {gameMode}. ¡Buena suerte, cazador!"
-log_chest_opened,You opened a chest! +{gold} gold.,¡Abriste un cofre! +{gold} de oro.
-log_shop_appeared,A mysterious shop appeared! Tap it to enter.,¡Ha aparecido una tienda! Tócala para entrar.
-log_no_room_for_shop,No room for a shop to appear!,¡No hay espacio para que aparezca una tienda!
-log_shop_disappeared,The shop disappeared before you could visit.,La tienda desapareció antes de que pudieras visitarla.
-log_goblin_combine_damage,Merged two Lv.{value} goblins — {damage} damage.,Fusionaste dos goblins Nv.{value} — {damage} de daño.
-log_goblin_slain,"The Lv.{value} goblin was slain! +{score} score, +{gold} gold.","¡El goblin de Nv.{value} fue eliminado! +{score} puntos, +{gold} de oro."
-log_goblin_drop,A slain goblin dropped {gold} gold!,¡Un goblin eliminado dejó caer {gold} de oro!
-log_goblin_survived,A Lv.{value} goblin survived with {hp} HP.,Un goblin de Nv.{value} sobrevivió con {hp} HP.
-log_goblin_poisoned,The Lv.{value} goblin was poisoned!,¡El goblin de Nv.{value} fue envenenado!
-log_milestone,Milestone reached! Created Lv.{value} goblin! +{gold} Gold.,¡Hito alcanzado! ¡Creado goblin de Nv.{value}! +{gold} de oro.
-log_poison_damage,Lv.{value} goblin took 1 poison damage.,El goblin de Nv.{value} recibió 1 de daño por veneno.
-log_poison_death,Lv.{value} goblin succumbed to poison!,¡El goblin de Nv.{value} sucumbió al veneno!
-log_fire_scroll_trigger,Fire scroll triggers splash damage!,¡El pergamino de fuego activa daño en área!
-log_splash_damage,Lv.{value} goblin took 1 splash damage.,El goblin de Nv.{value} recibió 1 de daño en área.
-log_splash_death,Lv.{value} goblin burned to a crisp!,¡El goblin de Nv.{value} fue reducido a cenizas!
-log_overcrowding_damage,The horde is overwhelming! You take {damage} damage.,¡La horda es abrumadora! Recibes {damage} de daño.
-log_overcrowding_resist,Your resilience prevents overcrowding damage!,¡Tu resistencia previene el daño por aplastamiento!
-log_chest_vanished,A treasure chest vanished before you could open it.,Un cofre del tesoro desapareció antes de que pudieras abrirlo.
-log_level_up_combine,+{levels} level(s) for a Lv.{value} goblin!,¡+{levels} nivel(es) por un goblin de Nv.{value}!
-log_level_up_kills,+{levels} level(s) from slaying goblins!,¡+{levels} nivel(es) por eliminar goblins!
-log_horde_attack,The horde attacks! You take {damage} damage.,¡La horda ataca! Recibes {damage} de daño.
-log_horde_blocked,Your shield blocked all damage from the horde!,¡Tu escudo bloqueó todo el daño de la horda!
-log_rope_cancelled,Rope use cancelled.,Uso de cuerda cancelado.
-log_rope_activated,Rope mode activated. Select a goblin to move.,Modo cuerda activado. Selecciona un goblin para mover.
-log_rope_selected,Selected Lv.{value} goblin. Choose an empty spot.,Seleccionado goblin de Nv.{value}. Elige un espacio vacío.
-log_rope_used,Moved goblin with a rope.,Moviste un goblin con una cuerda.
-log_rope_cancelled_selection,Cancelled selection. Choose a goblin to move.,Selección cancelada. Elige un goblin para mover.
-log_enter_shop,You enter the shop...,Entras en la tienda...
-log_shop_purchase_leaves,The shopkeeper packs up and leaves after your purchase.,El tendero se va después de tu compra.
-log_leave_shop,You leave the shop... for now.,Sales de la tienda... por ahora.
-log_purchase,Purchased {item} for {cost} gold.,Compraste {item} por {cost} de oro.
-log_heal,You healed for {hp} HP.,Te curaste {hp} HP.
-log_perm_upgrade_purchased,Purchased upgrade: {name}!,¡Mejora comprada: {name}!
-reason_crushed,You were crushed by the overwhelming horde.,Fuiste aplastado por la horda abrumadora.
-reason_slain,You were slain by the goblins.,Fuiste asesinado por los goblins.
-reason_victory,You have created the Goblin Lord! Victory is yours.,¡Has creado al Señor Goblin! La victoria es tuya.
-toast_no_ropes,No ropes left!,¡No quedan cuerdas!
-toast_not_enough_gold,Not enough gold!,¡Oro insuficiente!
-toast_not_enough_gold_desc,You need {cost} gold to buy {item}.,Necesitas {cost} de oro para comprar {item}.
-toast_not_enough_xp,Not enough XP!,¡XP insuficiente!
-toast_max_level,Max level reached!,¡Nivel máximo alcanzado!
-toast_error_saving,Error Saving Progress,Error al Guardar el Progreso
-toast_upgrade_purchased,Upgrade Purchased!,¡Mejora Comprada!
-toast_upgrade_purchased_desc,You bought {name}.,Compraste {name}.
-streak_banner,MASSACRE ×{count}!,¡MASACRE ×{count}!
-log_golden_appeared,A GOLDEN goblin appeared! Slay it for 10x gold!,¡Apareció un goblin DORADO! ¡Elíminalo por 10x de oro!
-back_to_menu,Back to Menu,Volver al Menú
-menu_title,Menu,Menú
-music_on,Music: ON,Música: ON
-music_off,Music: OFF,Música: OFF
-tapShop,ENTER,ENTRAR
-tapChest,OPEN,ABRIR
-hordeCountdown,Horde attacks in {count} moves,Ataque en {count} movimientos
-hordeSoon,Horde incoming! {count} moves left,¡Se acerca la horda! Quedan {count}
-hordeNextMove,NEXT MOVE: HORDE ATTACK!,¡ATAQUE EN EL PRÓXIMO MOVIMIENTO!
-shopUnlockHint,Locked items need an unlock in Permanent Upgrades on the main menu. Spend XP there; spend gold here.,Desbloquea objetos en Mejoras Permanentes desde el menú principal. Allí gastas XP; aquí gastas oro.
-about,About,Acerca de
-privacy,Privacy,Privacidad
-versionLabel,Version {version},Versión {version}
-aboutGameTitle,Goblin Slayer 2048,Goblin Slayer 2048
-aboutGameBody,"A tactical 2048 puzzle: merge matching goblins, survive the horde and build your permanent upgrades. Story and Endless modes are playable offline.","Un puzle táctico de 2048: combina goblins iguales, sobrevive a la horda y consigue mejoras permanentes. Los modos Historia e Infinito se juegan sin conexión."
-aboutArtTitle,Original pixel art,Pixel art original
-aboutArtBody,"Goblin portraits, interface, icons and animated effects were drawn for this project with Pillow. Font: VT323 by Peter Hull, licensed under SIL Open Font License 1.1.","Los goblins, la interfaz, los iconos y los efectos animados se dibujaron para este proyecto con Pillow. Fuente: VT323 de Peter Hull, con licencia SIL Open Font License 1.1."
-aboutTechTitle,Built with Godot,Hecho con Godot
-aboutTechBody,Created by covagashi. Built with Godot Engine. The game code and Godot Engine use the MIT license.,Creado por covagashi. Desarrollado con Godot Engine. El código del juego y Godot Engine utilizan la licencia MIT.
-privacyOfflineTitle,No ads or tracking,Sin anuncios ni seguimiento
-privacyOfflineBody,"This game does not collect or send personal information. It has no advertising, analytics, accounts or tracking services. There are no data-sharing options to enable.","Este juego no recopila ni envía información personal. No incluye publicidad, analíticas, cuentas ni servicios de seguimiento. No hay opciones de compartir datos que activar."
-privacyLocalTitle,Your progress stays on this device,Tu progreso se guarda en este dispositivo
-privacyLocalBody,"Your saved run, XP, upgrades, local leaderboard, language and audio preferences are stored on this device. They are not uploaded to a server. Clearing the app data removes this progress.","La partida, la XP, las mejoras, la clasificación local, el idioma y las preferencias de audio se guardan en este dispositivo. No se suben a ningún servidor. Borrar los datos de la app elimina este progreso."
-privacyPermissionsTitle,Device access,Acceso al dispositivo
-privacyPermissionsBody,"The Android app uses vibration for gameplay feedback. It does not request internet, camera, microphone, contacts or location access.","La app de Android usa la vibración para responder a las acciones del juego. No solicita acceso a internet, cámara, micrófono, contactos ni ubicación."
-soundSettings,Sound settings,Ajustes de sonido
-backgroundMusic,Background music,Música de fondo
-soundEffects,Sound effects,Efectos de sonido
-audioOn,On,Sí
-audioOff,Off,No
-testSound,Test sound,Probar efecto
+keys,en,es,pt_BR,fr,de,it
+splashTitle,Goblin Shift,Goblin Shift,Goblin Shift,Goblin Shift,Goblin Shift,Goblin Shift
+splashDescription,Swipe. Merge. Survive.,Desliza. Combina. Sobrevive.,Deslize. Combine. Sobreviva.,Glissez. Fusionnez. Survivez.,Schieben. Kombinieren. Überleben.,Scorri. Unisci. Sopravvivi.
+storyMode,Story Mode,Modo Historia,Modo História,Mode Histoire,Story-Modus,Modalità Storia
+storyModeDesc,Create a Goblin(256) to win.,Crea un Goblin(256) para ganar.,Crie um Goblin(256) para vencer.,Créez un Gobelin(256) pour gagner.,"Erschaffe einen Goblin(256), um zu gewinnen.",Crea un Goblin(256) per vincere.
+continueRun,Continue,Continuar,Continuar,Continuer,Fortsetzen,Continua
+continueRunDesc,Resume your in-progress run.,Retoma tu partida en curso.,Retome sua partida em andamento.,Reprenez votre partie en cours.,Setze deinen laufenden Durchgang fort.,Riprendi la partita in corso.
+endlessMode,Endless Mode,Modo Infinito,Modo Infinito,Mode Infini,Endlosmodus,Modalità Infinita
+endlessModeDesc,Survive the endless goblin waves.,Sobrevive a las infinitas oleadas de goblins.,Sobreviva às ondas infinitas de goblins.,Survivez aux vagues infinies de gobelins.,Überlebe endlose Goblinwellen.,Sopravvivi a infinite ondate di goblin.
+howToPlay,How to Play,Cómo Jugar,Como jogar,Comment jouer,Spielanleitung,Come giocare
+upgradesAndProgress,Upgrades & Progression,Mejoras y Progresión,Melhorias e progresso,Améliorations et progression,Verbesserungen und Fortschritt,Potenziamenti e progressi
+music,Music,Música,Música,Musique,Musik,Musica
+headerTitle,Goblin Shift,Goblin Shift,Goblin Shift,Goblin Shift,Goblin Shift,Goblin Shift
+headerSubtitle,Combine goblins to slay them.,Combina goblins para matarlos.,Combine goblins para derrotá-los.,Fusionnez les gobelins pour les vaincre.,"Kombiniere Goblins, um sie zu besiegen.",Unisci i goblin per sconfiggerli.
+newGame,New Game,Nuevo Juego,Novo jogo,Nouvelle partie,Neues Spiel,Nuova partita
+openMenu,Open Menu,Abrir Menú,Abrir menu,Ouvrir le menu,Menü öffnen,Apri menu
+score,Score,Puntuación,Pontuação,Score,Punkte,Punteggio
+gold,Gold,Oro,Ouro,Or,Gold,Oro
+level,Level,Nivel,Nível,Niveau,Stufe,Livello
+totalXp,Total XP,XP Total,XP total,XP totale,Gesamt-XP,XP totali
+killsToLevel,to Lvl,para Nvl,para subir de nível,avant le prochain niveau,bis zum Stufenaufstieg,al prossimo livello
+movesUntilAttack,moves,movimientos,movimentos,coups,Züge,mosse
+itemsAndUpgrades,Items & Upgrades,Objetos y Mejoras,Itens e melhorias,Objets et améliorations,Gegenstände und Verbesserungen,Oggetti e potenziamenti
+combineDamageBonus,Combine Damage Bonus,Bonus de Daño por Combinar,Bônus de dano ao combinar,Bonus de dégâts de fusion,Zusätzlicher Kombinationsschaden,Danni aggiuntivi dalle fusioni
+damageReduction,Damage Reduction,Reducción de Daño,Redução de dano,Réduction des dégâts,Schadensreduktion,Riduzione dei danni
+useRope,Use Rope,Usar Cuerda,Usar corda,Utiliser la corde,Seil benutzen,Usa corda
+moveGoblin,Move a goblin to an empty space.,Mueve un goblin a un espacio vacío.,Mova um goblin para um espaço vazio.,Déplacez un gobelin vers une case vide.,Verschiebe einen Goblin auf ein freies Feld.,Sposta un goblin su una casella vuota.
+use,Use,Usar,Usar,Utiliser,Nutzen,Usa
+active,Active,Activo,Ativo,Actif,Aktiv,Attivo
+inactive,Inactive,Inactivo,Inativo,Inactif,Inaktiv,Inattivo
+showInactiveUpgrades,Show Inactive Upgrades,Mostrar Mejoras Inactivas,Mostrar melhorias inativas,Afficher les améliorations inactives,Inaktive Verbesserungen anzeigen,Mostra potenziamenti inattivi
+victory,Victory!,¡Victoria!,Vitória!,Victoire !,Sieg!,Vittoria!
+gameOver,Game Over,Fin del Juego,Fim de jogo,Partie terminée,Spiel vorbei,Fine partita
+finalScore,Your final score is,Tu puntuación final es,Pontuação final,Score final,Endpunktzahl,Punteggio finale
+runSummary,Run Summary,Resumen de la Partida,Resumo da partida,Bilan de la partie,Zusammenfassung,Riepilogo partita
+time,Time,Tiempo,Tempo,Temps,Zeit,Tempo
+goblinsSlain,Goblins Slain,Goblins Eliminados,Goblins derrotados,Gobelins vaincus,Besiegte Goblins,Goblin sconfitti
+xpEarned,XP Earned,XP Ganada,XP obtida,XP gagnée,Verdiente XP,XP ottenuti
+playAgain,Play Again,Jugar de Nuevo,Jogar de novo,Rejouer,Erneut spielen,Gioca ancora
+slayAgain,Slay Again,Matar de Nuevo,Caçar de novo,Repartir à la chasse,Erneut jagen,Torna a caccia
+leaderboardTitle,Story Mode Leaderboard,Clasificación Modo Historia,Recordes do Modo História,Classement Histoire,Story-Bestenliste,Classifica Storia
+leaderboardDesc,Top 10 fastest times to defeat the Goblin Lord.,Los 10 mejores tiempos para derrotar al Señor Goblin.,Os 10 melhores tempos para derrotar o Lorde Goblin.,Les 10 meilleurs temps pour vaincre le Seigneur gobelin.,Die 10 schnellsten Siege über den Goblinfürsten.,I 10 tempi migliori per sconfiggere il Signore dei Goblin.
+rank,Rank,Rango,Posição,Rang,Rang,Posizione
+date,Date,Fecha,Data,Date,Datum,Data
+kills,Kills,Muertes,Abates,Éliminations,Besiegt,Uccisioni
+noVictories,No victories yet. Be the first!,Aún no hay victorias. ¡Sé el primero!,Nenhuma vitória ainda. Seja o primeiro!,Aucune victoire pour le moment. À vous de jouer !,Noch keine Siege. Hol dir den ersten!,Ancora nessuna vittoria. Conquista la prima!
+close,Close,Cerrar,Fechar,Fermer,Schließen,Chiudi
+permUpgradesTitle,Permanent Upgrades,Mejoras Permanentes,Melhorias permanentes,Améliorations permanentes,Dauerhafte Verbesserungen,Potenziamenti permanenti
+permUpgradesDesc,Spend your XP on permanent buffs.,Gasta tu XP en mejoras permanentes.,Gaste sua XP em melhorias permanentes.,Dépensez votre XP en améliorations permanentes.,Gib deine XP für dauerhafte Verbesserungen aus.,Spendi i tuoi XP in potenziamenti permanenti.
+totalXpLabel,Total XP:,XP Total:,XP total:,XP totale :,Gesamt-XP:,XP totali:
+maxLevel,Max Level,Nivel Máx.,Nível máx.,Niv. max.,Max. Stufe,Liv. max.
+shopTitle,Mysterious Shop,Tienda Misteriosa,Loja misteriosa,Boutique mystérieuse,Mysteriöser Laden,Negozio misterioso
+shopDesc,Spend your gold on powerful items.,Gasta tu oro en objetos poderosos.,Gaste seu ouro em itens poderosos.,Dépensez votre or pour obtenir des objets puissants.,Gib dein Gold für mächtige Gegenstände aus.,Spendi il tuo oro in oggetti potenti.
+owned,Owned,Adquirido,Adquirido,Acquis,Im Besitz,Acquistato
+locked,Locked,Bloqueado,Bloqueado,Verrouillé,Gesperrt,Bloccato
+noItemsAvailable,No items available this time.,No hay objetos disponibles esta vez.,Nenhum item disponível desta vez.,Aucun objet disponible cette fois-ci.,Diesmal sind keine Gegenstände verfügbar.,Nessun oggetto disponibile questa volta.
+continueSlaying,Continue Slaying,Continuar Matando,Continuar a caça,Poursuivre la chasse,Weiterjagen,Continua la caccia
+h2pTitle,How to Play,Cómo Jugar,Como jogar,Comment jouer,Spielanleitung,Come giocare
+h2pDesc,A quick guide to mastering Goblin Shift.,Una guía rápida para dominar Goblin Shift.,Um guia rápido para dominar Goblin Shift.,Un guide rapide pour maîtriser Goblin Shift.,Eine kurze Anleitung für Goblin Shift.,Una breve guida per padroneggiare Goblin Shift.
+h2pBasics,Basics,Fundamentos,O básico,Les bases,Grundlagen,Le basi
+h2pCombat,Combat,Combate,Combate,Combat,Kampf,Combattimento
+h2pPowerups,Power-ups,Objetos,Itens,Objets,Gegenstände,Oggetti
+h2pProgression,Progression,Progresión,Progresso,Progression,Fortschritt,Progressione
+h2pModes,Modes,Modos,Modos,Modes,Spielmodi,Modalità
+h2pGotIt,Got it!,¡Entendido!,Entendi!,Compris !,Verstanden!,Capito!
+basicsL1,Swipe to combine goblins of the same number.,Desliza para combinar goblins del mismo número.,Deslize para combinar goblins com o mesmo número.,Glissez pour fusionner les gobelins portant le même nombre.,"Wische, um Goblins mit derselben Zahl zu kombinieren.",Scorri per unire i goblin con lo stesso numero.
+basicsL2,Each combination damages the resulting goblin (e.g. Goblin(2) + Goblin(2) → Damaged Goblin(4)).,Cada combinación daña al goblin resultante (Ej: Goblin(2) + Goblin(2) → Goblin(4) dañado).,Cada combinação causa dano ao goblin resultante (ex.: Goblin(2) + Goblin(2) → Goblin(4) ferido).,Chaque fusion blesse le gobelin obtenu (ex. : Gobelin(2) + Gobelin(2) → Gobelin(4) blessé).,Jede Kombination verletzt den entstandenen Goblin (z. B. Goblin(2) + Goblin(2) → verletzter Goblin(4)).,Ogni fusione danneggia il goblin risultante (es.: Goblin(2) + Goblin(2) → Goblin(4) ferito).
+basicsL3,"Defeat goblins to earn points, gold, and experience.","Elimina goblins para ganar puntos, oro y experiencia.","Derrote goblins para ganhar pontos, ouro e experiência.","Éliminez des gobelins pour gagner des points, de l'or et de l'expérience.","Besiege Goblins, um Punkte, Gold und Erfahrung zu erhalten.","Sconfiggi i goblin per ottenere punti, oro ed esperienza."
+basicsL4,"Be careful! If the board fills up and you can't move, you'll take damage.","¡Cuidado! Si el tablero se llena y no puedes mover, recibirás daño.","Cuidado! Se o tabuleiro ficar cheio e você não puder se mover, sofrerá dano.","Attention ! Si le plateau est plein et qu'aucun déplacement n'est possible, vous subissez des dégâts.","Vorsicht! Wenn das Spielfeld voll ist und kein Zug mehr möglich ist, erleidest du Schaden.","Attenzione! Se la griglia è piena e non puoi muoverti, subirai danni."
+combatTitle,Combat & Goblins,Combate y Goblins,Combate e goblins,Combat et gobelins,Kampf und Goblins,Combattimento e goblin
+combatL1,Goblins attack every 15 moves. Manage your health ({hp} initial HP) to survive!,Los goblins atacan cada 15 movimientos. ¡Gestiona tu vida ({hp} HP inicial) para sobrevivir!,Os goblins atacam a cada 15 movimentos. Cuide da sua vida ({hp} HP iniciais) para sobreviver!,Les gobelins attaquent tous les 15 coups. Gérez votre vie ({hp} PV au départ) pour survivre !,"Goblins greifen alle 15 Züge an. Achte auf deine Lebenspunkte ({hp} LP zu Beginn), um zu überleben!",I goblin attaccano ogni 15 mosse. Gestisci la tua salute ({hp} PV iniziali) per sopravvivere!
+combatL2,"Combine goblins to create stronger, more dangerous versions:",Combina goblins para crear versiones más fuertes y peligrosas:,Combine goblins para criar versões mais fortes e perigosas:,Fusionnez les gobelins pour créer des versions plus fortes et plus dangereuses :,"Kombiniere Goblins, um stärkere und gefährlichere Varianten zu erschaffen:",Unisci i goblin per creare versioni più forti e pericolose:
+combatL3,"Each time you combine, the resulting goblin takes damage. Goblins level 8 or higher will always survive the initial combination.","Cada vez que combinas, el goblin resultante recibe daño. Los goblins de nivel 8 o más siempre sobrevivirán a la combinación inicial.","A cada combinação, o goblin resultante sofre dano. Goblins de nível 8 ou superior sempre sobrevivem à combinação inicial.","À chaque fusion, le gobelin obtenu subit des dégâts. Les gobelins de niveau 8 ou plus survivent toujours à leur première fusion.",Bei jeder Kombination erleidet der entstandene Goblin Schaden. Goblins ab Stufe 8 überleben immer ihre erste Kombination.,"A ogni fusione, il goblin risultante subisce danni. I goblin di livello 8 o superiore sopravvivono sempre alla prima fusione."
+powerupsTitle,Items & Power-ups,Objetos y mejoras,Itens e melhorias,Objets et améliorations,Gegenstände und Verbesserungen,Oggetti e potenziamenti
+powerupsL1,Get them from the shop that appears on the board. Unlock them first in the permanent upgrades shop!,Consíguelos en la tienda que aparece en el tablero. ¡Desbloquéalos primero en la tienda de mejoras permanentes!,"Compre itens na loja que aparece no tabuleiro. Primeiro, desbloqueie-os nas melhorias permanentes!",Achetez des objets dans la boutique qui apparaît sur le plateau. Débloquez-les d'abord dans les améliorations permanentes !,"Kaufe Gegenstände im Laden, der auf dem Spielfeld erscheint. Schalte sie zuerst unter den dauerhaften Verbesserungen frei!",Acquista gli oggetti nel negozio che appare sulla griglia. Prima sbloccali nei potenziamenti permanenti!
+powerupsL2,Tap a shop to enter or a chest to open it. Both expire: the number shows moves left.,Toca una tienda para entrar o un cofre para abrirlo. Ambos caducan: el número indica los movimientos restantes.,Toque em uma loja para entrar ou em um baú para abri-lo. Ambos desaparecem: o número indica os movimentos restantes.,Touchez une boutique pour y entrer ou un coffre pour l'ouvrir. Tous deux disparaissent : le nombre indique les coups restants.,"Tippe auf einen Laden, um ihn zu betreten, oder auf eine Truhe, um sie zu öffnen. Beide verschwinden: Die Zahl zeigt die verbleibenden Züge.",Tocca un negozio per entrare o un forziere per aprirlo. Entrambi scompaiono: il numero indica le mosse rimaste.
+progressionTitle,Progression & Upgrades,Progresión y Mejoras,Progresso e melhorias,Progression et améliorations,Fortschritt und Verbesserungen,Progressione e potenziamenti
+progressionL1,Gain Experience (XP) by defeating goblins.,Gana Experiencia (XP) al eliminar goblins.,Ganhe experiência (XP) derrotando goblins.,Gagnez de l'expérience (XP) en éliminant des gobelins.,"Sammle Erfahrung (XP), indem du Goblins besiegst.",Ottieni esperienza (XP) sconfiggendo i goblin.
+progressionL2,Use XP on the home screen to buy permanent upgrades that will help you in all your runs.,Usa la XP en la pantalla de inicio para comprar mejoras permanentes que te ayudarán en todas tus partidas.,Use XP na tela inicial para comprar melhorias permanentes que ajudam em todas as partidas.,"Sur l'écran d'accueil, dépensez votre XP en améliorations permanentes utiles dans toutes vos parties.","Kaufe im Hauptmenü mit XP dauerhafte Verbesserungen, die dir in jedem Durchgang helfen.",Usa gli XP nella schermata iniziale per acquistare potenziamenti permanenti utili in ogni partita.
+progressionL3,Unlock new and powerful items to appear in the in-game shop.,Desbloquea nuevos y poderosos objetos para que aparezcan en la tienda del juego.,Desbloqueie novos itens poderosos para que apareçam na loja durante a partida.,Débloquez de nouveaux objets puissants pour les faire apparaître dans la boutique en cours de partie.,"Schalte neue mächtige Gegenstände frei, damit sie im Laden während des Spiels erscheinen.",Sblocca nuovi oggetti potenti per farli apparire nel negozio durante la partita.
+progressionL4,Every upgrade gets you closer to victory!,¡Cada mejora te acerca más a la victoria!,Cada melhoria aproxima você da vitória!,Chaque amélioration vous rapproche de la victoire !,Jede Verbesserung bringt dich dem Sieg näher!,Ogni potenziamento ti avvicina alla vittoria!
+modesTitle,Game Modes,Modos de Juego,Modos de jogo,Modes de jeu,Spielmodi,Modalità di gioco
+modesL1,Story Mode — merge your way to Goblin(256) and slay the Goblin Lord.,Modo Historia — combina hasta crear un Goblin(256) y derrota al Señor Goblin.,Modo História — combine até criar um Goblin(256) e derrote o Lorde Goblin.,Mode Histoire — fusionnez jusqu'à créer un Gobelin(256) et vaincre le Seigneur gobelin.,Story-Modus — kombiniere bis zum Goblin(256) und besiege den Goblinfürsten.,Modalità Storia — unisci fino a creare un Goblin(256) e sconfiggi il Signore dei Goblin.
+modesL2,"Endless Mode — no victory, just survival. How long can you last?","Modo Infinito — sin victoria, solo supervivencia. ¿Cuánto aguantas?",Modo Infinito — o objetivo é sobreviver. Quanto tempo você consegue durar?,Mode Infini — votre seul objectif est de survivre. Combien de temps tiendrez-vous ?,Endlosmodus — hier zählt nur das Überleben. Wie lange hältst du durch?,Modalità Infinita — l'unico obiettivo è sopravvivere. Quanto resisterai?
+storyModeTitle,Story Mode,Modo Historia,Modo História,Mode Histoire,Story-Modus,Modalità Storia
+endlessModeTitle,Endless Mode,Modo Infinito,Modo Infinito,Mode Infini,Endlosmodus,Modalità Infinita
+healthPotion_name,Health Potion,Poción de Vida,Poção de vida,Potion de soin,Heiltrank,Pozione curativa
+healthPotion_desc,+5 HP,+5 HP,+5 HP,+5 PV,+5 LP,+5 PV
+torch_name,Torch,Antorcha,Tocha,Torche,Fackel,Torcia
+torch_desc,Reveals HP of goblins,Revela los HP de los goblins,Revela o HP dos goblins,Révèle les PV des gobelins,Zeigt die LP der Goblins,Rivela i PV dei goblin
+sword_name,Sword,Espada,Espada,Épée,Schwert,Spada
+sword_desc,+1 damage on combines,+1 de daño en combos,+1 de dano ao combinar,+1 dégât lors des fusions,+1 Schaden beim Kombinieren,+1 danno nelle fusioni
+shield_name,Shield,Escudo,Escudo,Bouclier,Schild,Scudo
+shield_desc,Reduce damage taken by 1,Reduce el daño recibido en 1,Reduz o dano sofrido em 1,Réduit les dégâts subis de 1,Verringert erlittenen Schaden um 1,Riduce di 1 i danni subiti
+poison_name,Poison,Veneno,Veneno,Poison,Gift,Veleno
+poison_desc,Combos apply poison,Los combos aplican veneno,Combinações aplicam veneno,Les fusions empoisonnent,Kombinationen vergiften Goblins,Le fusioni applicano veleno
+rope_name,Rope,Cuerda,Corda,Corde,Seil,Corda
+rope_desc,Move a goblin freely (1 use),Mueve un goblin libremente (1 uso),Mova um goblin livremente (1 uso),Déplacez librement un gobelin (1 usage),Verschiebe einen Goblin frei (1 Einsatz),Sposta liberamente un goblin (1 uso)
+fireScroll_name,Fire Scroll,Pergamino de Fuego,Pergaminho de fogo,Parchemin de feu,Feuerrolle,Pergamena di fuoco
+fireScroll_desc,Combos cause splash damage,Los combos causan daño en área,Combinações causam dano em área,Les fusions infligent des dégâts de zone,Kombinationen verursachen Flächenschaden,Le fusioni causano danni ad area
+maxHp_name,Fortitude,Fortaleza,Fortitude,Robustesse,Zähigkeit,Vigore
+maxHp_desc,Increases max player HP by +5.,Aumenta los HP máximos en +5.,Aumenta sua vida máxima em 5 HP.,Augmente votre vie maximale de 5 PV.,Erhöht deine maximalen Lebenspunkte um 5 LP.,Aumenta di 5 PV la tua salute massima.
+baseDamage_name,Sharpened Blade,Hoja Afilada,Lâmina afiada,Lame aiguisée,Scharfe Klinge,Lama affilata
+baseDamage_desc,+1 base damage on combinations.,+1 de daño base en combinaciones.,+1 de dano base nas combinações.,+1 dégât de base lors des fusions.,+1 Grundschaden bei Kombinationen.,+1 danno base nelle fusioni.
+powerupFreq_name,Lucky Charm,Amuleto de la Suerte,Amuleto da sorte,Porte-bonheur,Glücksbringer,Portafortuna
+powerupFreq_desc,+15% chance for slain goblins to drop bonus gold.,+15% de probabilidad de que los goblins suelten oro extra.,+15% de chance de goblins derrotados deixarem ouro extra.,+15 % de chances qu'un gobelin vaincu laisse de l'or bonus.,+15 % Chance auf zusätzliches Gold von besiegten Goblins.,+15% di probabilità che i goblin sconfitti lascino oro extra.
+attackTimer_name,Vigilance,Vigilancia,Vigilância,Vigilance,Wachsamkeit,Vigilanza
+attackTimer_desc,+2 moves before horde attacks.,+2 movimientos antes del ataque de la horda.,+2 movimentos antes do ataque da horda.,+2 coups avant l'attaque de la horde.,+2 Züge bis zum Angriff der Horde.,+2 mosse prima dell'attacco dell'orda.
+xpBonus_name,Wisdom,Sabiduría,Sabedoria,Sagesse,Weisheit,Saggezza
+xpBonus_desc,Permanently gain +25% XP from kills.,Gana permanentemente +25% de XP.,Ganhe permanentemente +25% de XP por abates.,Gagnez en permanence +25 % d'XP par élimination.,Dauerhaft +25 % XP für besiegte Goblins.,Ottieni permanentemente +25% di XP dalle uccisioni.
+startGold_name,Deep Pockets,Bolsillos Profundos,Bolsos fundos,Poches profondes,Tiefe Taschen,Tasche profonde
+startGold_desc,Start runs with +100 gold.,Empieza las partidas con +100 de oro.,Comece as partidas com +100 de ouro.,Commencez vos parties avec +100 pièces d'or.,Beginne jeden Durchgang mit +100 Gold.,Inizia le partite con +100 oro.
+overcrowdingResist_name,Thick Skin,Piel Gruesa,Pele grossa,Peau épaisse,Dicke Haut,Pelle dura
+overcrowdingResist_desc,Reduces damage from being crushed by 1.,Reduce el daño por aplastamiento en 1.,Reduz o dano por superlotação em 1.,Réduit les dégâts d'écrasement de 1.,Verringert Schaden durch ein volles Spielfeld um 1.,Riduce di 1 i danni da schiacciamento.
+unlockSword_name,Unlock: Sword,Desbloquear: Espada,Desbloquear: Espada,Débloquer : Épée,Freischalten: Schwert,Sblocca: Spada
+unlockSword_desc,Unlocks the Sword in the shop.,Desbloquea la Espada en la tienda.,Desbloqueia a espada na loja.,Débloque l'épée dans la boutique.,Schaltet das Schwert im Laden frei.,Sblocca la spada nel negozio.
+unlockTorch_name,Unlock: Torch,Desbloquear: Antorcha,Desbloquear: Tocha,Débloquer : Torche,Freischalten: Fackel,Sblocca: Torcia
+unlockTorch_desc,Unlocks the Torch in the shop.,Desbloquea la Antorcha en la tienda.,Desbloqueia a tocha na loja.,Débloque la torche dans la boutique.,Schaltet die Fackel im Laden frei.,Sblocca la torcia nel negozio.
+unlockShield_name,Unlock: Shield,Desbloquear: Escudo,Desbloquear: Escudo,Débloquer : Bouclier,Freischalten: Schild,Sblocca: Scudo
+unlockShield_desc,Unlocks the Shield in the shop.,Desbloquea el Escudo en la tienda.,Desbloqueia o escudo na loja.,Débloque le bouclier dans la boutique.,Schaltet den Schild im Laden frei.,Sblocca lo scudo nel negozio.
+unlockHealthPotion_name,Unlock: Health Potion,Desbloquear: Poción,Desbloquear: Poção,Débloquer : Potion,Freischalten: Heiltrank,Sblocca: Pozione
+unlockHealthPotion_desc,Unlocks the Health Potion in the shop.,Desbloquea la Poción de Vida en la tienda.,Desbloqueia a poção de vida na loja.,Débloque la potion de soin dans la boutique.,Schaltet den Heiltrank im Laden frei.,Sblocca la pozione curativa nel negozio.
+unlockPoison_name,Unlock: Poison,Desbloquear: Veneno,Desbloquear: Veneno,Débloquer : Poison,Freischalten: Gift,Sblocca: Veleno
+unlockPoison_desc,Unlocks Poison in the shop.,Desbloquea el Veneno en la tienda.,Desbloqueia o veneno na loja.,Débloque le poison dans la boutique.,Schaltet das Gift im Laden frei.,Sblocca il veleno nel negozio.
+unlockRope_name,Unlock: Rope,Desbloquear: Cuerda,Desbloquear: Corda,Débloquer : Corde,Freischalten: Seil,Sblocca: Corda
+unlockRope_desc,Unlocks the Rope in the shop.,Desbloquea la Cuerda en la tienda.,Desbloqueia a corda na loja.,Débloque la corde dans la boutique.,Schaltet das Seil im Laden frei.,Sblocca la corda nel negozio.
+unlockFireScroll_name,Unlock: Fire Scroll,Desbloquear: Pergamino,Desbloquear: Pergaminho,Débloquer : Parchemin,Freischalten: Feuerrolle,Sblocca: Pergamena
+unlockFireScroll_desc,Unlocks the Fire Scroll in the shop.,Desbloquea el Pergamino de Fuego en la tienda.,Desbloqueia o pergaminho de fogo na loja.,Débloque le parchemin de feu dans la boutique.,Schaltet die Feuerrolle im Laden frei.,Sblocca la pergamena di fuoco nel negozio.
+log_chest_appeared,A treasure chest appeared! Tap it before it vanishes.,¡Apareció un cofre! Tócalo antes de que desaparezca.,Um baú apareceu! Toque nele antes que desapareça.,Un coffre est apparu ! Touchez-le avant qu'il ne disparaisse.,"Eine Schatztruhe ist erschienen! Tippe sie an, bevor sie verschwindet.",È apparso un forziere! Toccalo prima che scompaia.
+log_continued,Run resumed. The hunt continues!,Partida reanudada. ¡La caza continúa!,Partida retomada. A caça continua!,Partie reprise. La chasse continue !,Durchgang fortgesetzt. Die Jagd geht weiter!,Partita ripresa. La caccia continua!
+log_new_goblin,A new Lv.{value} goblin appeared.,Apareció un nuevo goblin de Nv.{value}.,Um novo goblin de Nv.{value} apareceu.,Un nouveau gobelin de niv.{value} est apparu.,Ein neuer Goblin der Stufe {value} ist erschienen.,È apparso un nuovo goblin di liv.{value}.
+log_game_start,"Game started: {gameMode}. Good luck, slayer.","Juego iniciado: {gameMode}. ¡Buena suerte, cazador!","Partida iniciada: {gameMode}. Boa sorte, caçador.",Début de partie : {gameMode}. Bonne chasse !,Spiel gestartet: {gameMode}. Gute Jagd!,Partita iniziata: {gameMode}. Buona caccia!
+log_chest_opened,You opened a chest! +{gold} gold.,¡Abriste un cofre! +{gold} de oro.,Você abriu um baú! +{gold} de ouro.,Vous avez ouvert un coffre ! +{gold} pièces d'or.,Du hast eine Truhe geöffnet! +{gold} Gold.,Hai aperto un forziere! +{gold} oro.
+log_shop_appeared,A mysterious shop appeared! Tap it to enter.,¡Ha aparecido una tienda! Tócala para entrar.,Uma loja misteriosa apareceu! Toque nela para entrar.,Une boutique mystérieuse est apparue ! Touchez-la pour entrer.,"Ein mysteriöser Laden ist erschienen! Tippe darauf, um einzutreten.",È apparso un negozio misterioso! Toccalo per entrare.
+log_no_room_for_shop,No room for a shop to appear!,¡No hay espacio para que aparezca una tienda!,Não há espaço para uma loja aparecer!,Pas de place pour une boutique !,Kein Platz für einen Laden!,Non c'è spazio per un negozio!
+log_shop_disappeared,The shop disappeared before you could visit.,La tienda desapareció antes de que pudieras visitarla.,A loja desapareceu antes da sua visita.,La boutique a disparu avant votre visite.,Der Laden ist vor deinem Besuch verschwunden.,Il negozio è scomparso prima della tua visita.
+log_goblin_combine_damage,Merged two Lv.{value} goblins — {damage} damage.,Fusionaste dos goblins Nv.{value} — {damage} de daño.,Dois goblins de Nv.{value} combinados — {damage} de dano.,Deux gobelins de niv.{value} fusionnés — {damage} dégâts.,Zwei Goblins der Stufe {value} kombiniert — {damage} Schaden.,Uniti due goblin di liv.{value} — {damage} danni.
+log_goblin_slain,"The Lv.{value} goblin was slain! +{score} score, +{gold} gold.","¡El goblin de Nv.{value} fue eliminado! +{score} puntos, +{gold} de oro.","Goblin de Nv.{value} derrotado! +{score} pontos, +{gold} de ouro.","Gobelin de niv.{value} vaincu ! +{score} points, +{gold} pièces d'or.","Goblin der Stufe {value} besiegt! +{score} Punkte, +{gold} Gold.","Goblin di liv.{value} sconfitto! +{score} punti, +{gold} oro."
+log_goblin_drop,A slain goblin dropped {gold} gold!,¡Un goblin eliminado dejó caer {gold} de oro!,Um goblin derrotado deixou {gold} de ouro!,Un gobelin vaincu a laissé {gold} pièces d'or !,Ein besiegter Goblin hat {gold} Gold hinterlassen!,Un goblin sconfitto ha lasciato {gold} oro!
+log_goblin_survived,A Lv.{value} goblin survived with {hp} HP.,Un goblin de Nv.{value} sobrevivió con {hp} HP.,Um goblin de Nv.{value} sobreviveu com {hp} HP.,Un gobelin de niv.{value} a survécu avec {hp} PV.,Ein Goblin der Stufe {value} hat mit {hp} LP überlebt.,Un goblin di liv.{value} è sopravvissuto con {hp} PV.
+log_goblin_poisoned,The Lv.{value} goblin was poisoned!,¡El goblin de Nv.{value} fue envenenado!,O goblin de Nv.{value} foi envenenado!,Le gobelin de niv.{value} a été empoisonné !,Der Goblin der Stufe {value} wurde vergiftet!,Il goblin di liv.{value} è stato avvelenato!
+log_milestone,Milestone reached! Created Lv.{value} goblin! +{gold} Gold.,¡Hito alcanzado! ¡Creado goblin de Nv.{value}! +{gold} de oro.,Marco alcançado! Goblin de Nv.{value} criado! +{gold} de ouro.,Palier atteint ! Gobelin de niv.{value} créé ! +{gold} pièces d'or.,Meilenstein erreicht! Goblin der Stufe {value} erschaffen! +{gold} Gold.,Traguardo raggiunto! Creato un goblin di liv.{value}! +{gold} oro.
+log_poison_damage,Lv.{value} goblin took 1 poison damage.,El goblin de Nv.{value} recibió 1 de daño por veneno.,O goblin de Nv.{value} sofreu 1 de dano de veneno.,Le gobelin de niv.{value} subit 1 dégât de poison.,Der Goblin der Stufe {value} erleidet 1 Giftschaden.,Il goblin di liv.{value} subisce 1 danno da veleno.
+log_poison_death,Lv.{value} goblin succumbed to poison!,¡El goblin de Nv.{value} sucumbió al veneno!,O goblin de Nv.{value} morreu envenenado!,Le gobelin de niv.{value} a succombé au poison !,Der Goblin der Stufe {value} ist am Gift gestorben!,Il goblin di liv.{value} è morto avvelenato!
+log_fire_scroll_trigger,Fire scroll triggers splash damage!,¡El pergamino de fuego activa daño en área!,O pergaminho de fogo causa dano em área!,Le parchemin de feu inflige des dégâts de zone !,Die Feuerrolle löst Flächenschaden aus!,La pergamena di fuoco scatena danni ad area!
+log_splash_damage,Lv.{value} goblin took 1 splash damage.,El goblin de Nv.{value} recibió 1 de daño en área.,O goblin de Nv.{value} sofreu 1 de dano em área.,Le gobelin de niv.{value} subit 1 dégât de zone.,Der Goblin der Stufe {value} erleidet 1 Flächenschaden.,Il goblin di liv.{value} subisce 1 danno ad area.
+log_splash_death,Lv.{value} goblin burned to a crisp!,¡El goblin de Nv.{value} fue reducido a cenizas!,O goblin de Nv.{value} virou cinzas!,Le gobelin de niv.{value} a fini en cendres !,Der Goblin der Stufe {value} ist zu Asche verbrannt!,Il goblin di liv.{value} è ridotto in cenere!
+log_overcrowding_damage,The horde is overwhelming! You take {damage} damage.,¡La horda es abrumadora! Recibes {damage} de daño.,A horda está esmagando você! Você sofre {damage} de dano.,La horde vous écrase ! Vous subissez {damage} dégâts.,Die Horde überwältigt dich! Du erleidest {damage} Schaden.,L'orda ti travolge! Subisci {damage} danni.
+log_overcrowding_resist,Your resilience prevents overcrowding damage!,¡Tu resistencia previene el daño por aplastamiento!,Sua resistência evita o dano por superlotação!,Votre résistance vous protège de l'écrasement !,Deine Widerstandskraft schützt dich vor dem Erdrücken!,La tua resistenza evita i danni da schiacciamento!
+log_chest_vanished,A treasure chest vanished before you could open it.,Un cofre del tesoro desapareció antes de que pudieras abrirlo.,Um baú desapareceu antes que você pudesse abri-lo.,Un coffre a disparu avant que vous puissiez l'ouvrir.,"Eine Schatztruhe ist verschwunden, bevor du sie öffnen konntest.",Un forziere è scomparso prima che potessi aprirlo.
+log_level_up_combine,+{levels} level(s) for a Lv.{value} goblin!,¡+{levels} nivel(es) por un goblin de Nv.{value}!,+{levels} nível(is) por um goblin de Nv.{value}!,+{levels} niveau(x) pour un gobelin de niv.{value} !,+{levels} Stufe(n) für einen Goblin der Stufe {value}!,+{levels} livelli per un goblin di liv.{value}!
+log_level_up_kills,+{levels} level(s) from slaying goblins!,¡+{levels} nivel(es) por eliminar goblins!,+{levels} nível(is) por derrotar goblins!,+{levels} niveau(x) en éliminant des gobelins !,+{levels} Stufe(n) durch besiegte Goblins!,+{levels} livelli sconfiggendo i goblin!
+log_horde_attack,The horde attacks! You take {damage} damage.,¡La horda ataca! Recibes {damage} de daño.,A horda ataca! Você sofre {damage} de dano.,La horde attaque ! Vous subissez {damage} dégâts.,Die Horde greift an! Du erleidest {damage} Schaden.,L'orda attacca! Subisci {damage} danni.
+log_horde_blocked,Your shield blocked all damage from the horde!,¡Tu escudo bloqueó todo el daño de la horda!,Seu escudo bloqueou todo o dano da horda!,Votre bouclier a bloqué tous les dégâts de la horde !,Dein Schild hat den gesamten Schaden der Horde abgewehrt!,Il tuo scudo ha bloccato tutti i danni dell'orda!
+log_rope_cancelled,Rope use cancelled.,Uso de cuerda cancelado.,Uso da corda cancelado.,Utilisation de la corde annulée.,Seileinsatz abgebrochen.,Uso della corda annullato.
+log_rope_activated,Rope mode activated. Select a goblin to move.,Modo cuerda activado. Selecciona un goblin para mover.,Corda ativada. Selecione um goblin para mover.,Corde activée. Choisissez un gobelin à déplacer.,Seil aktiviert. Wähle einen Goblin zum Verschieben.,Corda attivata. Seleziona un goblin da spostare.
+log_rope_selected,Selected Lv.{value} goblin. Choose an empty spot.,Seleccionado goblin de Nv.{value}. Elige un espacio vacío.,Goblin de Nv.{value} selecionado. Escolha um espaço vazio.,Gobelin de niv.{value} sélectionné. Choisissez une case vide.,Goblin der Stufe {value} ausgewählt. Wähle ein freies Feld.,Goblin di liv.{value} selezionato. Scegli una casella vuota.
+log_rope_used,Moved goblin with a rope.,Moviste un goblin con una cuerda.,Você moveu um goblin com a corda.,Vous avez déplacé un gobelin avec la corde.,Du hast einen Goblin mit dem Seil verschoben.,Hai spostato un goblin con la corda.
+log_rope_cancelled_selection,Cancelled selection. Choose a goblin to move.,Selección cancelada. Elige un goblin para mover.,Seleção cancelada. Escolha um goblin para mover.,Sélection annulée. Choisissez un gobelin à déplacer.,Auswahl aufgehoben. Wähle einen Goblin zum Verschieben.,Selezione annullata. Scegli un goblin da spostare.
+log_enter_shop,You enter the shop...,Entras en la tienda...,Você entra na loja...,Vous entrez dans la boutique...,Du betrittst den Laden...,Entri nel negozio...
+log_shop_purchase_leaves,The shopkeeper packs up and leaves after your purchase.,El tendero se va después de tu compra.,O vendedor vai embora depois da sua compra.,Le marchand remballe et s'en va après votre achat.,Der Händler packt nach deinem Kauf zusammen und geht.,Il mercante fa i bagagli e se ne va dopo il tuo acquisto.
+log_leave_shop,You leave the shop... for now.,Sales de la tienda... por ahora.,Você sai da loja... por enquanto.,Vous quittez la boutique... pour le moment.,Du verlässt den Laden... vorerst.,Esci dal negozio... per ora.
+log_purchase,Purchased {item} for {cost} gold.,Compraste {item} por {cost} de oro.,Você comprou {item} por {cost} de ouro.,Vous avez acheté {item} pour {cost} pièces d'or.,{item} für {cost} Gold gekauft.,Hai acquistato {item} per {cost} oro.
+log_heal,You healed for {hp} HP.,Te curaste {hp} HP.,Você recuperou {hp} HP.,Vous avez récupéré {hp} PV.,Du hast {hp} LP geheilt.,Hai recuperato {hp} PV.
+log_perm_upgrade_purchased,Purchased upgrade: {name}!,¡Mejora comprada: {name}!,Melhoria comprada: {name}!,Amélioration achetée : {name} !,Verbesserung gekauft: {name}!,Potenziamento acquistato: {name}!
+reason_crushed,You were crushed by the overwhelming horde.,Fuiste aplastado por la horda abrumadora.,Você foi esmagado pela horda.,La horde vous a écrasé.,Die überwältigende Horde hat dich erdrückt.,L'orda ti ha schiacciato.
+reason_slain,You were slain by the goblins.,Fuiste asesinado por los goblins.,Você foi derrotado pelos goblins.,Les gobelins vous ont vaincu.,Du wurdest von den Goblins besiegt.,I goblin ti hanno sconfitto.
+reason_victory,You have created the Goblin Lord! Victory is yours.,¡Has creado al Señor Goblin! La victoria es tuya.,Você criou o Lorde Goblin! A vitória é sua.,Vous avez créé le Seigneur gobelin ! La victoire est à vous.,Du hast den Goblinfürsten erschaffen! Der Sieg gehört dir.,Hai creato il Signore dei Goblin! La vittoria è tua.
+toast_no_ropes,No ropes left!,¡No quedan cuerdas!,Sem cordas!,Plus de cordes !,Keine Seile übrig!,Nessuna corda rimasta!
+toast_not_enough_gold,Not enough gold!,¡Oro insuficiente!,Ouro insuficiente!,Pas assez d'or !,Nicht genug Gold!,Oro insufficiente!
+toast_not_enough_gold_desc,You need {cost} gold to buy {item}.,Necesitas {cost} de oro para comprar {item}.,Você precisa de {cost} de ouro para comprar {item}.,Il vous faut {cost} pièces d'or pour acheter {item}.,"Du brauchst {cost} Gold, um {item} zu kaufen.",Ti servono {cost} oro per acquistare {item}.
+toast_not_enough_xp,Not enough XP!,¡XP insuficiente!,XP insuficiente!,Pas assez d'XP !,Nicht genug XP!,XP insufficienti!
+toast_max_level,Max level reached!,¡Nivel máximo alcanzado!,Nível máximo alcançado!,Niveau maximal atteint !,Maximale Stufe erreicht!,Livello massimo raggiunto!
+toast_error_saving,Error Saving Progress,Error al Guardar el Progreso,Erro ao salvar o progresso,Échec de la sauvegarde,Speichern fehlgeschlagen,Errore di salvataggio
+toast_upgrade_purchased,Upgrade Purchased!,¡Mejora Comprada!,Melhoria comprada!,Amélioration achetée !,Verbesserung gekauft!,Potenziamento acquistato!
+toast_upgrade_purchased_desc,You bought {name}.,Compraste {name}.,Você comprou {name}.,Vous avez acheté {name}.,Du hast {name} gekauft.,Hai acquistato {name}.
+streak_banner,MASSACRE ×{count}!,¡MASACRE ×{count}!,MASSACRE ×{count}!,MASSACRE ×{count} !,MASSAKER ×{count}!,MASSACRO ×{count}!
+log_golden_appeared,A GOLDEN goblin appeared! Slay it for 10x gold!,¡Apareció un goblin DORADO! ¡Elíminalo por 10x de oro!,Um goblin DOURADO apareceu! Derrote-o para ganhar 10x mais ouro!,Un gobelin DORÉ est apparu ! Éliminez-le pour gagner 10 fois plus d'or !,Ein GOLDENER Goblin ist erschienen! Besiege ihn für 10-mal so viel Gold!,È apparso un goblin DORATO! Sconfiggilo per ottenere 10 volte più oro!
+back_to_menu,Back to Menu,Volver al Menú,Voltar ao menu,Retour au menu,Zurück zum Menü,Torna al menu
+menu_title,Menu,Menú,Menu,Menu,Menü,Menu
+music_on,Music: ON,Música: ON,Música: ligada,Musique : oui,Musik: an,Musica: sì
+music_off,Music: OFF,Música: OFF,Música: desligada,Musique : non,Musik: aus,Musica: no
+tapShop,ENTER,ENTRAR,ENTRAR,ENTRER,LADEN,ENTRA
+tapChest,OPEN,ABRIR,ABRIR,OUVRIR,ÖFFNEN,APRI
+hordeCountdown,Horde attacks in {count} moves,Ataque en {count} movimientos,Ataque em {count} movimentos,Attaque dans {count} coups,Angriff in {count} Zügen,Attacco tra {count} mosse
+hordeSoon,Horde incoming! {count} moves left,¡Se acerca la horda! Quedan {count},A horda vem aí! Restam {count},La horde arrive ! Encore {count} coups,Die Horde kommt! Noch {count} Züge,Arriva l'orda! Restano {count} mosse
+hordeNextMove,NEXT MOVE: HORDE ATTACK!,¡ATAQUE EN EL PRÓXIMO MOVIMIENTO!,PRÓXIMO MOVIMENTO: ATAQUE!,PROCHAIN COUP : ATTAQUE !,NÄCHSTER ZUG: ANGRIFF!,PROSSIMA MOSSA: ATTACCO!
+shopUnlockHint,Locked items need an unlock in Permanent Upgrades on the main menu. Spend XP there; spend gold here.,Desbloquea objetos en Mejoras Permanentes desde el menú principal. Allí gastas XP; aquí gastas oro.,"Desbloqueie itens nas Melhorias permanentes do menu principal. Lá você gasta XP; aqui, ouro.","Débloquez les objets dans les Améliorations permanentes du menu principal. Dépensez-y votre XP ; ici, utilisez votre or.","Schalte Gegenstände unter Dauerhafte Verbesserungen im Hauptmenü frei. Dort zahlst du mit XP, hier mit Gold.",Sblocca gli oggetti nei Potenziamenti permanenti del menu principale. Lì spendi XP; qui spendi oro.
+about,About,Acerca de,Sobre,À propos,Über das Spiel,Informazioni
+privacy,Privacy,Privacidad,Privacidade,Confidentialité,Datenschutz,Privacy
+versionLabel,Version {version},Versión {version},Versão {version},Version {version},Version {version},Versione {version}
+aboutGameTitle,Goblin Shift,Goblin Shift,Goblin Shift,Goblin Shift,Goblin Shift,Goblin Shift
+aboutGameBody,"A tactical 2048 puzzle: merge matching goblins, survive the horde and build your permanent upgrades. Story and Endless modes are playable offline.","Un puzle táctico de 2048: combina goblins iguales, sobrevive a la horda y consigue mejoras permanentes. Los modos Historia e Infinito se juegan sin conexión.","Um puzzle tático inspirado em 2048: combine goblins iguais, sobreviva à horda e conquiste melhorias permanentes. Os modos História e Infinito funcionam sem conexão.","Un puzzle tactique inspiré de 2048 : fusionnez les gobelins identiques, survivez à la horde et obtenez des améliorations permanentes. Les modes Histoire et Infini se jouent hors connexion.","Ein taktisches Puzzle nach dem 2048-Prinzip: Kombiniere gleiche Goblins, überlebe die Horde und sammle dauerhafte Verbesserungen. Story- und Endlosmodus sind offline spielbar.","Un rompicapo tattico ispirato a 2048: unisci goblin uguali, sopravvivi all'orda e ottieni potenziamenti permanenti. Le modalità Storia e Infinita si giocano offline."
+aboutArtTitle,Original pixel art,Pixel art original,Pixel art original,Pixel art original,Eigene Pixelgrafik,Pixel art originale
+aboutArtBody,"Goblin portraits, interface, icons and animated effects were drawn for this project with Pillow. Font: VT323 by Peter Hull, licensed under SIL Open Font License 1.1.","Los goblins, la interfaz, los iconos y los efectos animados se dibujaron para este proyecto con Pillow. Fuente: VT323 de Peter Hull, con licencia SIL Open Font License 1.1.","Os goblins, a interface, os ícones e os efeitos animados foram desenhados para este projeto com Pillow. Fonte: VT323, de Peter Hull, sob a licença SIL Open Font License 1.1.","Les gobelins, l'interface, les icônes et les effets animés ont été dessinés pour ce projet avec Pillow. Police : VT323 de Peter Hull, sous licence SIL Open Font License 1.1.","Goblins, Oberfläche, Symbole und animierte Effekte wurden mit Pillow für dieses Projekt gezeichnet. Schrift: VT323 von Peter Hull, lizenziert unter der SIL Open Font License 1.1.","I goblin, l'interfaccia, le icone e gli effetti animati sono stati disegnati per questo progetto con Pillow. Carattere: VT323 di Peter Hull, con licenza SIL Open Font License 1.1."
+aboutTechTitle,Built with Godot,Hecho con Godot,Feito com Godot,Créé avec Godot,Mit Godot entwickelt,Creato con Godot
+aboutTechBody,Created by covagashi. Built with Godot Engine. The game code and Godot Engine use the MIT license.,Creado por covagashi. Desarrollado con Godot Engine. El código del juego y Godot Engine utilizan la licencia MIT.,Criado por covagashi. Desenvolvido com Godot Engine. O código do jogo e o Godot Engine usam a licença MIT.,Créé par covagashi. Développé avec Godot Engine. Le code du jeu et Godot Engine utilisent la licence MIT.,Erstellt von covagashi. Entwickelt mit Godot Engine. Der Spielcode und Godot Engine stehen unter der MIT-Lizenz.,Creato da covagashi. Sviluppato con Godot Engine. Il codice del gioco e Godot Engine utilizzano la licenza MIT.
+privacyOfflineTitle,No ads or tracking,Sin anuncios ni seguimiento,Sem anúncios nem rastreamento,Sans publicité ni suivi,Keine Werbung oder Nachverfolgung,Senza pubblicità né tracciamento
+privacyOfflineBody,"This game does not collect or send personal information. It has no advertising, analytics, accounts or tracking services. There are no data-sharing options to enable.","Este juego no recopila ni envía información personal. No incluye publicidad, analíticas, cuentas ni servicios de seguimiento. No hay opciones de compartir datos que activar.","Este jogo não coleta nem envia informações pessoais. Não inclui publicidade, análises, contas ou serviços de rastreamento. Não há opções de compartilhamento de dados a ativar.","Ce jeu ne collecte ni ne transmet d'informations personnelles. Il ne contient ni publicité, ni outils d'analyse, ni comptes, ni services de suivi. Il n'y a aucune option de partage de données à activer.","Dieses Spiel erfasst oder übermittelt keine personenbezogenen Daten. Es enthält keine Werbung, Analysewerkzeuge, Konten oder Trackingdienste. Es gibt keine Optionen zur Datenfreigabe, die aktiviert werden könnten.","Questo gioco non raccoglie né invia informazioni personali. Non include pubblicità, strumenti di analisi, account o servizi di tracciamento. Non ci sono opzioni di condivisione dei dati da attivare."
+privacyLocalTitle,Your progress stays on this device,Tu progreso se guarda en este dispositivo,Seu progresso fica neste dispositivo,Votre progression reste sur cet appareil,Dein Fortschritt bleibt auf diesem Gerät,I tuoi progressi restano su questo dispositivo
+privacyLocalBody,"Your saved run, XP, upgrades, local leaderboard, language and audio preferences are stored on this device. They are not uploaded to a server. Clearing the app data removes this progress.","La partida, la XP, las mejoras, la clasificación local, el idioma y las preferencias de audio se guardan en este dispositivo. No se suben a ningún servidor. Borrar los datos de la app elimina este progreso.","Sua partida, XP, melhorias, ranking local, idioma e preferências de áudio ficam salvos neste dispositivo. Não são enviados a um servidor. Limpar os dados do aplicativo apaga esse progresso.","Votre partie, votre XP, vos améliorations, le classement local, la langue et les réglages audio sont enregistrés sur cet appareil. Ils ne sont pas envoyés à un serveur. Effacer les données de l'application supprime cette progression.","Dein Spielstand, XP, Verbesserungen, die lokale Bestenliste, Sprache und Audioeinstellungen werden auf diesem Gerät gespeichert. Sie werden nicht auf einen Server hochgeladen. Das Löschen der App-Daten entfernt diesen Fortschritt.","La partita, gli XP, i potenziamenti, la classifica locale, la lingua e le preferenze audio sono salvati su questo dispositivo. Non vengono caricati su un server. Cancellare i dati dell'app elimina questi progressi."
+privacyPermissionsTitle,Device access,Acceso al dispositivo,Acesso ao dispositivo,Accès à l'appareil,Gerätezugriff,Accesso al dispositivo
+privacyPermissionsBody,"The Android app uses vibration for gameplay feedback. It does not request internet, camera, microphone, contacts or location access.","La app de Android usa la vibración para responder a las acciones del juego. No solicita acceso a internet, cámara, micrófono, contactos ni ubicación.","O aplicativo Android usa vibração como resposta às ações no jogo. Não solicita acesso à internet, câmera, microfone, contatos ou localização.","L'application Android utilise les vibrations pour accompagner les actions de jeu. Elle ne demande aucun accès à Internet, à la caméra, au microphone, aux contacts ou à la localisation.","Die Android-App nutzt Vibration als Rückmeldung im Spiel. Sie fordert keinen Zugriff auf Internet, Kamera, Mikrofon, Kontakte oder Standort an.","L'app Android usa la vibrazione per rispondere alle azioni di gioco. Non richiede accesso a Internet, fotocamera, microfono, contatti o posizione."
+soundSettings,Sound settings,Ajustes de sonido,Ajustes de som,Réglages audio,Audioeinstellungen,Impostazioni audio
+backgroundMusic,Background music,Música de fondo,Música de fundo,Musique de fond,Hintergrundmusik,Musica di sottofondo
+soundEffects,Sound effects,Efectos de sonido,Efeitos sonoros,Effets sonores,Soundeffekte,Effetti sonori
+audioOn,On,Sí,Sim,Oui,An,Sì
+audioOff,Off,No,Não,Non,Aus,No
+testSound,Test sound,Probar efecto,Testar som,Tester le son,Ton testen,Prova audio
+languageTitle,Language,Idioma,Idioma,Langue,Sprache,Lingua
+languageHint,Choose the language for menus and gameplay.,Elige el idioma de los menús y del juego.,Escolha o idioma dos menus e do jogo.,Choisissez la langue des menus et du jeu.,Wähle die Sprache für Menüs und Spiel.,Scegli la lingua dei menu e del gioco.
+upgradeLevel,Lv. {current}/{max},Nv. {current}/{max},Nv. {current}/{max},Niv. {current}/{max},Stufe {current}/{max},Liv. {current}/{max}

@@ -29,7 +29,7 @@ func _build() -> void:
 
 	var scroll := ScrollContainer.new()
 	PixelUI.style_scroll(scroll)
-	scroll.custom_minimum_size = Vector2(0, 480)
+	scroll.custom_minimum_size = Vector2(0, minf(480, get_viewport().get_visible_rect().size.y - 200))
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	var list := VBoxContainer.new()
 	list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -51,6 +51,7 @@ func _build() -> void:
 			l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 			list.add_child(l)
 		list.add_child(HSeparator.new())
+	PixelUI.pass_scroll_gestures(list)
 
 	var close_btn := Button.new()
 	close_btn.text = tr(&"h2pGotIt")
